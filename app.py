@@ -1,40 +1,40 @@
-
 from flask import Flask, request, jsonify
-import subprocess
-import threading
-import sys
-import os
-from flask import Flask, request, jsonify
-import subprocess
-import sys
+import subprocess, sys
 
 app = Flask(__name__)
+processes = {}
 
 @app.route("/start", methods=["POST"])
 def start():
-    try:
-        data = request.get_json()
-        phone = data.get("phone")
+    data = request.get_json()
+    phone = data.get("phone")
+    if not phone:
+        return jsonify({"error": "Thiếu số điện thoại"}), 400
 
-        if not phone:
-            return jsonify({"error": "Thiếu số điện thoại"}), 400
+    # Chạy main.py nền
+    proc = subprocess.Popen(
+        [sys.executable, "main.py", phone],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True
+    )
+    processes[phone] = proc
+    return jsonify({"message": f"Đã bắt đầu chạy main.py với {phone}"})
 
-        # Gọi main.py với tham số phone
-        result = subprocess.run(
-            [sys.executable, "main.py", phone],
-            capture_output=True,
-            text=True
-        )
+@app.route("/status/<phone>", methods=["GET"])
+def status(phone):
+    proc = processes.get(phone)
+    if not proc:
+        return jsonify({"status": "Không tìm thấy process cho số này"})
+    if proc.poll() is None:
+        return jsonify({"status": "Đang chạy"})
+    else:
+        return jsonify({"status": "Đã hoàn thành"})
 
-        return jsonify({
-            "stdout": result.stdout,
-            "stderr": result.stderr,
-            "returncode": result.returncode
-        })
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+@app.route("/stop/<phone>", methods=["POST"])
+def stop(phone):
+    proc = processes.get(phone)
+    if proc and proc.poll() is None:
+        proc.terminate()
+        return jsonify({"message": f"Đã dừng process của {phone}"})
+    return jsonify({"message": "Không có process đang chạy cho số này"})
