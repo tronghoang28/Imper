@@ -1972,7 +1972,7 @@ def run(phone, i):
         med, ghn, shop, gala, fa, cathay, vina, ahamove, air, otpmu, vtpost, shine, domi, fm, cir, hoanvu, tokyo, shop, beau, fu, lote, lon
     ]
     
-    with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=99999) as executor:
         futures = [executor.submit(fn, phone) for fn in functions]
         for future in concurrent.futures.as_completed(futures):
             try:
